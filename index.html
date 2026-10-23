@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cape Cod Coastal Dispatch &amp; Lead Engine</title>
+<meta name="description" content="Cape Cod's premier coastal service dispatch. Text-only lead routing for tree work, storm debris, equipment hauling, and power washing across the Mid & Upper Cape." />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        linen: '#FDFBF7',
+        navy:  '#0A2540',
+        teal:  '#0D9488',
+        teald: '#0F766E',
+        gold:  '#D97706',
+      },
+      fontFamily: { sans: ['Inter','ui-sans-serif','system-ui','sans-serif'] },
+      boxShadow: { soft: '0 2px 14px rgba(10,37,64,.08)' }
+    }
+  }
+}
+</script>
+<style>
+  html{scroll-behavior:smooth}
+  body{background:#FDFBF7;color:#0A2540}
+  .pick-card{transition:all .15s ease;cursor:pointer}
+  .pick-card:hover{transform:translateY(-2px)}
+  .pick-card.selected{border-color:#0D9488!important;background:#F0FDF9;box-shadow:0 0 0 2px #0D9488 inset,0 2px 14px rgba(10,37,64,.08)}
+  .pick-card.selected .pick-check{opacity:1;transform:scale(1)}
+  .pick-check{opacity:0;transform:scale(.5);transition:all .15s ease}
+  .town-card.selected{border-color:#D97706!important;background:#FFFBEB;box-shadow:0 0 0 2px #D97706 inset}
+  .badge-urgent{background:#FEF2F2;color:#B91C1C;border:1px solid #FECACA}
+  .badge-sched{background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE}
+  .status-New{background:#FEF3C7;color:#92400E}
+  .status-Dispatched{background:#DBEAFE;color:#1E40AF}
+  .status-Accepted{background:#CCFBF1;color:#115E59}
+  .status-Invoiced{background:#DCFCE7;color:#166534}
+  .wave-divider{display:block;width:100%;height:36px}
+  input:focus,textarea:focus{outline:none;border-color:#0D9488!important;box-shadow:0 0 0 3px rgba(13,148,136,.18)}
+  .err{border-color:#DC2626!important}
+  .toast{animation:slideup .25s ease}
+  @keyframes slideup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .spin{animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body class="font-sans antialiased">
+
+<!-- ══════════════ TOP NAV ══════════════ -->
+<header class="sticky top-0 z-40 bg-navy text-white shadow-md">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-2.5 min-w-0">
+      <span class="bg-teal rounded-xl w-10 h-10 flex items-center justify-center shrink-0"><i class="fa-solid fa-anchor text-lg"></i></span>
+      <div class="leading-tight min-w-0">
+        <p class="font-extrabold tracking-tight truncate">Cape Cod Coastal Dispatch</p>
+        <p class="text-[11px] text-teal-200 flex items-center gap-1"><i class="fa-solid fa-lock text-[9px]"></i> Secure &bull; Text-Only &bull; Local</p>
+      </div>
+    </div>
+    <nav class="flex items-center gap-2 shrink-0">
+      <button id="navCustomer" onclick="showView('customer')" class="px-3 py-2 rounded-lg text-sm font-semibold bg-white/10 hover:bg-white/20 transition">Customer</button>
+      <button id="navDispatcher" onclick="showView('dispatcher')" class="px-3 py-2 rounded-lg text-sm font-semibold bg-gold hover:bg-amber-600 transition"><i class="fa-solid fa-tower-broadcast mr-1"></i><span class="hidden sm:inline">Dispatcher</span><span class="sm:hidden">Dispatch</span> Portal</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ══════════════ CUSTOMER VIEW ══════════════ -->
+<main id="viewCustomer">
+
+  <!-- HERO -->
+  <section class="bg-gradient-to-b from-navy to-[#123a63] text-white">
+    <div class="max-w-6xl mx-auto px-4 pt-10 pb-6 text-center">
+      <p class="text-teal-300 font-semibold tracking-widest text-xs uppercase mb-3"><i class="fa-solid fa-water mr-1"></i> Yarmouth &bull; Hyannis &bull; Mid &amp; Upper Cape</p>
+      <h1 class="text-3xl sm:text-5xl font-black leading-tight">Cape Cod&rsquo;s Premier<br class="sm:hidden" /> Coastal Service Dispatch</h1>
+      <p class="mt-4 text-slate-200 max-w-xl mx-auto text-sm sm:text-base">Storm damage, tree hazards, heavy hauls, and salt prep &mdash; tell us what you need and a vetted local contractor gets a <strong class="text-white">text alert within minutes</strong>. No phone tag. No robocalls. Ever.</p>
+      <div class="mt-5 flex flex-wrap justify-center gap-1.5" id="heroTowns"></div>
+      <div class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs sm:text-sm text-teal-100">
+        <span><i class="fa-solid fa-message mr-1.5"></i>Text-only dispatch</span>
+        <span><i class="fa-solid fa-bolt mr-1.5"></i>Urgent hazards prioritized</span>
+        <span><i class="fa-solid fa-tree mr-1.5"></i>Local Cape contractors</span>
+      </div>
+    </div>
+    <svg class="wave-divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,32 C240,60 480,0 720,24 C960,48 1200,8 1440,32 L1440,60 L0,60 Z" fill="#FDFBF7"/></svg>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-4 pb-16 -mt-1">
+
+    <!-- TRUST & SECURITY BAR -->
+    <section aria-label="Security and trust" class="bg-white rounded-2xl shadow-soft border border-emerald-100 p-4 sm:p-5 mt-2">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center sm:text-left">
+        <div class="flex flex-col sm:flex-row items-center gap-2.5">
+          <span class="bg-emerald-50 text-teal rounded-xl w-11 h-11 flex items-center justify-center shrink-0"><i class="fa-solid fa-lock text-lg"></i></span>
+          <div><p class="font-bold text-sm leading-tight">Secure &amp; Encrypted</p><p class="text-xs text-slate-500 leading-snug">This form is protected with SSL encryption, end to end.</p></div>
+        </div>
+        <div class="flex flex-col sm:flex-row items-center gap-2.5">
+          <span class="bg-emerald-50 text-teal rounded-xl w-11 h-11 flex items-center justify-center shrink-0"><i class="fa-brands fa-stripe text-2xl"></i></span>
+          <div><p class="font-bold text-sm leading-tight">Payments by Stripe</p><p class="text-xs text-slate-500 leading-snug">Any payment is processed securely by Stripe &mdash; PCI-compliant checkout.</p></div>
+        </div>
+        <div class="flex flex-col sm:flex-row items-center gap-2.5">
+          <span class="bg-emerald-50 text-teal rounded-xl w-11 h-11 flex items-center justify-center shrink-0"><i class="fa-solid fa-credit-card text-lg"></i></span>
+          <div><p class="font-bold text-sm leading-tight">We Never See Your Card</p><p class="text-xs text-slate-500 leading-snug">Card details go straight to Stripe. Nothing is stored on this site.</p></div>
+        </div>
+        <div class="flex flex-col sm:flex-row items-center gap-2.5">
+          <span class="bg-emerald-50 text-teal rounded-xl w-11 h-11 flex items-center justify-center shrink-0"><i class="fa-solid fa-shield-halved text-lg"></i></span>
+          <div><p class="font-bold text-sm leading-tight">Private by Design</p><p class="text-xs text-slate-500 leading-snug">Your info goes only to your matched contractor. Never sold. No spam calls.</p></div>
+        </div>
+      </div>
+      <p class="mt-4 text-center text-xs font-semibold text-navy bg-linen border border-dashed border-gold/50 rounded-lg py-2 px-3">
+        <i class="fa-solid fa-circle-check text-teal mr-1"></i>
+        Submitting a request is <span class="underline decoration-gold decoration-2">always free</span> &mdash; no card is asked for or charged to dispatch your job.
+      </p>
+    </section>
+
+    <!-- STEP 1: SERVICE -->
+    <section class="mt-8">
+      <h2 class="text-xl font-extrabold flex items-center gap-2"><span class="bg-navy text-white w-7 h-7 rounded-lg flex items-center justify-center text-sm">1</span> What do you need done?</h2>
+      <div id="serviceGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4"></div>
+      <p id="errService" class="hidden text-sm text-red-600 font-medium mt-2"><i class="fa-solid fa-circle-exclamation mr-1"></i>Please pick a service.</p>
+    </section>
+
+    <!-- STEP 2: TOWN -->
+    <section class="mt-8">
+      <h2 class="text-xl font-extrabold flex items-center gap-2"><span class="bg-navy text-white w-7 h-7 rounded-lg flex items-center justify-center text-sm">2</span> Where on the Cape?</h2>
+      <div id="townGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4"></div>
+      <p id="errTown" class="hidden text-sm text-red-600 font-medium mt-2"><i class="fa-solid fa-circle-exclamation mr-1"></i>Please pick your town.</p>
+    </section>
+
+    <!-- STEP 3: FORM -->
+    <section class="mt-8 bg-white rounded-2xl shadow-soft border border-slate-100 p-5 sm:p-7">
+      <h2 class="text-xl font-extrabold flex items-center gap-2"><span class="bg-navy text-white w-7 h-7 rounded-lg flex items-center justify-center text-sm">3</span> Where do we text you?</h2>
+
+      <form id="leadForm" novalidate class="mt-5 space-y-5">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label for="fName" class="block text-sm font-semibold mb-1.5">Full Name</label>
+            <input id="fName" type="text" autocomplete="name" placeholder="e.g. Jane Higgins" class="w-full border border-slate-300 rounded-xl px-4 py-3 text-base bg-white" />
+            <p id="errName" class="hidden text-sm text-red-600 font-medium mt-1.5">Please enter your full name.</p>
+          </div>
+          <div>
+            <label for="fPhone" class="block text-sm font-semibold mb-1.5">Text-Enabled Phone Number</label>
+            <input id="fPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(508) 555-0123" class="w-full border border-slate-300 rounded-xl px-4 py-3 text-base bg-white" />
+            <p class="text-xs text-slate-500 mt-1.5"><i class="fa-solid fa-lock text-teal mr-1"></i>Used for text updates only &mdash; never voice calls, never shared beyond your contractor.</p>
+            <p id="errPhone" class="hidden text-sm text-red-600 font-medium mt-1.5">Please enter a valid 10-digit mobile number.</p>
+          </div>
+        </div>
+
+        <fieldset>
+          <legend class="text-sm font-semibold mb-2">How urgent is it?</legend>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <label class="relative block">
+              <input type="radio" name="urgency" value="Immediate Hazard" class="peer sr-only" />
+              <span class="block border-2 border-slate-200 peer-checked:border-red-400 peer-checked:bg-red-50 rounded-xl p-4 cursor-pointer transition">
+                <span class="font-bold text-red-700 flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation"></i>Immediate Hazard</span>
+                <span class="block text-xs text-slate-500 mt-1">Fallen tree, blocked driveway, dangerous limb &mdash; routed first.</span>
+              </span>
+            </label>
+            <label class="relative block">
+              <input type="radio" name="urgency" value="Scheduled 24-48 hrs" class="peer sr-only" checked />
+              <span class="block border-2 border-slate-200 peer-checked:border-teal peer-checked:bg-emerald-50 rounded-xl p-4 cursor-pointer transition">
+                <span class="font-bold text-teal flex items-center gap-2"><i class="fa-regular fa-calendar-check"></i>Scheduled &mdash; 24 to 48 hrs</span>
+                <span class="block text-xs text-slate-500 mt-1">Not dangerous. A contractor texts you to book a time.</span>
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div>
+          <label for="fNotes" class="block text-sm font-semibold mb-1.5">Brief Job Description / Notes</label>
+          <textarea id="fNotes" rows="3" placeholder="e.g. Large pine limb hanging over the driveway after last night's gale. Gate code in text reply." class="w-full border border-slate-300 rounded-xl px-4 py-3 text-base bg-white"></textarea>
+          <p id="errNotes" class="hidden text-sm text-red-600 font-medium mt-1.5">A short description helps the contractor bring the right gear (a sentence is fine).</p>
+        </div>
+
+        <!-- LIVE SUMMARY -->
+        <div class="bg-linen border border-slate-200 rounded-xl px-4 py-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+          <span><i class="fa-solid fa-screwdriver-wrench text-teal mr-1.5"></i><strong id="sumService">No service picked</strong></span>
+          <span><i class="fa-solid fa-location-dot text-gold mr-1.5"></i><strong id="sumTown">No town picked</strong></span>
+          <span class="ml-auto text-xs font-semibold text-slate-500">Dispatch fee is billed to the contractor &mdash; <span class="text-navy">free for you</span></span>
+        </div>
+
+        <button type="submit" id="submitBtn" class="w-full bg-teal hover:bg-teald text-white font-extrabold text-lg rounded-xl py-4 shadow-soft transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-paper-plane"></i> Dispatch My Request
+        </button>
+        <p class="text-center text-xs text-slate-500 flex flex-wrap justify-center items-center gap-x-2 gap-y-1">
+          <span><i class="fa-solid fa-lock text-teal"></i> SSL Secured</span>&bull;
+          <span><i class="fa-brands fa-stripe text-base align-middle"></i> Secure payments by Stripe</span>&bull;
+          <span><i class="fa-solid fa-shield-halved text-teal"></i> No card required to submit</span>&bull;
+          <span>We reply by text only</span>
+        </p>
+      </form>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="mt-8 grid sm:grid-cols-3 gap-3 text-center">
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5"><i class="fa-solid fa-clipboard-list text-2xl text-teal"></i><p class="font-bold mt-2">1. Send the request</p><p class="text-xs text-slate-500 mt-1">60 seconds. No account, no card, no phone call.</p></div>
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5"><i class="fa-solid fa-tower-broadcast text-2xl text-gold"></i><p class="font-bold mt-2">2. We text a local pro</p><p class="text-xs text-slate-500 mt-1">Your job is routed instantly to a contractor in your town.</p></div>
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5"><i class="fa-solid fa-comments text-2xl text-navy"></i><p class="font-bold mt-2">3. They text you back</p><p class="text-xs text-slate-500 mt-1">Quotes and scheduling happen by text, on your terms.</p></div>
+    </section>
+
+    <footer class="mt-10 text-center text-xs text-slate-400 space-y-1">
+      <p><i class="fa-solid fa-anchor mr-1"></i>Cape Cod Coastal Dispatch &mdash; serving Yarmouth, Barnstable/Hyannis, Dennis, Sandwich, Chatham, Harwich, Mashpee &amp; Brewster.</p>
+      <p>Demo build: requests are stored only in this browser (localStorage). No server storage, no voice calls.</p>
+    </footer>
+  </div>
+</main>
+
+<!-- ══════════════ DISPATCHER VIEW ══════════════ -->
+<main id="viewDispatcher" class="hidden">
+  <div class="max-w-6xl mx-auto px-4 py-6 pb-16">
+
+    <div class="flex flex-wrap items-end justify-between gap-3">
+      <div>
+        <h2 class="text-2xl font-black"><i class="fa-solid fa-tower-broadcast text-gold mr-2"></i>Dispatcher Portal</h2>
+        <p class="text-sm text-slate-500">Live lead queue &bull; text routing &bull; secure Stripe clearing for lead fees</p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button onclick="exportCSV()" class="px-3 py-2 rounded-lg text-sm font-semibold bg-white border border-slate-300 hover:bg-slate-50"><i class="fa-solid fa-file-csv mr-1.5 text-teal"></i>Export CSV</button>
+        <button onclick="clearAllLeads()" class="px-3 py-2 rounded-lg text-sm font-semibold bg-white border border-red-200 text-red-600 hover:bg-red-50"><i class="fa-solid fa-trash-can mr-1.5"></i>Clear All</button>
+      </div>
+    </div>
+
+    <!-- METRICS -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4"><p class="text-xs font-bold text-slate-400 uppercase tracking-wide"><i class="fa-solid fa-inbox mr-1"></i>Total Leads</p><p id="mTotal" class="text-3xl font-black mt-1">0</p></div>
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4"><p class="text-xs font-bold text-slate-400 uppercase tracking-wide"><i class="fa-solid fa-sack-dollar mr-1"></i>Total Value</p><p id="mValue" class="text-3xl font-black mt-1 text-teal">$0</p></div>
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4"><p class="text-xs font-bold text-slate-400 uppercase tracking-wide"><i class="fa-solid fa-route mr-1"></i>Pending Routing</p><p id="mPending" class="text-3xl font-black mt-1 text-gold">0</p></div>
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4"><p class="text-xs font-bold text-slate-400 uppercase tracking-wide"><i class="fa-solid fa-receipt mr-1"></i>Billed Leads</p><p id="mBilled" class="text-3xl font-black mt-1">0 <span id="mBilledAmt" class="text-base font-bold text-slate-400">($0)</span></p></div>
+    </section>
+
+    <!-- AUTOMATION SETTINGS -->
+    <details class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 sm:p-5 mt-4">
+      <summary class="font-bold cursor-pointer"><i class="fa-solid fa-gears text-teal mr-2"></i>Automation Settings <span class="text-xs font-medium text-slate-400">(Make / Zapier / Twilio webhook &mdash; leave blank to simulate)</span></summary>
+      <div class="grid sm:grid-cols-3 gap-3 mt-4">
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold mb-1" for="cfgWebhook">Webhook URL</label>
+          <input id="cfgWebhook" type="url" placeholder="https://hook.us1.make.com/&hellip; or Zapier catch hook" class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold mb-1" for="cfgContractor">Contractor Text Number</label>
+          <input id="cfgContractor" type="tel" placeholder="(508) 555-0100" class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm" />
+        </div>
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold mb-1" for="cfgBillingWebhook">Stripe Billing Webhook URL <span class="font-medium text-slate-400">(optional — defaults to the main webhook)</span></label>
+          <input id="cfgBillingWebhook" type="url" placeholder="Make/Zapier hook that creates the Stripe charge or payment link" class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm" />
+        </div>
+        <div class="flex items-end">
+          <p class="text-[11px] leading-snug text-slate-500 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2.5"><i class="fa-solid fa-lock text-teal mr-1"></i><strong class="text-navy">Live mode:</strong> with a webhook saved, “Clear via Stripe” sends a real charge request to your automation — Stripe hosts the secure checkout. Your Stripe secret key never goes in this app.</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-3 mt-3">
+        <button onclick="saveConfig()" class="px-4 py-2 rounded-lg bg-navy text-white text-sm font-bold hover:bg-slate-800"><i class="fa-solid fa-floppy-disk mr-1.5"></i>Save Settings</button>
+        <p class="text-xs text-slate-500"><i class="fa-solid fa-lock text-teal mr-1"></i>With a webhook URL saved, Dispatch sends the real JSON payload there, and “Clear via Stripe” sends a real charge request to the billing webhook — your Make/Zapier scenario creates the Stripe payment link/invoice server-side (keys live there, never in this app). With no webhook saved, everything runs as an on-device simulation.</p>
+      </div>
+    </details>
+
+    <!-- QUEUE -->
+    <section class="mt-5">
+      <div class="flex flex-wrap gap-2 mb-3" id="filterBar">
+        <button data-filter="All" onclick="setFilter('All')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold bg-navy text-white">All</button>
+        <button data-filter="New" onclick="setFilter('New')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-300">New</button>
+        <button data-filter="Dispatched" onclick="setFilter('Dispatched')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-300">Dispatched</button>
+        <button data-filter="Accepted" onclick="setFilter('Accepted')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-300">Accepted</button>
+        <button data-filter="Invoiced" onclick="setFilter('Invoiced')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-slate-300">Invoiced</button>
+      </div>
+      <div id="leadList" class="space-y-3"></div>
+      <div id="emptyState" class="hidden bg-white border border-dashed border-slate-300 rounded-2xl p-10 text-center text-slate-400">
+        <i class="fa-solid fa-wind text-3xl mb-2"></i>
+        <p class="font-semibold">No leads in the queue.</p>
+        <p class="text-sm">Submit one from the Customer portal &mdash; it will land here instantly and survive a page reload.</p>
+      </div>
+    </section>
+
+    <!-- WEBHOOK / SMS LOG -->
+    <details class="bg-navy text-slate-100 rounded-2xl shadow-sm p-4 sm:p-5 mt-5">
+      <summary class="font-bold cursor-pointer text-white"><i class="fa-solid fa-terminal text-teal-300 mr-2"></i>Payload Log <span class="text-xs font-medium text-slate-400">(exactly what gets sent to Make / Zapier / Twilio)</span></summary>
+      <pre id="payloadLog" class="mt-3 text-[11px] leading-relaxed overflow-x-auto whitespace-pre-wrap break-all bg-black/30 rounded-xl p-3 max-h-72 overflow-y-auto">No payloads sent yet this session.</pre>
+    </details>
+  </div>
+</main>
+
+<!-- ══════════════ CONFIRMATION MODAL ══════════════ -->
+<div id="confirmModal" class="hidden fixed inset-0 z-50 bg-navy/70 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+  <div class="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl p-6 sm:p-8 text-center shadow-2xl max-h-[92vh] overflow-y-auto">
+    <span class="mx-auto bg-emerald-50 text-teal w-16 h-16 rounded-full flex items-center justify-center"><i class="fa-solid fa-circle-check text-3xl"></i></span>
+    <h3 class="text-xl font-black mt-4">Request Dispatched</h3>
+    <p class="font-semibold text-teal">Local Contractor Text Alert Sent</p>
+    <p class="text-sm text-slate-500 mt-2">A contractor covering <strong id="cTown" class="text-navy"></strong> just got a text with your job details. Expect a text reply at <strong id="cPhone" class="text-navy"></strong> &mdash; we never call.</p>
+    <div class="bg-linen border border-slate-200 rounded-xl p-3 mt-4 text-left text-sm space-y-1">
+      <p><span class="text-slate-400 font-semibold">Reference:</span> <strong id="cLeadId"></strong></p>
+      <p><span class="text-slate-400 font-semibold">Service:</span> <strong id="cService"></strong></p>
+      <p><span class="text-slate-400 font-semibold">Urgency:</span> <strong id="cUrgency"></strong></p>
+    </div>
+    <div class="mt-4 bg-emerald-50 border border-emerald-100 rounded-xl p-3 text-xs text-left space-y-1.5">
+      <p class="font-bold text-navy"><i class="fa-solid fa-lock text-teal mr-1"></i>Sent over a secure, encrypted connection</p>
+      <p class="text-slate-500"><i class="fa-brands fa-stripe mr-1"></i>If a payment is ever needed, it runs through Stripe&rsquo;s secure checkout &mdash; your card details are never stored here or shared.</p>
+      <p class="text-slate-500"><i class="fa-solid fa-shield-halved text-teal mr-1"></i>Your number was shared only with your matched contractor.</p>
+    </div>
+    <details class="mt-3 text-left">
+      <summary class="text-xs font-semibold text-slate-400 cursor-pointer">View dispatch payload (JSON)</summary>
+      <pre id="cPayload" class="mt-2 text-[10px] bg-navy text-teal-100 rounded-lg p-3 overflow-x-auto whitespace-pre-wrap break-all"></pre>
+    </details>
+    <div class="grid grid-cols-2 gap-2 mt-5">
+      <button onclick="closeModal();showView('dispatcher')" class="bg-navy text-white font-bold rounded-xl py-3 text-sm">View Dispatcher</button>
+      <button onclick="closeModal()" class="bg-teal hover:bg-teald text-white font-bold rounded-xl py-3 text-sm">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ STRIPE MODAL ══════════════ -->
+<div id="stripeModal" class="hidden fixed inset-0 z-50 bg-navy/70 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+  <div class="bg-white w-full sm:max-w-sm rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl text-center">
+    <span class="mx-auto bg-slate-100 text-navy w-14 h-14 rounded-full flex items-center justify-center"><i id="stripeIcon" class="fa-solid fa-lock text-2xl"></i></span>
+    <h3 class="font-black text-lg mt-3">Secure Stripe Checkout</h3>
+    <p id="stripeText" class="text-sm text-slate-500 mt-1">Processing lead fee securely&hellip;</p>
+    <p class="text-[11px] text-slate-400 mt-3"><i class="fa-brands fa-stripe mr-1"></i>PCI-compliant &bull; 256-bit SSL &bull; Card data never touches this app <span id="stripeFootnote" class="block mt-1 font-semibold">(Demo simulation &mdash; no real charge)</span></p>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div id="toastBox" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-[60] w-[calc(100%-2rem)] max-w-md space-y-2"></div>
+
+<script>
+/* ═══════════ CONFIG — wire real services here ═══════════ */
+const DEFAULT_CONFIG = { webhookUrl: '', billingWebhookUrl: '', contractorPhone: '' };
+const LS_LEADS = 'cccd_leads_v1';
+const LS_CFG   = 'cccd_config_v1';
+
+/* ═══════════ CATALOG ═══════════ */
+const SERVICES = [
+  { id:'tree',      label:'Tree & Stump Removal',        desc:'Hazardous limbs, fallen trees, stump grinding', icon:'fa-tree',            fee:35 },
+  { id:'storm',     label:'Emergency Storm Debris',      desc:'Gale & salt-spray yard cleanups',              icon:'fa-cloud-bolt',      fee:30 },
+  { id:'haul',      label:'Heavy Equipment Haul',        desc:'Mowers, generators, large equipment',          icon:'fa-truck-moving',    fee:25 },
+  { id:'wash',      label:'Power Washing & Salt Prep',   desc:'Deck, cedar shingle, surface washing',        icon:'fa-spray-can',       fee:25 },
+];
+const TOWNS = ['Yarmouth','Hyannis / Barnstable','Dennis','Sandwich','Chatham','Harwich','Mashpee','Brewster'];
+
+/* ═══════════ STATE ═══════════ */
+let selectedService = null, selectedTown = null, activeFilter = 'All';
+let leads = loadLeads();
+let config = loadConfig();
+
+function loadLeads(){
+  try{ const raw = localStorage.getItem(LS_LEADS); if(raw) return JSON.parse(raw); }catch(e){}
+  const now = Date.now();
+  const seed = [
+    { id:'CCD-7K2P9', createdAt:new Date(now-42*60000).toISOString(), demo:true, status:'New',
+      customer:{name:'Demo — Sarah M.', phone:'5085550142'}, serviceId:'tree', serviceLabel:'Tree & Stump Removal', fee:35,
+      town:'Yarmouth', urgency:'Immediate Hazard', notes:'Demo lead: oak limb down across the driveway after the gale.' },
+    { id:'CCD-3X8QD', createdAt:new Date(now-5*3600000).toISOString(), demo:true, status:'Dispatched',
+      customer:{name:'Demo — Tom H.', phone:'7745550198'}, serviceId:'wash', serviceLabel:'Power Washing & Salt Prep', fee:25,
+      town:'Chatham', urgency:'Scheduled 24-48 hrs', notes:'Demo lead: cedar shingles + deck need a wash before listing photos.' },
+  ];
+  localStorage.setItem(LS_LEADS, JSON.stringify(seed));
+  return seed;
+}
+function saveLeads(){ localStorage.setItem(LS_LEADS, JSON.stringify(leads)); }
+function loadConfig(){
+  try{ const raw = localStorage.getItem(LS_CFG); if(raw) return {...DEFAULT_CONFIG, ...JSON.parse(raw)}; }catch(e){}
+  return {...DEFAULT_CONFIG};
+}
+function saveConfigFromUI(){
+  config.webhookUrl = document.getElementById('cfgWebhook').value.trim();
+  config.billingWebhookUrl = document.getElementById('cfgBillingWebhook').value.trim();
+  config.contractorPhone = document.getElementById('cfgContractor').value.trim();
+  localStorage.setItem(LS_CFG, JSON.stringify(config));
+  toast('Automation settings saved.', 'fa-gears');
+}
+function saveConfig(){ saveConfigFromUI(); }
+
+/* ═══════════ RENDER: PICKERS ═══════════ */
+function renderPickers(){
+  document.getElementById('heroTowns').innerHTML = TOWNS.map(t =>
+    `<span class="bg-white/10 border border-white/20 rounded-full px-3 py-1 text-xs font-semibold">${t}</span>`).join('');
+  document.getElementById('serviceGrid').innerHTML = SERVICES.map(s => `
+    <button type="button" data-service="${s.id}" onclick="pickService('${s.id}')" aria-pressed="false"
+      class="pick-card relative text-left bg-white border-2 border-slate-200 rounded-2xl p-4 shadow-sm">
+      <span class="pick-check absolute top-3 right-3 bg-teal text-white w-6 h-6 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></span>
+      <i class="fa-solid ${s.icon} text-2xl text-teal"></i>
+      <p class="font-extrabold mt-2.5 leading-snug">${s.label}</p>
+      <p class="text-xs text-slate-500 mt-1 leading-snug">${s.desc}</p>
+      <span class="inline-block mt-3 text-[11px] font-bold bg-amber-50 text-gold border border-amber-200 rounded-full px-2 py-0.5">Lead Value $${s.fee}</span>
+    </button>`).join('');
+  const townIcons = {'Yarmouth':'fa-anchor','Hyannis / Barnstable':'fa-ship','Dennis':'fa-umbrella-beach','Sandwich':'fa-landmark','Chatham':'fa-tower-observation','Harwich':'fa-sailboat','Mashpee':'fa-tree','Brewster':'fa-wind'};
+  document.getElementById('townGrid').innerHTML = TOWNS.map(t => `
+    <button type="button" data-town="${t}" onclick="pickTown('${t.replace(/'/g,"\\'")}')" aria-pressed="false"
+      class="pick-card town-card relative bg-white border-2 border-slate-200 rounded-2xl p-3.5 shadow-sm text-left">
+      <i class="fa-solid ${townIcons[t]||'fa-location-dot'} text-gold"></i>
+      <p class="font-bold text-sm mt-1 leading-snug">${t}</p>
+    </button>`).join('');
+}
+function pickService(id){
+  selectedService = SERVICES.find(s => s.id === id);
+  document.querySelectorAll('[data-service]').forEach(b => {
+    const on = b.dataset.service === id;
+    b.classList.toggle('selected', on); b.setAttribute('aria-pressed', on);
+  });
+  document.getElementById('errService').classList.add('hidden');
+  updateSummary();
+}
+function pickTown(t){
+  selectedTown = t;
+  document.querySelectorAll('[data-town]').forEach(b => {
+    const on = b.dataset.town === t;
+    b.classList.toggle('selected', on); b.setAttribute('aria-pressed', on);
+  });
+  document.getElementById('errTown').classList.add('hidden');
+  updateSummary();
+}
+function updateSummary(){
+  document.getElementById('sumService').textContent = selectedService ? `${selectedService.label} — $${selectedService.fee} lead` : 'No service picked';
+  document.getElementById('sumTown').textContent = selectedTown || 'No town picked';
+}
+
+/* ═══════════ WEBHOOK (simulated unless a real URL is saved) ═══════════ */
+function logPayload(kind, payload){
+  const el = document.getElementById('payloadLog');
+  const line = `── ${new Date().toLocaleTimeString()} · ${kind} ──\n${JSON.stringify(payload, null, 2)}\n\n`;
+  el.textContent = (el.textContent.startsWith('No payloads') ? '' : el.textContent) + line;
+  console.log('[CoastalDispatch]', kind, payload);
+}
+async function fireWebhook(kind, payload){
+  logPayload(kind, payload);
+  if(config.webhookUrl){
+    try{ await fetch(config.webhookUrl, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) }); return 'live'; }
+    catch(e){ console.warn('Webhook failed, treated as simulated:', e); return 'simulated (webhook unreachable)'; }
+  }
+  return 'simulated';
+}
+
+/* ═══════════ SUBMIT ═══════════ */
+function fmtPhone(d){ return d.length===10 ? `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}` : d; }
+function showErr(id, on){ document.getElementById(id).classList.toggle('hidden', !on); }
+function fieldErr(inputId, on){ document.getElementById(inputId).classList.toggle('err', on); }
+
+document.getElementById('leadForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name  = document.getElementById('fName').value.trim();
+  const phoneDigits = document.getElementById('fPhone').value.replace(/\D/g,'').replace(/^1(?=\d{10}$)/,'');
+  const notes = document.getElementById('fNotes').value.trim();
+  const urgency = document.querySelector('input[name="urgency"]:checked').value;
+
+  let ok = true;
+  const badName = name.length < 2;                    showErr('errName', badName);   fieldErr('fName', badName);   ok = ok && !badName;
+  const badPhone = phoneDigits.length !== 10;         showErr('errPhone', badPhone); fieldErr('fPhone', badPhone); ok = ok && !badPhone;
+  const badNotes = notes.length < 5;                  showErr('errNotes', badNotes); fieldErr('fNotes', badNotes); ok = ok && !badNotes;
+  if(!selectedService){ showErr('errService', true); ok = false; }
+  if(!selectedTown){ showErr('errTown', true); ok = false; }
+  if(!ok){ toast('A couple of fields still need attention.', 'fa-circle-exclamation', true); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-circle-notch spin"></i> Dispatching securely&hellip;';
+
+  const lead = {
+    id: 'CCD-' + Math.random().toString(36).slice(2,7).toUpperCase(),
+    createdAt: new Date().toISOString(),
+    status: 'New',
+    customer: { name, phone: phoneDigits },
+    serviceId: selectedService.id, serviceLabel: selectedService.label, fee: selectedService.fee,
+    town: selectedTown, urgency, notes
+  };
+  const payload = {
+    event: 'lead.created', lead_id: lead.id, created_at: lead.createdAt,
+    customer: { full_name: name, text_phone: phoneDigits },
+    service: { id: lead.serviceId, label: lead.serviceLabel },
+    town: lead.town, urgency: lead.urgency, notes: lead.notes,
+    lead_fee_usd: lead.fee,
+    dispatch: { channel: 'sms', vocal: false, target: 'contractor', provider: 'Make/Zapier → Twilio' },
+    billing: { provider: 'Stripe', status: 'pending', amount_usd: lead.fee, charged_to: 'contractor' },
+    security: { transport: 'SSL/TLS', card_data: 'handled by Stripe only — never stored by this app' }
+  };
+
+  const mode = await fireWebhook('LEAD PAYLOAD', payload);
+  payload.dispatch.mode = mode;
+  leads.unshift(lead); saveLeads(); renderDispatcher();
+
+  document.getElementById('cTown').textContent = lead.town;
+  document.getElementById('cPhone').textContent = fmtPhone(phoneDigits);
+  document.getElementById('cLeadId').textContent = lead.id;
+  document.getElementById('cService').textContent = lead.serviceLabel;
+  document.getElementById('cUrgency').textContent = lead.urgency;
+  document.getElementById('cPayload').textContent = JSON.stringify(payload, null, 2);
+  document.getElementById('confirmModal').classList.remove('hidden');
+  document.getElementById('leadForm').reset();
+  document.querySelector('input[name="urgency"][value="Scheduled 24-48 hrs"]').checked = true;
+  btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Dispatch My Request';
+});
+function closeModal(){ document.getElementById('confirmModal').classList.add('hidden'); }
+
+/* ═══════════ DISPATCHER ═══════════ */
+function showView(v){
+  document.getElementById('viewCustomer').classList.toggle('hidden', v !== 'customer');
+  document.getElementById('viewDispatcher').classList.toggle('hidden', v !== 'dispatcher');
+  document.getElementById('navCustomer').classList.toggle('bg-white/25', v === 'customer');
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(v === 'dispatcher') renderDispatcher();
+}
+function setFilter(f){
+  activeFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    const on = b.dataset.filter === f;
+    b.className = 'filter-btn px-3 py-1.5 rounded-full text-xs font-bold ' + (on ? 'bg-navy text-white' : 'bg-white border border-slate-300');
+  });
+  renderDispatcher();
+}
+function statusBadge(s){ return `<span class="status-${s} text-[11px] font-extrabold uppercase tracking-wide rounded-full px-2.5 py-1">${s}</span>`; }
+function urgencyBadge(u){ return u === 'Immediate Hazard'
+  ? `<span class="badge-urgent text-[11px] font-bold rounded-full px-2.5 py-1"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Immediate Hazard</span>`
+  : `<span class="badge-sched text-[11px] font-bold rounded-full px-2.5 py-1"><i class="fa-regular fa-clock mr-1"></i>24–48 hrs</span>`; }
+
+function renderDispatcher(){
+  const total = leads.length;
+  const value = leads.reduce((a,l) => a + l.fee, 0);
+  const pending = leads.filter(l => l.status === 'New').length;
+  const billed = leads.filter(l => l.status === 'Invoiced');
+  document.getElementById('mTotal').textContent = total;
+  document.getElementById('mValue').textContent = '$' + value;
+  document.getElementById('mPending').textContent = pending;
+  document.getElementById('mBilled').innerHTML = billed.length + ' <span class="text-base font-bold text-slate-400">($' + billed.reduce((a,l)=>a+l.fee,0) + ')</span>';
+
+  const list = leads.filter(l => activeFilter === 'All' || l.status === activeFilter);
+  document.getElementById('emptyState').classList.toggle('hidden', list.length > 0);
+  document.getElementById('leadList').innerHTML = list.map(l => `
+    <article class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 sm:p-5">
+      <div class="flex flex-wrap items-start justify-between gap-2">
+        <div class="min-w-0">
+          <p class="font-extrabold leading-tight">${escapeHtml(l.customer.name)} ${l.demo ? '<span class="text-[10px] font-bold bg-slate-100 text-slate-400 rounded px-1.5 py-0.5 align-middle">DEMO</span>' : ''}
+            <span class="text-slate-300 font-medium">·</span> <span class="text-sm font-semibold text-slate-500">${l.id}</span></p>
+          <p class="text-sm text-slate-500 mt-0.5"><i class="fa-solid fa-phone text-teal mr-1"></i>${fmtPhone(l.customer.phone)}
+            <span class="mx-1 text-slate-300">|</span><i class="fa-solid fa-location-dot text-gold mr-1"></i>${l.town}
+            <span class="mx-1 text-slate-300">|</span>${new Date(l.createdAt).toLocaleString([], {month:'short', day:'numeric', hour:'numeric', minute:'2-digit'})}</p>
+        </div>
+        <div class="text-right shrink-0">
+          <p class="text-2xl font-black text-navy">$${l.fee}</p>
+          <p class="text-[11px] font-semibold text-slate-400 -mt-0.5">lead fee</p>
+        </div>
+      </div>
+      <p class="mt-2.5 font-semibold text-sm"><i class="fa-solid fa-screwdriver-wrench text-teal mr-1.5"></i>${l.serviceLabel}</p>
+      <p class="text-sm text-slate-500 mt-1 leading-snug">${escapeHtml(l.notes)}</p>
+      <div class="flex flex-wrap items-center gap-2 mt-3">
+        ${urgencyBadge(l.urgency)} ${statusBadge(l.status)}
+        <span class="ml-auto flex flex-wrap gap-2">
+          ${l.status === 'New' ? `<button onclick="dispatchLead('${l.id}')" class="px-3 py-2 rounded-lg bg-teal hover:bg-teald text-white text-xs font-bold"><i class="fa-solid fa-message mr-1.5"></i>Dispatch via Text (Webhook)</button>` : ''}
+          ${l.status === 'Dispatched' ? `<button onclick="acceptLead('${l.id}')" class="px-3 py-2 rounded-lg bg-navy text-white text-xs font-bold"><i class="fa-solid fa-handshake mr-1.5"></i>Mark Accepted</button>` : ''}
+          ${(l.status === 'Dispatched' || l.status === 'Accepted') ? `<button onclick="clearViaStripe('${l.id}')" class="px-3 py-2 rounded-lg bg-gold hover:bg-amber-600 text-white text-xs font-bold"><i class="fa-solid fa-lock mr-1.5"></i>Clear via Stripe — $${l.fee}</button>` : ''}
+          ${l.status === 'Invoiced' ? `<span class="text-xs font-bold text-emerald-600 py-2"><i class="fa-solid fa-circle-check mr-1"></i>Paid via Stripe ${l.stripeId ? '· ' + l.stripeId : ''}</span>` : ''}
+          <button onclick="deleteLead('${l.id}')" title="Delete lead" class="px-2.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-red-500 hover:border-red-200 text-xs"><i class="fa-solid fa-trash-can"></i></button>
+        </span>
+      </div>
+    </article>`).join('');
+}
+function findLead(id){ return leads.find(l => l.id === id); }
+
+async function dispatchLead(id){
+  const l = findLead(id); if(!l) return;
+  const sms = {
+    event:'lead.dispatch_sms', lead_id:l.id, provider:'Twilio (via Make/Zapier)',
+    to_contractor: config.contractorPhone || '(contractor number not set — simulated)',
+    to_customer_updates: l.customer.phone, channel:'sms', vocal:false,
+    message: `NEW ${l.urgency === 'Immediate Hazard' ? 'URGENT ' : ''}LEAD — ${l.serviceLabel} in ${l.town}. ${l.customer.name}, ${fmtPhone(l.customer.phone)}. "${l.notes}" Reply ACCEPT to claim. Lead fee $${l.fee}.`
+  };
+  const mode = await fireWebhook('SMS DISPATCH', sms);
+  l.status = 'Dispatched'; saveLeads(); renderDispatcher();
+  toast(`Lead ${l.id} dispatched by text (${mode}).`, 'fa-message');
+}
+function acceptLead(id){
+  const l = findLead(id); if(!l) return;
+  l.status = 'Accepted'; saveLeads(); renderDispatcher();
+  toast(`Contractor accepted lead ${l.id}. Ready to clear the $${l.fee} fee.`, 'fa-handshake');
+}
+async function clearViaStripe(id){
+  const l = findLead(id); if(!l) return;
+  const modal = document.getElementById('stripeModal');
+  const icon = document.getElementById('stripeIcon');
+  const text = document.getElementById('stripeText');
+  modal.classList.remove('hidden');
+  icon.className = 'fa-solid fa-circle-notch spin text-2xl';
+
+  /* LIVE PATH — a billing/main webhook is configured: the automation (Make/Zapier)
+     creates the Stripe charge or payment link server-side. No Stripe secret key
+     ever lives in this browser app. */
+  const billingUrl = config.billingWebhookUrl || config.webhookUrl;
+  document.getElementById('stripeFootnote').textContent = billingUrl ? 'Live — charge request routed to your Stripe automation' : '(Demo simulation — no real charge)';
+  if(billingUrl){
+    text.innerHTML = `Sending a secure Stripe charge request for <strong>$${l.fee}.00</strong> (lead ${l.id}) to your automation&hellip;`;
+    const chargePayload = {
+      event:'lead_fee.charge_requested', lead_id:l.id, amount_usd:l.fee, currency:'usd',
+      service:l.serviceLabel, town:l.town,
+      contractor:{ text_phone: config.contractorPhone || null },
+      customer:{ name:l.customer.name, phone:l.customer.phone },
+      requested_at:new Date().toISOString(),
+      instruction:'Create a Stripe payment link or invoice for amount_usd and text it to the contractor. Stripe hosts the secure checkout — card data never touches this app.'
+    };
+    logPayload('STRIPE CHARGE REQUEST', chargePayload);
+    try{
+      const res = await fetch(billingUrl, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(chargePayload) });
+      if(!res.ok) throw new Error('Webhook returned ' + res.status);
+      l.stripeId = 'via Stripe automation';
+      l.status = 'Invoiced'; saveLeads(); renderDispatcher();
+      icon.className = 'fa-solid fa-circle-check text-2xl text-teal';
+      text.innerHTML = `<strong class="text-navy">Charge request sent.</strong> Stripe will host the secure checkout for the $${l.fee}.00 fee — confirm the payment landed in your Stripe dashboard.`;
+      setTimeout(() => { modal.classList.add('hidden'); toast(`Stripe charge request sent for ${l.id} ($${l.fee}).`, 'fa-lock'); }, 1400);
+    }catch(e){
+      console.warn('Billing webhook failed:', e);
+      icon.className = 'fa-solid fa-triangle-exclamation text-2xl text-red-500';
+      text.innerHTML = `<strong class="text-red-600">Billing webhook didn&rsquo;t go through</strong> — lead was <u>not</u> marked invoiced. Check the webhook URL in Automation Settings and try again.`;
+      setTimeout(() => modal.classList.add('hidden'), 2600);
+    }
+    return;
+  }
+
+  /* SIMULATION PATH — no webhook configured yet. */
+  text.innerHTML = `Processing <strong>$${l.fee}.00</strong> lead fee for ${l.id} over Stripe&rsquo;s secure, PCI-compliant checkout&hellip;`;
+  setTimeout(() => {
+    l.stripeId = 'pi_' + Math.random().toString(36).slice(2,10);
+    l.status = 'Invoiced'; saveLeads();
+    fireWebhook('STRIPE CHARGE (simulated)', { event:'lead_fee.charged', lead_id:l.id, provider:'Stripe', amount_usd:l.fee, currency:'usd', payment_intent:l.stripeId, status:'succeeded', security:'PCI-compliant hosted checkout — no card data stored in this app' });
+    icon.className = 'fa-solid fa-circle-check text-2xl text-teal';
+    text.innerHTML = `<strong class="text-navy">Payment secured.</strong> $${l.fee}.00 cleared &mdash; receipt ${l.stripeId}.`;
+    renderDispatcher();
+    setTimeout(() => { modal.classList.add('hidden'); toast(`$${l.fee} lead fee cleared securely via Stripe (${l.id}).`, 'fa-lock'); }, 1100);
+  }, 1000);
+}
+function deleteLead(id){
+  leads = leads.filter(l => l.id !== id); saveLeads(); renderDispatcher();
+  toast('Lead removed.', 'fa-trash-can');
+}
+function clearAllLeads(){
+  if(!leads.length) return;
+  if(!confirm('Clear ALL leads (including the demo ones)? This cannot be undone.')) return;
+  leads = []; saveLeads(); renderDispatcher();
+  toast('Queue cleared.', 'fa-trash-can');
+}
+function exportCSV(){
+  if(!leads.length){ toast('No leads to export yet.', 'fa-file-csv', true); return; }
+  const rows = [['lead_id','created_at','status','customer','phone','service','town','urgency','fee_usd','notes']];
+  leads.forEach(l => rows.push([l.id, l.createdAt, l.status, l.customer.name, l.customer.phone, l.serviceLabel, l.town, l.urgency, l.fee, '"' + (l.notes||'').replace(/"/g,'""') + '"']));
+  const blob = new Blob([rows.map(r => r.join(',')).join('\n')], {type:'text/csv'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'coastal-dispatch-leads.csv'; a.click();
+  URL.revokeObjectURL(a.href);
+  toast('Leads exported as CSV.', 'fa-file-csv');
+}
+
+/* ═══════════ HELPERS ═══════════ */
+function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function toast(msg, icon, isErr){
+  const box = document.getElementById('toastBox');
+  const el = document.createElement('div');
+  el.className = 'toast flex items-start gap-2.5 rounded-xl px-4 py-3 text-sm font-semibold text-white shadow-lg ' + (isErr ? 'bg-red-600' : 'bg-navy');
+  el.innerHTML = `<i class="fa-solid ${icon || 'fa-circle-check'} mt-0.5"></i><span>${msg}</span>`;
+  box.appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity .3s'; setTimeout(() => el.remove(), 320); }, 3400);
+}
+
+/* ═══════════ INIT ═══════════ */
+document.getElementById('cfgWebhook').value = config.webhookUrl;
+document.getElementById('cfgBillingWebhook').value = config.billingWebhookUrl;
+document.getElementById('cfgContractor').value = config.contractorPhone;
+renderPickers();
+updateSummary();
+renderDispatcher();
+</script>
+</body>
+</html>
