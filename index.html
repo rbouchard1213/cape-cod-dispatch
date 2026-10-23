@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Cape Cod Coastal Dispatch &amp; Lead Engine</title>
 <meta name="description" content="Cape Cod's premier coastal service dispatch. Text-only lead routing for tree work, storm debris, equipment hauling, and power washing across the Mid & Upper Cape." />
+<meta property="og:title" content="Cape Cod Coastal Dispatch & Lead Engine" />
+<meta property="og:description" content="Storm damage, tree hazards, heavy hauls, power washing — one free request, a local Cape contractor gets a text alert in minutes. No calls, no card, no obligation." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://rbouchard1213.github.io/cape-cod-dispatch/" />
+<meta name="theme-color" content="#0A2540" />
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -77,6 +82,7 @@ tailwind.config = {
       <p class="text-teal-300 font-semibold tracking-widest text-xs uppercase mb-3"><i class="fa-solid fa-water mr-1"></i> Yarmouth &bull; Hyannis &bull; Mid &amp; Upper Cape</p>
       <h1 class="text-3xl sm:text-5xl font-black leading-tight">Cape Cod&rsquo;s Premier<br class="sm:hidden" /> Coastal Service Dispatch</h1>
       <p class="mt-4 text-slate-200 max-w-xl mx-auto text-sm sm:text-base">Storm damage, tree hazards, heavy hauls, and salt prep &mdash; tell us what you need and a vetted local contractor gets a <strong class="text-white">text alert within minutes</strong>. No phone tag. No robocalls. Ever.</p>
+      <p class="mt-3 text-teal-200 font-semibold text-sm sm:text-base"><i class="fa-solid fa-circle-check mr-1.5"></i>Free to request. You only ever pay the contractor directly &mdash; for work you approve.</p>
       <div class="mt-5 flex flex-wrap justify-center gap-1.5" id="heroTowns"></div>
       <div class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs sm:text-sm text-teal-100">
         <span><i class="fa-solid fa-message mr-1.5"></i>Text-only dispatch</span>
@@ -130,7 +136,7 @@ tailwind.config = {
     </section>
 
     <!-- STEP 3: FORM -->
-    <section class="mt-8 bg-white rounded-2xl shadow-soft border border-slate-100 p-5 sm:p-7">
+    <section id="intake" class="mt-8 bg-white rounded-2xl shadow-soft border border-slate-100 p-5 sm:p-7 scroll-mt-24">
       <h2 class="text-xl font-extrabold flex items-center gap-2"><span class="bg-navy text-white w-7 h-7 rounded-lg flex items-center justify-center text-sm">3</span> Where do we text you?</h2>
 
       <form id="leadForm" novalidate class="mt-5 space-y-5">
@@ -200,10 +206,29 @@ tailwind.config = {
       <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5"><i class="fa-solid fa-comments text-2xl text-navy"></i><p class="font-bold mt-2">3. They text you back</p><p class="text-xs text-slate-500 mt-1">Quotes and scheduling happen by text, on your terms.</p></div>
     </section>
 
-    <footer class="mt-10 text-center text-xs text-slate-400 space-y-1">
-      <p><i class="fa-solid fa-anchor mr-1"></i>Cape Cod Coastal Dispatch &mdash; serving Yarmouth, Barnstable/Hyannis, Dennis, Sandwich, Chatham, Harwich, Mashpee &amp; Brewster.</p>
+    <!-- FAQ — straight answers, no fine print -->
+    <section class="mt-8 bg-white rounded-2xl shadow-soft border border-slate-100 p-5 sm:p-7">
+      <h2 class="text-xl font-extrabold"><i class="fa-solid fa-circle-question text-teal mr-2"></i>Straight answers before you ask</h2>
+      <div class="mt-4 space-y-4 text-sm">
+        <div><p class="font-bold">Is it really free to request?</p><p class="text-slate-500 mt-0.5">Yes. Submitting is always free and no card is ever asked for. Contractors pay a small dispatch fee to receive local jobs &mdash; that's how the service runs, so it costs you nothing.</p></div>
+        <div><p class="font-bold">Who actually shows up to do the work?</p><p class="text-slate-500 mt-0.5">A local contractor who covers your town. They'll text you first with who they are and a quote &mdash; nothing starts until you say yes to it.</p></div>
+        <div><p class="font-bold">How fast will I hear back?</p><p class="text-slate-500 mt-0.5">Your request is texted to a contractor in minutes. Immediate hazards are routed first. Scheduled jobs get a text within the 24&ndash;48 hr window you picked.</p></div>
+        <div><p class="font-bold">How do I pay for the work itself?</p><p class="text-slate-500 mt-0.5">Directly to your contractor when the job's done, the way you've always paid local pros. If a card payment is ever involved, it runs through Stripe's secure checkout &mdash; your card details are never stored on this site or shared.</p></div>
+        <div><p class="font-bold">What happens to my phone number?</p><p class="text-slate-500 mt-0.5">It goes to your matched contractor only, for texts about your job. Never sold, never put on a call list, and we never voice-call you. Questions in the meantime? Text us at <a href="sms:+14132346351" class="font-bold text-teal">(413) 234-6351</a>.</p></div>
+      </div>
+    </section>
+
+    <footer class="mt-10 text-center text-xs text-slate-400 space-y-1.5 pb-20 md:pb-0">
+      <p><i class="fa-solid fa-anchor mr-1"></i>Cape Cod Coastal Dispatch &mdash; based in Yarmouth, serving Yarmouth, Barnstable/Hyannis, Dennis, Sandwich, Chatham, Harwich, Mashpee &amp; Brewster.</p>
+      <p><i class="fa-solid fa-message text-teal mr-1"></i>Questions? Text <a href="sms:+14132346351" class="font-semibold text-slate-500">(413) 234-6351</a> &mdash; text only, we reply by text.</p>
       <p>Demo build: requests are stored only in this browser (localStorage). No server storage, no voice calls.</p>
     </footer>
+  </div>
+
+  <!-- STICKY MOBILE CTA -->
+  <div class="fixed bottom-0 inset-x-0 z-40 md:hidden bg-white/95 backdrop-blur border-t border-slate-200 p-3 shadow-[0_-2px_14px_rgba(10,37,64,.10)]">
+    <a href="#intake" class="w-full bg-teal hover:bg-teald text-white font-extrabold rounded-xl py-3.5 flex items-center justify-center gap-2"><i class="fa-solid fa-paper-plane"></i>Request Help &mdash; It's Free</a>
+    <p class="text-center text-[11px] text-slate-400 mt-1.5"><i class="fa-solid fa-lock text-teal mr-1"></i>Secure &bull; No card required &bull; Text-only reply</p>
   </div>
 </main>
 
