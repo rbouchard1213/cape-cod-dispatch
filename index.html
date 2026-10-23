@@ -407,7 +407,7 @@ function renderPickers(){
       <i class="fa-solid ${s.icon} text-2xl text-teal"></i>
       <p class="font-extrabold mt-2.5 leading-snug">${s.label}</p>
       <p class="text-xs text-slate-500 mt-1 leading-snug">${s.desc}</p>
-      <span class="inline-block mt-3 text-[11px] font-bold bg-amber-50 text-gold border border-amber-200 rounded-full px-2 py-0.5">Lead Value $${s.fee}</span>
+      <span class="inline-block mt-3 text-[11px] font-bold bg-emerald-50 text-teal border border-emerald-200 rounded-full px-2 py-0.5">Free to request</span>
     </button>`).join('');
   const townIcons = {'Yarmouth':'fa-anchor','Hyannis / Barnstable':'fa-ship','Dennis':'fa-umbrella-beach','Sandwich':'fa-landmark','Chatham':'fa-tower-observation','Harwich':'fa-sailboat','Mashpee':'fa-tree','Brewster':'fa-wind'};
   document.getElementById('townGrid').innerHTML = TOWNS.map(t => `
@@ -436,7 +436,7 @@ function pickTown(t){
   updateSummary();
 }
 function updateSummary(){
-  document.getElementById('sumService').textContent = selectedService ? `${selectedService.label} — $${selectedService.fee} lead` : 'No service picked';
+  document.getElementById('sumService').textContent = selectedService ? `${selectedService.label}` : 'No service picked';
   document.getElementById('sumTown').textContent = selectedTown || 'No town picked';
 }
 
