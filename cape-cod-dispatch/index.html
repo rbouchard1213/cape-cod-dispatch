@@ -217,7 +217,7 @@ tailwind.config = {
       <div class="mt-4 space-y-4 text-sm">
         <div><p class="font-bold">Is it really free to request?</p><p class="text-slate-500 mt-0.5">Yes. Submitting is always free and no card is ever asked for. Contractors pay a small dispatch fee to receive local jobs &mdash; that's how the service runs, so it costs you nothing.</p></div>
         <div><p class="font-bold">Who actually shows up to do the work?</p><p class="text-slate-500 mt-0.5">A local contractor who covers your town. They'll text you first with who they are and a quote &mdash; nothing starts until you say yes to it.</p></div>
-        <div><p class="font-bold">How fast will I hear back?</p><p class="text-slate-500 mt-0.5">Your request is texted to a contractor in minutes. Immediate hazards are routed first. Scheduled jobs get a text within the 24&ndash;48 hr window you picked.</p></div>
+        <div><p class="font-bold">How fast will I hear back?</p><p class="text-slate-500 mt-0.5">Tap the text button on the confirmation screen and your request reaches Busy Bees instantly. Immediate hazards are routed first. Scheduled jobs get a text within the 24&ndash;48 hr window you picked.</p></div>
         <div><p class="font-bold">How do I pay for the work itself?</p><p class="text-slate-500 mt-0.5">Directly to your contractor when the job's done, the way you've always paid local pros. If a card payment is ever involved, it runs through Stripe's secure checkout &mdash; your card details are never stored on this site or shared.</p></div>
         <div><p class="font-bold">What happens to my phone number?</p><p class="text-slate-500 mt-0.5">It goes to your matched contractor only, for texts about your job. Never sold, never put on a call list, and we never voice-call you. Questions in the meantime? Give us a buzz &mdash; text us at <a href="sms:+14132346351" class="font-bold text-teal">(413) 234-6351</a>.</p></div>
       </div>
@@ -233,7 +233,7 @@ tailwind.config = {
     <footer class="mt-10 text-center text-xs text-slate-400 space-y-1.5 pb-20 md:pb-0">
       <p><i class="fa-solid fa-anchor mr-1"></i>Busy Bees &mdash; based in Yarmouth, serving Yarmouth, Barnstable/Hyannis, Dennis, Sandwich, Chatham, Harwich, Mashpee &amp; Brewster. <a href="../" class="underline font-semibold whitespace-nowrap">&larr; All Busy Bees areas</a></p>
       <p><i class="fa-solid fa-message text-teal mr-1"></i>Questions? Give us a buzz &mdash; text <a href="sms:+14132346351" class="font-semibold text-slate-500">(413) 234-6351</a>. Text only; we reply by text.</p>
-      <p>Demo build: requests are stored only in this browser (localStorage). No server storage, no voice calls.</p>
+      <p>Your request reaches us by text — tap the text button on the confirmation screen and it lands with Busy Bees instantly. No voice calls.</p>
       <p class="text-slate-300">Photos via Wikimedia Commons: Race Point Beach &mdash; m01229 (CC BY 2.0); tree work &mdash; TreeMinion15 (CC BY-SA 4.0); storm damage &mdash; Wil540 art (CC BY 4.0); equipment haul &mdash; Digger470751 (CC BY-SA 4.0); pressure washing &mdash; GeorgeTan#5 (CC0); fall leaves &mdash; David Morris (CC BY 2.0).</p>
     </footer>
   </div>
@@ -341,9 +341,11 @@ tailwind.config = {
 <div id="confirmModal" class="hidden fixed inset-0 z-50 bg-navy/70 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
   <div class="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl p-6 sm:p-8 text-center shadow-2xl max-h-[92vh] overflow-y-auto">
     <span class="mx-auto bg-emerald-50 text-teal w-16 h-16 rounded-full flex items-center justify-center"><i class="fa-solid fa-circle-check text-3xl"></i></span>
-    <h3 class="text-xl font-black mt-4">Request Dispatched</h3>
-    <p class="font-semibold text-teal">Local Contractor Text Alert Sent</p>
-    <p class="text-sm text-slate-500 mt-2">A contractor covering <strong id="cTown" class="text-navy"></strong> just got a text with your job details. Expect a text reply at <strong id="cPhone" class="text-navy"></strong> &mdash; we never call.</p>
+    <h3 class="text-xl font-black mt-4">Request Ready — One Tap Sends It</h3>
+    <p class="font-semibold text-teal">Tap the button below to text it to Busy Bees</p>
+    <p class="text-sm text-slate-500 mt-2">That text is what puts your job in front of a real person covering <strong id="cTown" class="text-navy"></strong>. Expect a text reply at <strong id="cPhone" class="text-navy"></strong> &mdash; we never call.</p>
+    <a id="textRequestBtn" href="#" class="mt-4 w-full bg-teal hover:bg-teald text-white font-extrabold text-lg rounded-xl py-4 shadow-soft transition flex items-center justify-center gap-2"><i class="fa-solid fa-message"></i> Text This Request to Busy Bees</a>
+    <p class="text-xs text-slate-500 mt-2">Opens your messages app with the job details already filled in — just hit send.</p>
     <div class="bg-linen border border-slate-200 rounded-xl p-3 mt-4 text-left text-sm space-y-1">
       <p><span class="text-slate-400 font-semibold">Reference:</span> <strong id="cLeadId"></strong></p>
       <p><span class="text-slate-400 font-semibold">Service:</span> <strong id="cService"></strong></p>
@@ -542,6 +544,8 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
   document.getElementById('cService').textContent = lead.serviceLabel;
   document.getElementById('cUrgency').textContent = lead.urgency;
   document.getElementById('cPayload').textContent = JSON.stringify(payload, null, 2);
+  const smsBody = 'Busy Bees request ' + lead.id + ': ' + lead.serviceLabel + ' in ' + lead.town + ' (' + lead.urgency + '). From ' + name + ' (' + fmtPhone(phoneDigits) + '). Notes: ' + notes;
+  document.getElementById('textRequestBtn').href = 'sms:+14132346351?&body=' + encodeURIComponent(smsBody);
   document.getElementById('confirmModal').classList.remove('hidden');
   document.getElementById('leadForm').reset();
   document.querySelector('input[name="urgency"][value="Scheduled 24-48 hrs"]').checked = true;
