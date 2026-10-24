@@ -26,9 +26,13 @@ Created in the connected Stripe sandbox account ("Cape connect sandbox", test mo
 
 ## LIVE — Stripe live account (activated 2026-10-23)
 
-Live account `acct_1UTaBvBxk2BeDiA8` ("Cape connect" — Bobby to rename to
-"Busy Bees" in dashboard Settings → Public details; product below likewise
-renamed to "Busy Bees Lead Fee" in Products), payments ACTIVE. Sandbox data was
+Live account `acct_1UTaBvBxk2BeDiA8`, payments ACTIVE. Rebrand status
+(2026-10-23): product below renamed to "Busy Bees Lead Fee" by Muse via the
+Stripe connector (now connected to this LIVE account). Still Bobby's in the
+dashboard (Stripe exposes no API for an account's own name): business public
+name is still "Cape Cod Coastal Dispatch" (Settings → Public details → Name
+→ Busy Bees) and the card statement descriptor is still "CAPE DISPATCH"
+(Settings → Payments → Statement descriptor → BUSY BEES). Sandbox data was
 NOT copied over ("Don't copy anything") — the live catalog was built fresh:
 
 - Product: **Busy Bees Lead Fee** — `prod_VUa66fiWZJl5XJ`

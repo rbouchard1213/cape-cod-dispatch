@@ -143,9 +143,9 @@ story.append(P(
 story.append(P("Everything in one place &mdash; the links", "h1"))
 links = [
     ("<b>The customer website</b> (where homeowners request help):",
-     "https://rbouchard1213.github.io/cape-cod-dispatch/"),
+     "https://busybeesdispatch.com/"),
     ("<b>Mission Control</b> (Bobby&rsquo;s own dashboard for the business):",
-     "https://rbouchard1213.github.io/cape-cod-dispatch/status.html"),
+     "https://busybeesdispatch.com/status.html"),
     ("<b>Contractor payment page &mdash; $25 jobs</b> (hauling, power washing, fall cleanups):",
      "https://buy.stripe.com/4gM3cueB3cgKgQD82M9AA00"),
     ("<b>Contractor payment page &mdash; $30 jobs</b> (storm debris):",

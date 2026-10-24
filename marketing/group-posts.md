@@ -1,6 +1,6 @@
 # Busy Bees — Copy-Paste Posts Pack
 
-Link for every post: https://rbouchard1213.github.io/cape-cod-dispatch/
+Link for every post: https://busybeesdispatch.com/
 Attach the flyer image (`coastal-dispatch-flyer.png`) to Facebook/Nextdoor posts — posts with an image get seen far more.
 Text line for questions: (413) 234-6351 (text only).
 
@@ -19,7 +19,7 @@ Instead of calling around and playing phone tag, you send ONE free request — a
 ✅ Text-only — no robocalls, your number is never sold
 ✅ Yarmouth • Hyannis • Dennis • Sandwich • Chatham • Harwich • Mashpee • Brewster
 
-Request help here 👉 https://rbouchard1213.github.io/cape-cod-dispatch/
+Request help here 👉 https://busybeesdispatch.com/
 Questions? Text (413) 234-6351
 
 Based right here in Yarmouth. Save the link for the next storm — future you says thanks. ⚓
@@ -36,7 +36,7 @@ Send one free request through Busy Bees and a local contractor gets a text alert
 
 Also booking: tree & stump work, storm debris, heavy hauling, power washing & salt-season prep.
 
-Free to request 👉 https://rbouchard1213.github.io/cape-cod-dispatch/
+Free to request 👉 https://busybeesdispatch.com/
 Serving Yarmouth, Hyannis, Dennis, Sandwich, Chatham, Harwich, Mashpee & Brewster.
 Questions? Text (413) 234-6351 — text only, we reply by text.
 
@@ -50,7 +50,7 @@ Hope everyone made it through [last night's storm] okay. If you've got a tree do
 
 One free request at Busy Bees sends a text alert to a local contractor within minutes. Hazards get routed first. They'll text you a quote — you only pay for work you approve.
 
-👉 https://rbouchard1213.github.io/cape-cod-dispatch/
+👉 https://busybeesdispatch.com/
 Or text (413) 234-6351
 
 Stay safe out there, neighbors. ⚓
@@ -67,7 +67,7 @@ It's a simple free page for getting a local contractor fast: tree & stump work, 
 
 We're based in Yarmouth and cover Dennis, Sandwich, Chatham, Harwich, Mashpee, Brewster and Hyannis too.
 
-https://rbouchard1213.github.io/cape-cod-dispatch/
+https://busybeesdispatch.com/
 Questions — text (413) 234-6351. Happy to help. — Bobby
 
 ---
@@ -80,7 +80,7 @@ Big jobs that need a crew — trees, storm damage, heavy hauls — can now come 
 
 Fall cleanups are booking NOW through it as well. 🍂
 
-👉 https://rbouchard1213.github.io/cape-cod-dispatch/
+👉 https://busybeesdispatch.com/
 Bob of All Trades direct line stays the same: (413) 234-6351. One call (or one tap), consider it done.
 
 ---

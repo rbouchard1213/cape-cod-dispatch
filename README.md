@@ -2,7 +2,7 @@
 
 A mobile-first, single-file web app (`index.html` — HTML + Tailwind CDN + vanilla JS, no build step) for text-only lead generation and dispatch across Cape Cod, MA.
 
-**Live app:** GitHub Pages — `https://rbouchard1213.github.io/cape-cod-dispatch/`
+**Live app:** GitHub Pages — `https://busybeesdispatch.com/`
 
 ## What it does
 
