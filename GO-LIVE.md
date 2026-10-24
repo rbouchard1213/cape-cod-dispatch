@@ -1,4 +1,4 @@
-# GO-LIVE Guide — Cape Cod Coastal Dispatch
+# GO-LIVE Guide — Busy Bees
 
 The app is simulation-only until you connect the three pieces below. Nothing here
 requires code changes — the app reads its targets from **Dispatcher Portal →
@@ -17,7 +17,7 @@ Automation Settings** (stored in the browser).
 Created in the connected Stripe sandbox account ("Cape connect sandbox", test mode —
 **no real money moves**; pay with test card `4242 4242 4242 4242`):
 
-- Product: **Coastal Dispatch Lead Fee** — `prod_VUZTsBv33sZjbD`
+- Product: **Busy Bees Lead Fee** — `prod_VUZTsBv33sZjbD`
 - Prices: $25 `price_1UTaKmR2bpKCKmn6ifN9du9L` · $30 `price_1UTaKrR2bpKCKmn6sbjNLRJh` · $35 `price_1UTaKvR2bpKCKmn664r3LG60`
 - Payment links (text one of these to a contractor to collect that fee):
   - $25 — https://buy.stripe.com/test_cNi14p1IqbFo2zY5N7eUU00
@@ -26,10 +26,12 @@ Created in the connected Stripe sandbox account ("Cape connect sandbox", test mo
 
 ## LIVE — Stripe live account (activated 2026-10-23)
 
-Live account `acct_1UTaBvBxk2BeDiA8` ("Cape connect"), payments ACTIVE. Sandbox data was
+Live account `acct_1UTaBvBxk2BeDiA8` ("Cape connect" — Bobby to rename to
+"Busy Bees" in dashboard Settings → Public details; product below likewise
+renamed to "Busy Bees Lead Fee" in Products), payments ACTIVE. Sandbox data was
 NOT copied over ("Don't copy anything") — the live catalog was built fresh:
 
-- Product: **Coastal Dispatch Lead Fee** — `prod_VUa66fiWZJl5XJ`
+- Product: **Busy Bees Lead Fee** — `prod_VUa66fiWZJl5XJ`
 - Prices: $25 `price_1UTavzBxk2BeDiA8ZngXaCnI` (Haul / Power Washing / Fall Cleanup) ·
   $30 `price_1UTavzBxk2BeDiA8AhIO6Ba2` (Storm Debris) ·
   $35 `price_1UTavzBxk2BeDiA8usnyuo6x` (Tree & Stump)

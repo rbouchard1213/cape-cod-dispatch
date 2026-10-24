@@ -1,4 +1,4 @@
-# Cape Cod Coastal Dispatch & Lead Engine
+# Busy Bees
 
 A mobile-first, single-file web app (`index.html` — HTML + Tailwind CDN + vanilla JS, no build step) for text-only lead generation and dispatch across Cape Cod, MA.
 
