@@ -219,7 +219,7 @@ tailwind.config = {
         <div><p class="font-bold">Who actually shows up to do the work?</p><p class="text-slate-500 mt-0.5">A local contractor who covers your town. They'll text you first with who they are and a quote &mdash; nothing starts until you say yes to it.</p></div>
         <div><p class="font-bold">How fast will I hear back?</p><p class="text-slate-500 mt-0.5">Tap the text button on the confirmation screen and your request reaches Busy Bees instantly. Immediate hazards are routed first. Scheduled jobs get a text within the 24&ndash;48 hr window you picked.</p></div>
         <div><p class="font-bold">How do I pay for the work itself?</p><p class="text-slate-500 mt-0.5">Directly to your contractor when the job's done, the way you've always paid local pros. If a card payment is ever involved, it runs through Stripe's secure checkout &mdash; your card details are never stored on this site or shared.</p></div>
-        <div><p class="font-bold">What happens to my phone number?</p><p class="text-slate-500 mt-0.5">It goes to your matched contractor only, for texts about your job. Never sold, never put on a call list, and we never voice-call you. Questions in the meantime? Give us a buzz &mdash; text us at <a href="sms:+14132346351" class="font-bold text-teal">(413) 234-6351</a>.</p></div>
+        <div><p class="font-bold">What happens to my phone number?</p><p class="text-slate-500 mt-0.5">It goes to your matched contractor only, for texts about your job. Never sold, never put on a call list, and we never voice-call you. Questions in the meantime? Give us a buzz &mdash; text us at <a href="sms:+15082589899" class="font-bold text-teal">(508) 258-9899</a>.</p></div>
       </div>
     </section>
 
@@ -232,7 +232,7 @@ tailwind.config = {
 
     <footer class="mt-10 text-center text-xs text-slate-400 space-y-1.5 pb-20 md:pb-0">
       <p><i class="fa-solid fa-anchor mr-1"></i>Busy Bees &mdash; based in Yarmouth, serving Yarmouth, Barnstable/Hyannis, Dennis, Sandwich, Chatham, Harwich, Mashpee &amp; Brewster. <a href="../" class="underline font-semibold whitespace-nowrap">&larr; All Busy Bees areas</a></p>
-      <p><i class="fa-solid fa-message text-teal mr-1"></i>Questions? Give us a buzz &mdash; text <a href="sms:+14132346351" class="font-semibold text-slate-500">(413) 234-6351</a>. Text only; we reply by text.</p>
+      <p><i class="fa-solid fa-message text-teal mr-1"></i>Questions? Give us a buzz &mdash; text <a href="sms:+15082589899" class="font-semibold text-slate-500">(508) 258-9899</a>. Text only; we reply by text.</p>
       <p>Your request reaches us by text — tap the text button on the confirmation screen and it lands with Busy Bees instantly. No voice calls.</p>
       <p class="text-slate-300">Photos via Wikimedia Commons: Race Point Beach &mdash; m01229 (CC BY 2.0); tree work &mdash; TreeMinion15 (CC BY-SA 4.0); storm damage &mdash; Wil540 art (CC BY 4.0); equipment haul &mdash; Digger470751 (CC BY-SA 4.0); pressure washing &mdash; GeorgeTan#5 (CC0); fall leaves &mdash; David Morris (CC BY 2.0).</p>
     </footer>
@@ -268,7 +268,7 @@ tailwind.config = {
           <p class="text-sm text-slate-300 mt-1">No apps to babysit, no bidding wars, no subscription. A job lands in your town, you get a text &mdash; take it or pass, that&rsquo;s it.</p>
           <p class="mt-2.5 font-extrabold text-gold text-base sm:text-lg"><i class="fa-solid fa-phone-volume mr-1.5"></i>Keep your phone buzzing &mdash; with Busy Bees.</p>
         </div>
-        <a href="sms:+14132346351" class="bg-gold hover:bg-amber-600 text-navy font-extrabold rounded-xl px-4 py-3 text-sm shadow shrink-0"><i class="fa-solid fa-message mr-1.5"></i>Join the roster &mdash; text (413) 234-6351</a>
+        <a href="sms:+15082589899" class="bg-gold hover:bg-amber-600 text-navy font-extrabold rounded-xl px-4 py-3 text-sm shadow shrink-0"><i class="fa-solid fa-message mr-1.5"></i>Join the roster &mdash; text (508) 258-9899</a>
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 mt-4 text-center text-xs sm:text-sm font-bold">
         <span class="bg-white/10 rounded-lg px-2 py-2.5">Flat $25&ndash;$35 per job</span>
@@ -545,7 +545,7 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
   document.getElementById('cUrgency').textContent = lead.urgency;
   document.getElementById('cPayload').textContent = JSON.stringify(payload, null, 2);
   const smsBody = 'Busy Bees request ' + lead.id + ': ' + lead.serviceLabel + ' in ' + lead.town + ' (' + lead.urgency + '). From ' + name + ' (' + fmtPhone(phoneDigits) + '). Notes: ' + notes;
-  document.getElementById('textRequestBtn').href = 'sms:+14132346351?&body=' + encodeURIComponent(smsBody);
+  document.getElementById('textRequestBtn').href = 'sms:+15082589899?&body=' + encodeURIComponent(smsBody);
   document.getElementById('confirmModal').classList.remove('hidden');
   document.getElementById('leadForm').reset();
   document.querySelector('input[name="urgency"][value="Scheduled 24-48 hrs"]').checked = true;
