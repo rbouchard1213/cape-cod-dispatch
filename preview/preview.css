@@ -1,0 +1,122 @@
+/* Busy Bees — Preview (pretend test version). One shared stylesheet.
+   Brand: gold #DFB25D on dark #14161F, cream pages, Playfair headings + Inter body. */
+:root{
+  --ink:#14161F; --coal:#1E2029; --gold:#DFB25D; --deepgold:#B08D3C;
+  --cream:#FAF5E9; --paper:#FFFDF7; --line:#E7DEC9; --mut:#5B5A52;
+  --green:#1E7A4C; --red:#B42318;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:17px;line-height:1.55;-webkit-text-size-adjust:100%}
+h1,h2,h3,.serif{font-family:"Playfair Display",Georgia,"Times New Roman",serif;line-height:1.2}
+a{color:inherit}
+img{max-width:100%}
+
+/* Slim pretend strip on every screen */
+.pretend{background:var(--gold);color:var(--ink);text-align:center;
+  font-size:13.5px;font-weight:700;padding:7px 12px;letter-spacing:.01em}
+
+/* Header */
+.hdr{background:var(--ink);color:var(--cream);position:sticky;top:0;z-index:20;
+  box-shadow:0 2px 10px rgba(20,22,31,.25)}
+.hdr-in{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 16px}
+.hdr img{width:36px;height:36px;border-radius:8px;background:var(--cream)}
+.hdr .brand{font-family:"Playfair Display",Georgia,serif;font-weight:800;font-size:21px;color:var(--gold);letter-spacing:.01em}
+.hdr .brand small{display:block;font-family:Inter,system-ui,sans-serif;font-weight:600;font-size:11px;color:#CFC9B8;letter-spacing:.14em;text-transform:uppercase}
+.hdr .home{margin-left:auto;color:var(--gold);text-decoration:none;font-weight:700;font-size:15px;
+  border:1.5px solid var(--gold);border-radius:999px;padding:8px 14px;white-space:nowrap}
+.hdr .home:active{background:var(--gold);color:var(--ink)}
+
+/* Layout */
+.wrap{max-width:680px;margin:0 auto;padding:20px 16px 8px}
+.step{font-size:12.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--deepgold);margin:2px 0 6px}
+h1{font-size:30px;margin:0 0 8px;font-weight:800}
+h2{font-size:23px;margin:22px 0 8px;font-weight:800}
+.sub{color:var(--mut);margin:0 0 18px;font-size:16.5px}
+.note{color:var(--mut);font-size:15px}
+.small{font-size:14px;color:var(--mut)}
+
+/* Big tappable option buttons — one choice per button, label says what it does */
+.opt{display:block;width:100%;text-align:left;text-decoration:none;background:var(--paper);
+  border:2px solid var(--line);border-radius:16px;padding:16px 18px;margin:0 0 12px;
+  font-size:18px;font-weight:700;color:var(--ink);min-height:60px;
+  box-shadow:0 1px 6px rgba(20,22,31,.05)}
+.opt .d{display:block;font-size:14.5px;font-weight:500;color:var(--mut);margin-top:3px}
+.opt:active,.opt:hover{border-color:var(--gold);background:#FFF8E7}
+.opt .arr{float:right;color:var(--deepgold);font-weight:800}
+
+/* Primary / secondary action buttons */
+.btn{display:block;width:100%;text-align:center;text-decoration:none;border-radius:16px;
+  padding:18px 20px;font-size:19px;font-weight:800;margin:14px 0;min-height:60px;border:2px solid transparent;cursor:pointer;font-family:inherit}
+.btn-gold{background:var(--gold);color:var(--ink);box-shadow:0 3px 12px rgba(176,141,60,.35)}
+.btn-gold:active{background:var(--deepgold);color:#fff}
+.btn-dark{background:var(--ink);color:var(--gold)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:active{border-color:var(--gold)}
+.btn .d{display:block;font-size:14px;font-weight:600;opacity:.75;margin-top:2px}
+
+/* Cards */
+.card{background:var(--paper);border:1.5px solid var(--line);border-radius:18px;
+  padding:18px;margin:0 0 16px;box-shadow:0 2px 10px rgba(20,22,31,.05)}
+.card h2:first-child,.card h3:first-child{margin-top:0}
+.deal{border:2px solid var(--gold);background:#FFFBF0}
+.deal li{margin:0 0 8px}
+ul.tight{margin:8px 0;padding-left:22px}
+ol.tight{margin:8px 0;padding-left:22px}
+ol.tight li,ul.tight li{margin-bottom:8px}
+
+/* Hero on the home screen */
+.hero{text-align:center;padding:10px 0 4px}
+.hero img{width:110px;height:110px}
+.hero h1{font-size:36px;margin:10px 0 6px}
+.hero p{color:var(--mut);margin:0 auto 6px;max-width:34em}
+
+/* Full pretend banner (home) */
+.banner{background:var(--ink);color:var(--cream);border:2px solid var(--gold);border-radius:18px;
+  padding:16px 18px;margin:0 0 18px;text-align:center}
+.banner b{color:var(--gold)}
+.banner p{margin:4px 0 0;font-size:15.5px}
+
+/* Forms */
+label{display:block;font-weight:700;margin:0 0 14px;font-size:16.5px}
+label .hint{display:block;font-weight:500;color:var(--mut);font-size:14px;margin-top:2px}
+input[type=text],input[type=number],input[type=tel],input[type=email],textarea,select{
+  width:100%;margin-top:6px;padding:14px;border:1.5px solid var(--line);border-radius:12px;
+  font:inherit;font-size:17px;background:#fff;color:var(--ink)}
+input:focus,textarea:focus{outline:2px solid var(--gold);border-color:var(--gold)}
+
+/* Summary list on the review screen */
+.kv{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.kv:last-child{border-bottom:none}
+.kv b{flex:0 0 108px;color:var(--mut);font-size:14.5px;padding-top:2px}
+.kv span{font-weight:600}
+
+/* Pretend text-message card (contractor offer) */
+.msg{border:2px solid var(--ink);border-radius:18px;overflow:hidden;margin:0 0 16px;background:var(--paper)}
+.msg-hd{background:var(--ink);color:var(--gold);font-weight:800;padding:12px 16px;font-size:15.5px}
+.msg-bd{padding:16px 18px}
+.msg-bd p{margin:0 0 8px}
+.fee{font-size:22px;font-weight:800}
+.fee b{color:var(--deepgold)}
+
+/* Tap-box measuring grid */
+.mapgrid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin:12px 0}
+.mapgrid button{height:34px;border:1.5px solid var(--line);border-radius:7px;background:#EDF2E4;cursor:pointer;padding:0}
+.mapgrid button.sel{background:var(--gold);border-color:var(--deepgold)}
+.calc-out{font-weight:800;font-size:18px;margin:10px 0 0}
+.calc-out .tier{color:var(--deepgold)}
+
+/* Bottom navigation */
+.botnav{display:flex;gap:12px;max-width:680px;margin:10px auto 0;padding:14px 16px 26px}
+.botnav a{flex:1;text-align:center;text-decoration:none;font-weight:700;font-size:16px;
+  border:2px solid var(--line);border-radius:14px;padding:13px 8px;background:var(--paper);color:var(--ink)}
+.botnav a:active{border-color:var(--gold)}
+
+/* Sent / result screens */
+.bigcheck{font-size:52px;text-align:center;margin:8px 0 0}
+.center{text-align:center}
+
+footer{max-width:680px;margin:0 auto;padding:6px 16px 30px;text-align:center;color:var(--mut);font-size:13.5px}
+footer b{color:var(--ink)}
