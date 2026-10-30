@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Busy Bees Sandbox Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14161F;--gold:#DFB25D;--gold2:#C99A3A;--cream:#FAF5E9;--paper:#FFFDF7;--line:#E7DEC9;--mut:#5B5A52;--green:#1E7A4C;--red:#B42318;--blue:#2456A6;--card:#fff;--bg:var(--cream);--tx:var(--ink)}
+@media(prefers-color-scheme:dark){:root{--bg:#17181f;--paper:#1e202a;--card:#232532;--tx:#f3efe3;--mut:#b9b4a3;--line:#3a3c4d}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--tx);font-size:17px;line-height:1.5}
+h1,h2,h3,.serif{font-family:"Playfair Display",Georgia,serif}
+a{color:var(--blue)}button{font:inherit;cursor:pointer}
+.hdr{position:sticky;top:0;z-index:50;background:var(--ink);color:#fff;padding:10px 14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-start}
+.hdr .brand{font-family:"Playfair Display",serif;font-weight:800;font-size:22px}.hdr .brand span{color:var(--gold)}
+.hdr-left{display:flex;gap:10px;align-items:center;flex-wrap:wrap;order:1}
+.hdr nav{display:flex;flex-wrap:wrap;gap:6px;align-items:center;order:2}
+.cartbtn{background:var(--gold);color:#14161F;border:1px solid var(--gold);border-radius:999px;padding:9px 15px;font-weight:800;font-size:15px;order:3;margin-left:auto;white-space:nowrap}
+.cartbtn.on{background:#fff;border-color:#fff;box-shadow:inset 0 0 0 2px #14161F}
+.hbtn{background:#262836;color:#fff;border:1px solid #45475c;border-radius:999px;padding:9px 13px;font-weight:700;font-size:15px}.hbtn.on{background:var(--gold);color:#14161F;border-color:var(--gold)}
+@media(max-width:900px){.hdr-left{order:1}.cartbtn{order:2;margin-left:auto}.hdr nav{order:3;flex-basis:100%}}
+.homebtn{background:var(--gold);color:#14161F;border:0;border-radius:999px;padding:10px 16px;font-weight:800}
+.badge{background:#B42318;color:#fff;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:800;letter-spacing:.04em}
+.wrap{max-width:1120px;margin:0 auto;padding:18px 14px 90px}
+.view{display:none}.view.on{display:block}
+.hero{background:var(--ink);color:#fff;border-radius:18px;padding:26px 22px;margin-bottom:16px;position:relative;overflow:hidden}
+.hero h1{font-size:34px;margin:0 0 8px}.hero p{color:#E9E2CF;max-width:640px;margin:0}
+.hero .deco{position:absolute;right:14px;top:10px;font-size:30px;opacity:.9}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.g4{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.bigbtn{display:block;width:100%;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:16px;font-weight:700;font-size:18px;color:var(--tx)}
+.bigbtn small{display:block;font-weight:400;color:var(--mut);font-size:15px;margin-top:2px}
+.bigbtn:active,.bigbtn.sel{border-color:var(--gold2);background:#FFF6DE}
+.tag{display:inline-block;background:#EAF5EE;color:var(--green);border-radius:999px;padding:2px 10px;font-size:13px;font-weight:700}
+.tag.gold{background:#FBF0D3;color:#7A5A10}.tag.gray{background:#ECECE6;color:var(--mut)}.tag.red{background:#FDECEA;color:var(--red)}
+.btn{background:var(--ink);color:#fff;border:0;border-radius:12px;padding:14px 20px;font-weight:800;font-size:17px}.btn.gold{background:var(--gold);color:#14161F}.btn.ghost{background:transparent;color:var(--tx);border:2px solid var(--line)}.btn.sm{padding:9px 14px;font-size:15px}
+input,select,textarea{font:inherit;padding:12px;border:2px solid var(--line);border-radius:10px;background:var(--paper);color:var(--tx);width:100%}
+label{font-weight:700;display:block;margin:12px 0 5px}
+.path{color:var(--mut);font-size:15px;font-weight:700;margin-bottom:8px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.steps span{background:#ECE7D6;border-radius:999px;padding:3px 11px;font-size:13px;font-weight:700}.steps span.on{background:var(--gold)}
+table{width:100%;border-collapse:collapse;font-size:16px}th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.stickybar{position:fixed;left:0;right:0;bottom:0;background:var(--ink);color:#fff;padding:10px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between;z-index:40}
+.stickybar .btn{flex:0 0 auto}
+.simbox{background:#14161F;color:#D9F2DF;border-radius:12px;padding:14px;white-space:pre-wrap;font-size:15px}
+.mono{font-family:ui-monospace,monospace;font-size:14px}
+.pass{color:var(--green);font-weight:800}.fail{color:var(--red);font-weight:800}
+.note{background:#FFF6DE;border:1px solid var(--gold);border-radius:12px;padding:12px 14px}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.mapgrid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin:10px 0}.mapgrid button{aspect-ratio:1;border:1px solid #B9C7A8;background:#DCE8C8;border-radius:3px;padding:0}.mapgrid button.sel{background:var(--gold2)}
+.chatlog{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px;max-height:260px;overflow:auto}
+.msg{margin:8px 0}.msg b{font-size:14px}
+details{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--card);margin:8px 0}
+summary{font-weight:800;cursor:pointer;font-size:18px}
+.qrbox{width:132px;height:132px;border:3px solid var(--ink);border-radius:10px;background:repeating-conic-gradient(var(--ink) 0 25%,#fff 0 50%) 0 0/22px 22px;display:flex;align-items:flex-end;justify-content:center;margin:10px 0}
+.qrbox span{background:#fff;color:#14161F;font-size:11px;font-weight:800;padding:2px 6px;border-radius:4px;margin-bottom:6px}
+.pageurl{word-break:break-all;background:var(--paper);border:1px dashed var(--gold2);border-radius:8px;padding:8px 10px}
+.calc-out{background:#FFF6DE;border:1px solid var(--gold);border-radius:12px;padding:12px 14px;margin-top:12px}
+@media(prefers-color-scheme:dark){.calc-out{background:#2a2c1e}}
+.lockbar{background:#EAF5EE;border:1px solid var(--green);border-radius:12px;padding:10px 14px;margin-bottom:12px;font-weight:700}
+.sponsor{border:1.5px dashed var(--gold2);border-radius:12px;padding:12px 14px;background:var(--paper);margin:14px 0}
+.sponsor .slabel{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--gold2);margin:0 0 4px}
+.sponsor .sname{font-weight:800;font-size:17px;margin:0}
+.sponsor .sline{color:var(--mut);font-size:15px;margin:2px 0 0}
+.sponsor .sfake{font-size:13px;color:var(--mut);margin:6px 0 0;font-style:italic}
+.article-body p{max-width:68ch}
+.article-body h3{margin:20px 0 6px}
+.article-body ul{max-width:68ch;padding-left:22px}
+.article-body li{margin:5px 0}
+.affil{background:#EAF5EE;border:1px solid var(--green);border-radius:12px;padding:10px 14px;font-size:15px;max-width:68ch}
+.checklist{list-style:none;padding-left:0;max-width:68ch}
+.checklist li{padding:8px 12px;border:1px solid var(--line);border-radius:10px;margin:6px 0;background:var(--card)}
+.checklist li::before{content:"☐ ";font-weight:800;color:var(--gold2)}
+@media(max-width:560px){.hero h1{font-size:28px}.hdr .brand{font-size:19px}.qrbox{width:110px;height:110px}}
+:focus-visible{outline:3px solid var(--gold2);outline-offset:2px}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-left"><button class="homebtn" onclick="go('home')" aria-label="Go to home page">⌂ Home</button><div class="brand">Busy <span>Bees</span> <span class="badge">SANDBOX</span></div></div>
+  <nav aria-label="Main">
+    <button class="hbtn" data-nav="customer" onclick="go('customer')">Request a local pro</button>
+    <button class="hbtn" data-nav="contractor" onclick="go('contractor')">Contractors</button>
+    <button class="hbtn" data-nav="pages" onclick="go('pages')">Contractor Pages</button>
+    <button class="hbtn" data-nav="dispatcher" onclick="go('dispatcher')">Dispatcher</button>
+    <button class="hbtn" data-nav="areas" onclick="go('areas')">Areas</button>
+    <button class="hbtn" data-nav="almanac" onclick="go('almanac')">🌱 Almanac</button>
+    <button class="hbtn" data-nav="contact" onclick="go('contact')">Contact</button>
+    <button class="hbtn" data-nav="tests" onclick="go('tests')">Test runs</button>
+  </nav>
+  <button class="cartbtn" data-nav="cart" onclick="go('cart')" aria-label="View your cart">🛒 Cart <span id="cartN"></span></button>
+</header>
+
+<main class="wrap">
+
+<!-- ============ HOME / UMBRELLA ============ -->
+<section class="view" id="v-home">
+  <div class="hero"><div class="deco" id="seasonDeco" aria-hidden="true">☀️</div>
+    <h1>Give us a buzz.</h1>
+    <p>One board for local yard, home, and hauling help. Pick your area, pick what you need, and send one simple request. No account needed to ask. Contractors: <em>Keep your phone buzzing — with Busy Bees.</em></p>
+    <p style="margin-top:12px"><button class="btn gold" onclick="go('customer')">Request a local pro — Cape Cod</button> <button class="btn ghost" style="color:#fff;border-color:#555" onclick="go('contractor')">I am a contractor</button></p>
+    <p style="margin-top:8px;font-size:15px">Free to send — a local pro confirms first. It's a request, not an instant booking.</p>
+  </div>
+  <h2>Pick your area</h2>
+  <div class="grid g2" id="areaGrid"></div>
+  <h2 style="margin-top:26px">Mission Control — area status</h2>
+  <div class="card" id="mission"></div>
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card"><h3>How it works</h3><p>1. Pick a town and a service.<br>2. Answer one question at a time.<br>3. Send the request with one tap. A local contractor confirms, then you get the job done.</p></div>
+    <div class="card"><h3>For contractors</h3><p>Registered contractors log in, build a profile, and get matched job leads by text. You confirm before anything is final. <a href="#" onclick="go('contractor');return false">See the contractor page →</a></p><p>Members can also get <a href="#" onclick="go('pages');return false">their own booking page</a> for customers they already have — membership + 10% per own-page booking instead of the full fee.</p></div>
+    <div class="card"><h3>Suggestions &amp; contact</h3><p>Have an idea, a question, or a problem with a job? <a href="#" onclick="go('contact');return false">Send it here</a> — messages are private to the board owner.</p><p class="mono">Full terms available before launch.</p></div>
+  </div>
+  <div class="card" style="margin-top:16px;border-color:var(--gold2)">
+    <h3 style="margin-top:0">🌱 The Cape Cod Yard Almanac — free for everyone</h3>
+    <p>Plain, seasonal yard and garden guidance for Cape Cod homeowners: what to plant, when to plant it, and what your yard needs this month. Open to anybody — no sign-in, no account, nothing to buy.</p>
+    <p><button class="btn sm gold" onclick="go('almanac')">Read the Almanac →</button></p>
+  </div>
+</section>
+
+<!-- ============ ALMANAC INDEX ============ -->
+<section class="view" id="v-almanac">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px">
+    <div>
+      <h2 style="margin:0">The Cape Cod Yard Almanac</h2>
+      <p style="margin:6px 0 0;max-width:640px">Free seasonal guidance for Cape Cod yards — plants, planting, and the yard work each season actually calls for. Open to everybody, signed in or not. No sign-in wall, ever.</p>
+    </div>
+    <div>
+      <label style="display:inline;font-size:15px" for="almViewer">Viewing as: </label>
+      <select id="almViewer" style="width:auto;display:inline-block" onchange="setAlmViewer()">
+        <option value="guest">Guest (not signed in)</option>
+        <option value="member">Signed-in member</option>
+      </select>
+      <p class="mono" style="margin:4px 0 0">Sandbox toggle — signed-in members see fewer sponsor cards, but still some.</p>
+    </div>
+  </div>
+  <div id="almanacBody"></div>
+</section>
+
+<!-- ============ ALMANAC ARTICLE ============ -->
+<section class="view" id="v-article">
+  <p style="margin-top:0"><a href="#" onclick="go('almanac');return false">← Back to the Almanac</a></p>
+  <div id="articleBody"></div>
+</section>
+
+<!-- ============ CUSTOMER FLOW ============ -->
+<section class="view" id="v-customer">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+    <div><div class="path" id="pathCue">Cape Cod</div><h2 style="margin:0" id="stepTitle">Where is the job?</h2></div>
+    <div>
+      <label style="display:inline;font-size:15px">Signed in as: </label>
+      <select id="custPersona" style="width:auto;display:inline-block" onchange="setPersona()">
+        <option value="guest">Guest (no sign-in)</option>
+        <option value="returning">Signed in — returning customer</option>
+        <option value="new">Signed in — new customer</option>
+      </select>
+    </div>
+  </div>
+  <div class="steps" id="stepDots"></div>
+  <div id="lockedBanner"></div>
+  <div id="stepBody"></div>
+  <div style="display:flex;gap:10px;margin-top:16px">
+    <button class="btn ghost" id="backBtn" onclick="stepBack()">← Back</button>
+    <button class="btn ghost" onclick="go('home')">⌂ Home</button>
+  </div>
+</section>
+
+<!-- ============ CART ============ -->
+<section class="view" id="v-cart">
+  <h2>Your cart</h2>
+  <p>Every job you add, with the exact size and choices you picked. Send them all at once in one message.</p>
+  <div id="cartBody"></div>
+</section>
+
+<!-- ============ CONTRACTOR ============ -->
+<section class="view" id="v-contractor">
+  <div class="hero"><h1>Keep your phone buzzing — with Busy Bees.</h1><p>The contractor page, as approved. Registered contractors only: log in and build a profile first — job texts come after registration. Customers never pay; contractors pay one flat lead fee, confirmed before paying.</p></div>
+  <div class="card" style="margin-bottom:14px">
+    <h3 style="margin-top:0">Simulated contractor login</h3>
+    <p>Pick a dummy contractor to see their profile, leads, board, and messages. No real accounts exist in the sandbox.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap" id="proPicker"></div>
+  </div>
+  <div id="proBody"></div>
+  <h2>How it works for contractors</h2>
+  <div class="grid g3">
+    <div class="card"><h3>1. Get the text</h3><p>A matched job arrives by text: the job, the town, the size, and the flat lead fee — all in plain words.</p></div>
+    <div class="card"><h3>2. Confirm and pay</h3><p>Reply YES — the text gateway also reads natural replies like “Yeah,” “Accepted,” “Send it,” or a 👍, so a quick answer from a job site still counts. Pay the fee through a secure test checkout, and only then are the job details released. Declining is always free.</p></div>
+    <div class="card"><h3>3. Do the job</h3><p>Talk to the customer through the masked relay — neither phone number is ever shown. Quote the job price yourself, on site.</p></div>
+  </div>
+  <h2>Fee schedule (contractor view only)</h2>
+  <div class="card"><p>One flat fee per board-matched job sent to you. The core board has no subscription and no commission — you keep 100% of the job price, and the highest fee is $100. Verified discount: insurance shown = 5% off · licence + insurance = 10% off · licence alone = 0% until insurance is also shown. One discount per lead, ever — discounts never combine; extra discounts wait in line for later leads.</p><p><b>Separate, opt-in add-on:</b> a paid <a href="#" onclick="go('pages');return false">Contractor Page membership</a> gives you your own booking page. Bookings that come through your own page cost membership plus just 10% of the normal fee below, instead of the full fee. Board-matched jobs always stay at the full fee above, member or not. <a href="#" onclick="go('pages');return false">See Contractor Pages →</a></p><div id="feeTable"></div></div>
+  <div class="grid g2">
+    <div class="card"><h3>Why contractors like it here</h3><p>Exclusive leads, pay only when you accept, zero wasted spend. Compare: other boards charge on delivery or per click whether you respond or not. Here, declining costs nothing and a timeout is a pass, never a strike.</p><p>Refer a new customer: earn 20% off your next lead when their first request is accepted. Refer a new contractor: you both earn 25% off a lead once they are approved. Codes must be used within 7 days; earned discounts expire after 30 days. You can never use your own referral code — self-referral is blocked: if an enrollment or referral entry uses a code belonging to the same contractor or account, it is rejected. Nothing is ever free — discounts are percentages only.</p></div>
+    <div class="card"><h3>Levels &amp; trust</h3><p>Levels rise slowly with completed jobs and your trust score (70% site use + 30% customer ratings — published openly). Levels only add benefits: bigger approve windows, cart discounts, earlier access to recurring plans. Verified contractors unlock benefits sooner. New contractors start neutral and fully eligible.</p><p><span class="tag gold">Proposed — spec review</span> Bands: L1 New 0–4 jobs · L2 Growing 5–19 · L3 Established 20–49 · L4 Trusted 50+. Windows: 15 / 30 / 45 / 60 minutes, never over 1 hour.</p></div>
+  </div>
+  <div class="card" id="foundingReferralCard" style="margin-top:14px;border:2px solid var(--gold2);background:#FFF6DE;color:#14161F"><h3 style="margin-top:0">For the first core contractors</h3><p style="margin-bottom:0">Founding referral incentive — first core contractors: Among the first 6–10 core roster contractors, bringing another contractor onto the roster earns free membership time: 90 days for the first referral, plus 30 days for each additional one, credited when the new contractor is approved, banked with no cap. During the test run these free days replace your normal 25%-off referral bonus — they never stack. Every core founder also gets a baseline free trial for the test-run period itself, referrals or not. Once the roster reaches 10 contractors the days stop adding up — nothing else ends: banked days stay yours to use and trials run their course. Your founding code is how days get credited — print your code (BUZZ-01 through BUZZ-20, one per tracking slot) on your flyers, and when a recruit joins with your code, the days are credited to you. Codes BUZZ-11 through BUZZ-20 are spare / next-batch tracking codes — they do not extend the founding offer, and free days still stop adding once the roster reaches 10. How tracking works: a recruit's code is captured automatically from the flyer QR ref link or from a “JOIN BUZZ-xx” text, stored on the recruit's record, and only credited when that recruit is approved; manual entry remains the fallback. Self-referral is blocked.</p></div>
+  <div class="card" style="margin-top:14px"><h3>Welcome pick (choose one at join — no free leads)</h3>
+    <label><input type="radio" name="welcome" style="width:auto"> 50% off my first lead</label>
+    <label><input type="radio" name="welcome" style="width:auto"> 25% off my first 3 leads</label>
+    <p class="mono">Full terms available before launch.</p></div>
+</section>
+
+<!-- ============ CONTRACTOR PAGES + MEMBERSHIP ============ -->
+<section class="view" id="v-pages">
+  <div class="hero"><h1>Your own page. Your own customers.</h1><p>Members get a personal Busy Bees page to hand to customers they already have. The customer opens the link, picks a service, and the request comes straight to that contractor — no phone tag, no starting over. Board-matched jobs work exactly as before; nothing already built changes.</p><p style="margin-top:10px"><span class="tag gold">Sandbox proposal — prices marked proposed, not final</span></p></div>
+
+  <h2>How it works</h2>
+  <div class="grid g3">
+    <div class="card"><h3>1. Share your link</h3><p>Put your page link or QR code on invoices, texts, truck, cards, and social posts. It is yours to share with customers you already know.</p></div>
+    <div class="card"><h3>2. Customer picks a service</h3><p>Your page opens with <b>you already picked</b> as their contractor. They choose from the services you offer, answer the same simple questions as the main board, and send one request.</p></div>
+    <div class="card"><h3>3. You get notified, you confirm</h3><p>You get the same kind of text as a board lead. It is a <b>request, not an instant booking</b> — you confirm first, then the usual rules apply: fee on accept, then details and the masked relay open.</p></div>
+  </div>
+
+  <h2 style="margin-top:24px">Preview a contractor page — as a customer sees it</h2>
+  <p>Pick a dummy contractor. Members have a live page; non-members show what a contractor gets when they join.</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px" id="pagePicker"></div>
+  <div id="pagePreview"></div>
+
+  <h2 style="margin-top:26px">Membership — the deal</h2>
+  <div class="note"><p style="margin:0"><b>The 10% rule (your pick):</b> a booking that comes through your own page costs <b>membership + 10% of that job's normal lead fee</b>, charged only when you accept it. Declining is still free. No other discount stacks on a member booking — membership, verified, level, welcome, and referral discounts never combine on the same job. Verified and level still give you priority and earlier first look; they just do not take a second cut off the 10%.</p></div>
+  <div class="grid g3" style="margin-top:12px" id="planCards"></div>
+  <div class="card" style="margin-top:12px"><h3 style="margin-top:0">What the 10% actually is</h3><div id="tenTable"></div><p class="mono">The 10% amounts are small, so they are <b>not charged one by one</b>. They add up in your ledger through the month and are billed <b>once, together with the membership</b> — one charge, one card fee, instead of a card fee eating most of every tiny charge.</p></div>
+
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card"><h3 style="margin-top:0">Member vs. no membership</h3><div id="compareTable"></div><p>Same contractor, same jobs — the only difference is where the customer came from. Bring your own customer through your page: 10%. The board finds the customer: full fee, member or not.</p></div>
+    <div class="card"><h3 style="margin-top:0">Break-even calculator — try your own numbers</h3>
+      <label>Membership plan
+        <select id="calcPlan" onchange="calcMember()"><option value="weekly">Weekly — $19 / week (proposed)</option><option value="monthly" selected>Monthly — $49 / month (proposed)</option><option value="yearly">Yearly — $490 / year (proposed)</option></select></label>
+      <label>Your usual lead fee (average)<input id="calcFee" type="number" min="5" max="100" step="1" value="25" oninput="calcMember()"></label>
+      <label>Accepted jobs through your own page, per plan period<input id="calcJobs" type="number" min="0" max="200" step="1" value="4" oninput="calcMember()"></label>
+      <div class="calc-out" id="calcOut"></div>
+      <p class="mono">Honest check built in: quiet periods are shown too. If your own page brings in fewer jobs than break-even, plain pay-per-accept is cheaper that period — membership is opt-in for a reason.</p>
+    </div>
+  </div>
+
+  <h2 style="margin-top:24px">The fences — what membership can and cannot do</h2>
+  <div class="grid g2">
+    <div class="card"><h3 style="margin-top:0">Membership includes</h3><p>✓ Your own public page with your link and QR code<br>✓ Your own-page bookings at 10% of the normal fee, on accept only<br>✓ Straight-to-you routing for requests from your page<br>✓ The same profile, rating, level, and verified badge on your page</p></div>
+    <div class="card"><h3 style="margin-top:0">Membership never buys</h3><p>✗ Ranking or order on the board<br>✗ Rating, trust score, level, or verified status<br>✗ Cheaper board-matched jobs — those stay full fee<br>✗ A saved customer list or open chat — contact still opens only after accept and pay, through the masked relay</p></div>
+    <div class="card"><h3 style="margin-top:0">Leaving is clean</h3><p>Cancel anytime on weekly or monthly. Yearly can pause for a season instead of cancelling. If membership ends, your page unpublishes — but your profile, rating, level, verified status, and job history stay exactly as they were, and board jobs keep coming at the normal fee. Nothing is held hostage.</p></div>
+    <div class="card"><h3 style="margin-top:0">And the no-subscription promise?</h3><p>The core board promise stands word for word: <b>no subscription to get board jobs, pay only when you accept.</b> Membership is a separate, opt-in extra for contractors who want their own page — it is never required, never the default, and board work never depends on it. That wording still needs owner sign-off before anything goes live.</p></div>
+  </div>
+
+  <div class="card" style="margin-top:14px"><h3 style="margin-top:0">Try the member controls (sandbox)</h3><p>Switch the dummy contractor you picked above between plans and watch their page, ledger, and the Dispatcher view update. Nothing is charged — this is test mode.</p><div id="memberControls"></div><div id="memberLedger" style="margin-top:12px"></div></div>
+</section>
+
+<!-- ============ DISPATCHER ============ -->
+<section class="view" id="v-dispatcher">
+  <h2>Dispatcher view <span class="tag red">Owner only — sandbox</span></h2>
+  <p>Incoming requests, the routing queue, discounts and referrals, counters, and the decision log. Suggestion cards are design mock-ups only — nothing here runs live AI, and suggestions are never auto-applied.</p>
+  <div id="dispBody"></div>
+  <h3>Decision log</h3>
+  <div id="logBody"></div>
+  <div class="card"><h4 style="margin-top:0">Add a decision</h4>
+    <label>Customer's words<input id="logWords"></label>
+    <label>Your call<input id="logCall"></label>
+    <button class="btn sm gold" onclick="addLog()">Add entry</button></div>
+</section>
+
+<!-- ============ AREAS / PRE-LAUNCH ============ -->
+<section class="view" id="v-areas">
+  <h2>Areas</h2><div id="areasBody"></div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="view" id="v-contact">
+  <h2>Suggestions &amp; contact</h2>
+  <p>Messages are private to the board owner.</p>
+  <div class="card">
+    <label>What's this about?
+      <select id="cAbout"><option>Suggestion</option><option>Question</option><option>Problem with a job</option><option>Join the roster</option></select></label>
+    <label>Your message<textarea id="cMsg" rows="4"></textarea></label>
+    <label>Your name (optional)<input id="cName"></label>
+    <button class="btn gold" onclick="sendContact()">Text this to Busy Bees (simulated)</button>
+    <div id="contactOut" style="margin-top:12px"></div>
+  </div>
+  <div class="card" style="margin-top:14px"><h3>Quick answers (automated helper)</h3><div id="faq"></div>
+  <label>Ask in your own words<input id="chatIn" placeholder="e.g. I need my lawn mowed"></label>
+  <button class="btn sm" onclick="chatAsk()">Ask the helper</button>
+  <div class="chatlog" id="chatOut" style="margin-top:10px"><p class="mono">Automated helper: I can point you to the right service and add it to your cart. I never quote fees and never promise timing.</p></div></div>
+</section>
+
+<!-- ============ TESTS ============ -->
+<section class="view" id="v-tests">
+  <h2>Dummy test runs — every scenario family</h2>
+  <p>These run the sandbox's own rules: size boundaries, fee maths, discount no-stacking, routing, referral timing, board privacy, and the banned-content checks. Open-question flags are listed, never silently invented.</p>
+  <button class="btn gold" onclick="runTests()">▶ Run all simulations</button>
+  <span id="testSummary" style="margin-left:10px;font-weight:800"></span>
+  <p class="mono" id="lastRun">Last recorded full run: <b>74 / 74 passed</b> — Fri, Oct 30, 2026, re-run on the finished build with founding referral codes: tracking pool BUZZ-01 through BUZZ-20 (example contractors on BUZZ-01, BUZZ-02, BUZZ-03; BUZZ-11–BUZZ-20 are spare / next-batch codes and free days still stop adding once the roster reaches 10), the signed-in contractor's code shown on their profile under “Your founding code,” BUZZ codes accepted / self-referral blocked in the referral entry, the founding callout stating the code is how days get credited plus auto-capture from the flyer QR ref link or a “JOIN BUZZ-xx” text (stored on the recruit's record, credited only on approval, manual entry as fallback), and the new founding-codes test. On top of the (508) 258-9899 phone-swap build and the hardening pass. Zero failures.</p>
+  <div id="testBody" style="margin-top:14px"></div>
+  <h3>Open questions flagged by the simulations</h3>
+  <div class="card"><ul>
+    <li><b>Decided:</b> if <b>every</b> matched contractor declines or times out, the lead escalates to the unassigned regional queue and the owner is alerted; the customer is told we're still on it — never left hanging in silence. Try it in the Dispatcher view (“All decline / time out”).</li>
+    <li>Trimming, garden-bed care, and estate fees are ranges the dispatcher picks within — point values still need final approval at spec review.</li>
+    <li>Level bands, per-level window minutes, and cart discount percentages are <b>proposed</b> values, marked as such everywhere they appear.</li>
+    <li>Pre-launch going-live dates are “to be confirmed” — never invented.</li>
+    <li>Contractor Page membership prices ($19 weekly / $49 monthly / $490 yearly) and the 10% own-page rule are <b>proposed for the owner's sandbox walkthrough</b> — final prices and the exact no-subscription wording still need owner sign-off before anything goes live.</li>
+  </ul></div>
+</section>
+
+</main>
+
+<div class="stickybar" id="stickyBar" style="display:none">
+  <span id="stickyTxt" style="font-weight:700"></span>
+  <button class="btn gold" id="stickyBtn">Continue</button>
+</div>
+
+<script>
+/* ================= DATA (all dummy) ================= */
+var TOWNS=["Yarmouth","Hyannis / Barnstable","Dennis","Sandwich","Chatham","Harwich","Mashpee","Brewster"];
+var AREAS=[
+ {name:"Cape Cod",status:"live",towns:TOWNS,note:"The live board. Yarmouth + surrounding counter is hidden while testing (toggle off)."},
+ {name:"South Shore",status:"pre",approved:2,need:3,towns:["Plymouth","Kingston","Duxbury","Marshfield","Scituate","Hingham","Weymouth","Braintree","Quincy"]},
+ {name:"Western Mass",status:"ready",approved:3,need:3,towns:["Springfield","Chicopee","Holyoke","Northampton","Amherst","Pittsfield"]},
+ {name:"Rhode Island",status:"pre",approved:1,need:3,towns:["Providence","Pascoag / Burrillville","Woonsocket","Warwick","Cranston"]}];
+var CATS=[
+ {id:"tree",name:"Tree Work",season:["spring","summer","fall"],jobs:[
+   {id:"treeremoval",name:"Tree removal",q:"How many trees?",opts:["1 tree","2–3 trees","4–6 trees","7 or more"],fee:[20,30,50,100]},
+   {id:"limb",name:"Limb removal",q:"Tell us about the limbs",opts:["A few limbs — open yard","Heavy limbs — open yard","A few limbs — near roof, drive, or lines","Heavy limbs — near roof, drive, or lines"],fee:[15,25,25,35]},
+   {id:"stump",name:"Stump grinding",q:"How many stumps?",opts:["1 stump","2–3 stumps","4 or more"],fee:[15,25,40],cross:"Also under Landscaping"},
+   {id:"trim",name:"Tree trimming & pruning",q:"What kind of trimming?",opts:["Dead limb","Clearance","Crown work","Canopy shaping","Young tree"],feeRange:"$15–$75 by size (dispatcher confirms)"},
+   {id:"brush",name:"Brush clearing",q:"How big is the area?",opts:["Small overgrown lot","Large overgrown lot"],fee:[50,75],note:"Overgrown lots only. Wetland or complex jobs go through “Something else.”",cross:"Also under Landscaping"}]},
+ {id:"lawn",name:"Lawn Care",season:["spring","summer","fall"],jobs:[
+   {id:"mowing",name:"Lawn mowing",size:"lawn",freq:["One-time","Monthly","Every 2 weeks","Weekly","Seasonal"],fee:{one:[5,5,10,15,20],monthly:[5,10,15,20,25],biweekly:[10,15,20,25,30],weekly:[15,20,25,30,35],seasonal:[20,25,30,35,40]}},
+   {id:"aeration",name:"Aeration & seeding",variant:["Aeration only","Overseed only","Both"],size:"lawn",feeNote:"Aeration alone is a flat fee. Overseed and bundle use the same lawn sizes as mowing."}]},
+ {id:"land",name:"Landscaping",season:["spring","summer","fall"],jobs:[
+   {id:"bush",name:"Hedges & shrubs (bush trimming)",q:"How much trimming?",opts:["Tiny","Small","Medium","Large","Huge"],freq:["One-time","Seasonal (spring + fall)"],fee:{one:[5,10,25,40,50],seasonal:[15,20,35,50,60]}},
+   {id:"beds",name:"Mulch, weed & edge (garden beds)",variant:["Mulch","Weed & edge","Both"],size:"mulch",feeNote:"Mulch uses yard sizes. Weed & edge alone is a small range the dispatcher confirms. Both in one visit = the mulch size only — never two fees."},
+   {id:"cleanup",name:"Yard cleanups",variant:["Fall cleanup","Spring cleanup","General cleanup"],size:"cleanup",freq:["One-time","Both seasons"],fee:{one:[15,20,30,50,60],both:[25,30,40,60,70]}},
+   {id:"hardscape",name:"Hardscape install & repair",q:"What size job?",opts:["Small repair","Standard project","Full install"],fee:[25,50,100]},
+   {id:"brush2",name:"Brush clearing",sameAs:"brush"},
+   {id:"stump2",name:"Stump grinding",sameAs:"stump"}]},
+ {id:"storm",name:"Storm Cleanup",season:["fall","winter","spring"],jobs:[
+   {id:"debris",name:"Branches & debris",q:"How much is down?",opts:["One small pile","A yard's worth","Lot-wide"],fee:[15,30,60]},
+   {id:"fallentree",name:"Fallen tree",sameAs:"treeremoval",note:"Goes through the tree removal questions — same job, same fee."},
+   {id:"tarp",name:"Cover a storm-damaged roof (roof tarping)",q:"How big is the damaged area?",opts:["Small damaged area","Medium damaged area","Large damaged area"],fee:[30,40,50],mapRef:true,note:"We look at the roof on satellite to orient — the size comes from the damaged area you describe, confirmed by the contractor."}]},
+ {id:"snow",name:"Snow Removal",season:["winter"],winterOnly:true,jobs:[
+   {id:"snowtool",name:"Start here — pick your tool",tool:true,q:"Which fits your place?",opts:["Shoveling — walks, steps, small areas","Snowblower — standard drives","Plowing — large drives & lots","Salting only","Roof raking — from the ground","Not sure — tell us in notes"],feeNote:"Scope guide: plow = large drives and lots · snowblower = standard drives · shovel = walks, steps, small areas."},
+   {id:"shovel",name:"Shoveling",q:"What needs clearing?",opts:["Walkway — one storm","Full clearing — one storm","Walkway + steps — one storm","Season — walkway","Season — full (steps included)"],fee:[5,10,10,25,35]},
+   {id:"blower",name:"Snowblower",q:"Drive size?",opts:["Standard drive — one storm","Large drive — one storm","Season — standard","Season — large"],fee:[10,15,25,30],size:"drive"},
+   {id:"plow",name:"Plowing",q:"Drive or lot size?",opts:["Small — one storm","Standard — one storm","Large — one storm","Small + sand/salt","Standard + sand/salt","Large + sand/salt","Season — small","Season — standard","Season — large"],fee:[5,10,15,10,15,20,25,30,35],size:"drive"},
+   {id:"salt",name:"Salting",q:"Salting on its own",opts:["Yes — salting only"],fee:[5],note:"Free when bundled with another snow job to the same contractor."},
+   {id:"rake",name:"Roof raking (from the ground)",q:"House size?",opts:["Ranch","2-story"],fee:[20,30],note:"Done from the ground with a long rake. Going up on the roof itself is not a board service — use “Something else.”"}]},
+ {id:"haul",name:"Heavy Hauling",season:["spring","summer","fall"],jobs:[
+   {id:"single",name:"Single item",q:"One item to go",opts:["Yes — one item"],fee:[10]},
+   {id:"full",name:"Full load",q:"A full load",opts:["Yes — full load"],fee:[40]},
+   {id:"multi",name:"Multi-load",q:"How many loads?",opts:["Multi-load","Multi-load + construction debris"],fee:[60,80]},
+   {id:"estate",name:"Whole property (estate cleanout)",q:"How much of the property?",opts:["Partial","Average","Full"],feeRange:"$10 · $25–$45 · $65–$75 (dispatcher confirms)"}]},
+ {id:"wash",name:"Pressure Washing",season:["spring","summer"],jobs:[
+   {id:"housewash",name:"House wash — siding",q:"House size?",opts:["Small / ranch","Standard 2-story","Large / estate"],fee:[25,35,50]},
+   {id:"surfaces",name:"Driveways, patios & decks",variant:["Walkway","Porch & steps","Patio","Driveway","Pool deck","Deck"],q:"Size?",opts:["Small","Standard","Large"],feeNote:"Priced by surface + size. Whole property (house + drive + deck) is one set price."},
+   {id:"roofwash",name:"Roof wash — soft wash for roofs",q:"Roof size?",opts:["Small","Standard","Large"],fee:[25,35,50]},
+   {id:"gutter",name:"Gutter cleaning (one-time only)",q:"Stories?",opts:["Ranch","2-story","3-story"],fee:[15,20,30]},
+   {id:"carwash",name:"Car wash — exterior only (we come to you)",q:"How often?",opts:["One wash","Monthly","Every 2 weeks","Weekly"],fee:[5,10,15,20]}]}
+];
+var JOB_INDEX={};CATS.forEach(function(cat){cat.jobs.forEach(function(job){JOB_INDEX[job.id]=job;});});
+var LAWN_TIERS=["Tiny","Small","Standard","Large","Huge"];
+function lawnTier(sqft){if(sqft<=2000)return 0;if(sqft<=5000)return 1;if(sqft<=10000)return 2;if(sqft<=20000)return 3;return 4;}
+function mulchTier(yd){if(yd<=1)return 0;if(yd<=2)return 1;if(yd<=5)return 2;if(yd<=10)return 3;return 4;}
+var MULCH_TIERS=["Tiny","Small","Standard","Full","Huge"];
+var MULCH_FEE=[10,15,25,40,50];
+var MEMBERSHIP={weekly:{label:"Weekly",price:19,per:"week"},monthly:{label:"Monthly",price:49,per:"month"},yearly:{label:"Yearly",price:490,per:"year"}};
+function cents(dollars){return Math.round(dollars*100);}
+function tenPctCents(fee){return Math.round(cents(fee)*10/100);}
+function memberPeriodCostCents(plan,jobs,avgFee){return cents(MEMBERSHIP[plan].price)+(jobs*tenPctCents(avgFee));}
+function breakevenJobs(plan,avgFee){var saveCents=cents(avgFee)-tenPctCents(avgFee);if(saveCents<=0)return null;return Math.ceil(cents(MEMBERSHIP[plan].price)/saveCents);}
+var FOUNDING_CODES=["BUZZ-01","BUZZ-02","BUZZ-03","BUZZ-04","BUZZ-05","BUZZ-06","BUZZ-07","BUZZ-08","BUZZ-09","BUZZ-10","BUZZ-11","BUZZ-12","BUZZ-13","BUZZ-14","BUZZ-15","BUZZ-16","BUZZ-17","BUZZ-18","BUZZ-19","BUZZ-20"];
+var PROS=[
+ {id:"p1",biz:"Cape Tree Co. (dummy)",level:4,jobs:62,verified:"both",trust:88,rating:4.9,code:"BEES-TREE1",foundingCode:"BUZZ-01",services:["Tree Work","Storm Cleanup"],towns:["Yarmouth","Dennis"],capacity:3,standing:true,discounts:["Referral 25% (expires in 12 days)"],member:"monthly",slug:"cape-tree-co",blurb:"Tree removal, limbs, stumps, and storm cleanup across Yarmouth and Dennis."},
+ {id:"p2",biz:"Yarmouth Lawn Care (dummy)",level:2,jobs:11,verified:"insurance",trust:74,rating:4.7,code:"BEES-LAWN2",foundingCode:"BUZZ-02",services:["Lawn Care","Landscaping"],towns:["Yarmouth","Hyannis / Barnstable"],capacity:5,standing:false,discounts:["Welcome 25% (1 of 3 left)"],member:"weekly",slug:"yarmouth-lawn-care",blurb:"Mowing plans, cleanups, mulch, and beds — regular routes in Yarmouth and Hyannis."},
+ {id:"p3",biz:"Harwich Hauling (dummy)",level:1,jobs:2,verified:"none",trust:null,rating:null,code:"BEES-HAUL3",foundingCode:"BUZZ-03",services:["Heavy Hauling"],towns:["Harwich","Chatham"],capacity:2,standing:false,discounts:[],member:"none",slug:"harwich-hauling",blurb:"Single items, full loads, and cleanouts in Harwich and Chatham."}];
+PROS.forEach(function(p){if(!p.billing)p.billing="ok";});
+function matchingPros(serviceName,town){return PROS.filter(function(p){return (!serviceName||p.services.indexOf(serviceName)>=0)&&(!town||p.towns.indexOf(town)>=0)&&(typeof p.capacity==="number"&&p.capacity>0);});}
+function randomMatchingPro(serviceName,town){var pool=matchingPros(serviceName,town);if(!pool.length)return null;return pool[Math.floor(Math.random()*pool.length)];}
+var OWN_LEDGER={
+ p1:[{label:"Tree removal — 2–3 trees (own page)",fee:30},{label:"Limb removal — heavy, open yard (own page)",fee:25},{label:"Stump grinding — 1 stump (own page)",fee:15}],
+ p2:[{label:"Lawn mowing — Standard, Weekly plan (own page)",fee:25},{label:"Yard cleanup — Standard, One-time (own page)",fee:20}],
+ p3:[]};
+var JOBS_BOARD=[
+ {id:"J-101",service:"Lawn mowing — Standard, Weekly",town:"Yarmouth",fee:25,status:"open",when:"This week",desc:"Weekly mowing, standard lawn."},
+ {id:"J-102",service:"Tree removal — 2–3 trees",town:"Dennis",fee:30,status:"held",when:"Flexible",desc:"Held for a verified contractor — confirming shortly."},
+ {id:"J-103",service:"Full load hauling",town:"Harwich",fee:40,status:"filled",when:"—",desc:"Assigned."},
+ {id:"J-104",service:"Branches & debris — yard",town:"Yarmouth",fee:30,status:"open",when:"After the storm",desc:"Branches across the yard."}];
+var LOG=[{w:"“Big tree leaning after the storm”",c:"Routed as Storm → Fallen tree → tree-removal flow, same fee."},{w:"“Need the whole place cleared out”",c:"Estate cleanout — dispatcher confirms partial vs full before any fee."},{w:"“Just a weird job, not on the list”",c:"“Something else” — dispatcher assigns the fee, contractor confirms."}];
+var cart=[];var persona="guest";var curPro=PROS[0];var pagePro=PROS[0];var lockedPro=null;
+var flow={step:0,town:null,cat:null,job:null,pick:null,variant:null,freq:null,sizeLabel:null,choice:null};
+var resuming=false;
+var FLOW_STEPS=["Town","Category","Job","Details","Choice","Confirm"];
+
+/* ================= NAV ================= */
+function go(v){var resumeCustomer=resuming;resuming=false;if(v==="customer"&&!resumeCustomer){flow.step=0;flow.job=null;flow.cat=null;flow.town=null;flow.pick=null;flow.variant=null;flow.freq=null;flow.sizeLabel=null;flow.choice=null;lockedPro=null;}document.querySelectorAll(".view").forEach(function(e){e.classList.remove("on")});document.getElementById("v-"+v).classList.add("on");document.querySelectorAll("[data-nav]").forEach(function(b){b.classList.toggle("on",b.dataset.nav===v)});document.getElementById("stickyBar").style.display=(v==="customer"&&flow.step<5)?"flex":"none";window.scrollTo(0,0);if(v==="cart")renderCart();if(v==="dispatcher")renderDisp();if(v==="areas")renderAreas();if(v==="pages")renderPages();if(v==="almanac")renderAlmanac();if(v==="customer")renderStep();}
+/* ================= HOME ================= */
+function seasonNow(){var m=new Date().getMonth()+1;var d=new Date().getDate();if((m===12&&d>=4)||m===1||m===2||(m===3&&d<=14))return{xmas:(m===12&&d>=4&&d<=25),label:"Winter"};if(m>=3&&m<=5)return{label:"Spring"};if(m>=6&&m<=8)return{label:"Summer"};return{label:"Fall"};}
+function renderHome(){var g=document.getElementById("areaGrid");g.innerHTML=AREAS.map(function(a){var st=a.status==="live"?'<span class="tag">● LIVE</span>':a.status==="ready"?'<span class="tag gold">Pre-launch — 3 of 3 contractors, opening date to be confirmed</span>':'<span class="tag gray">Coming soon — '+a.approved+' of '+a.need+' contractors</span>';return '<div class="card"><h3 style="margin-top:0">'+a.name+'</h3>'+st+'<p>'+(a.note||("Proposed towns — to be confirmed: "+a.towns.slice(0,5).join(", ")+"…"))+'</p><p>Going-live date: <b>'+(a.status==="live"?"Live now":"To be confirmed")+'</b></p>'+(a.status==="live"?'<button class="btn sm gold" onclick="go(\'customer\')">Request a local pro</button>':'<button class="btn sm" onclick="go(\'areas\')">Join the roster</button>')+'</div>';}).join("");
+ document.getElementById("mission").innerHTML=AREAS.map(function(a){return '<div class="kv"><span><b>'+a.name+'</b></span><span>'+(a.status==="live"?"Live":a.status==="ready"?"Pre-launch — threshold reached, opening date to be confirmed":"Coming soon")+'</span></div>';}).join("")+'<div class="kv"><span>Yarmouth + surrounding counter</span><span><b>Hidden while testing</b> (toggle off)</span></div>';
+ var s=seasonNow();document.getElementById("seasonDeco").textContent=s.xmas?"🎄":(s.label==="Winter"?"❄️":s.label==="Spring"?"🌸":s.label==="Summer"?"☀️":"🍂");}
+/* ================= CUSTOMER FLOW ================= */
+function setPersona(){persona=document.getElementById("custPersona").value;}
+function optBtn(label,sub,fn){return '<button class="bigbtn" onclick="'+fn+'">'+label+(sub?'<small>'+sub+'</small>':"")+'</button>';}
+function dots(){document.getElementById("stepDots").innerHTML=FLOW_STEPS.map(function(s,i){return '<span class="'+(i===flow.step?"on":"")+'">'+s+"</span>";}).join("");}
+function cue(){var c="Cape Cod";if(flow.town)c+=" · "+flow.town;if(flow.cat)c+=" > "+flow.cat.name;if(flow.job)c+=" > "+flow.job.name;document.getElementById("pathCue").textContent=c;}
+function sticky(txt,fn){var b=document.getElementById("stickyBar");b.style.display=document.getElementById("v-customer").classList.contains("on")?"flex":"none";document.getElementById("stickyTxt").textContent=txt;document.getElementById("stickyBtn").onclick=fn;}
+function renderStep(){dots();cue();var b=document.getElementById("stepBody");var t=document.getElementById("stepTitle");var lb=document.getElementById("lockedBanner");if(lb){lb.innerHTML=lockedPro?'<div class="lockbar">Your contractor: '+lockedPro.biz+' — picked from their page. This request goes straight to them first. <button class="btn sm ghost" onclick="clearLocked()">Change</button></div>':"";}
+document.getElementById("backBtn").style.visibility=flow.step===0?"hidden":"visible";document.getElementById("stickyTxt").textContent=["Pick your town to begin","Pick what you need done","Pick the job","Answer, then add your details","Pick your contractor","One tap sends it"][flow.step]||"";
+ if(flow.step===0){t.textContent="Where is the job?";b.innerHTML='<div class="grid g4">'+TOWNS.map(function(x,i){return optBtn(x,"","pickTown("+i+")");}).join("")+"</div>";sticky("Pick your town to begin",function(){});}
+ if(flow.step===1){t.textContent="What do you need done?";var sn=seasonNow().label.toLowerCase();var inS=CATS.filter(function(c){return c.season.indexOf(sn)>=0});var off=CATS.filter(function(c){return c.season.indexOf(sn)<0});
+  b.innerHTML='<div class="grid g2">'+inS.map(function(c){return optBtn(c.name,'<span class="tag">In season</span>',"pickCat('"+c.id+"')");}).join("")+"</div>"+(off.length?'<h3>More services (off-season)</h3><div class="grid g2">'+off.map(function(c){return optBtn(c.name,"Still available — just not peak season","pickCat('"+c.id+"')");}).join("")+"</div>":"")+'<p style="margin-top:14px"><a href="#" onclick="somethingElse();return false">Something else? Tell us →</a></p>';}
+ if(flow.step===2){var c=flow.cat;t.textContent=c.name+" — pick the job";b.innerHTML='<div class="grid g2">'+c.jobs.map(function(j,i){return optBtn(j.name,j.cross||j.note||"","pickJob("+i+")");}).join("")+'</div><p style="margin-top:14px"><a href="#" onclick="somethingElse();return false">Something else? Tell us →</a></p>';}
+ if(flow.step===3){t.textContent=flow.job.name;renderJobDetail(b);}
+ if(flow.step===4){if(lockedPro){flow.choice="Your contractor — "+lockedPro.biz+" (from their page)";flow.step=5;renderStep();return;}
+  if(persona==="guest"){flow.choice="Site-recommended";flow.step=5;renderStep();return;}
+  t.textContent="What contractor would you want?";var discPool=matchingPros(flow.cat?flow.cat.name:null,flow.town);b.innerHTML='<div class="grid g3">'
+  +optBtn("A previous contractor","One tap — someone who has done this for you before","pickChoice('Previous contractor')")
+  +optBtn("Site-recommended","Matched on availability, job size, site rating, town & service match, verified first look, and continuity","pickChoice('Site-recommended')")
+  +optBtn("Discover one","See our top 5 — or get routed to a random contractor who matches this service and town","pickDiscover()")
+  +'</div><div class="card" style="margin-top:12px"><h4 style="margin-top:0">Discover — matching contractors (dummy)</h4>'+(discPool.length?discPool.slice(0,5).map(function(p,i){return '<div class="kv"><span>'+(i+1)+'. '+p.biz+' — '+p.services.join(", ")+'</span><span>'+(p.rating?("★ "+p.rating):"New to Busy Bees")+' · '+(p.verified==="none"?"Not checked":"Verified")+' · can still take '+p.capacity+' job'+(p.capacity===1?"":"s")+'</span></div>';}).join(""):'<p>No contractor matches this service and town with capacity right now — site-recommended routing will look for the next available match.</p>')+'<p class="mono">Discover shows only contractors who match the selected service and town and still have capacity. Random selection draws only from that matching pool. Site rating drives order. Google reviews are linked, never copied, and never change the order.</p></div>';}
+ if(flow.step===5){t.textContent="Request ready — one tap sends it";var items=cartSummaryItems();var txt="Hi Busy Bees! Sandbox request:\n"+items+"\nTown: "+(flow.town||"—")+"\nFrom: (your details on the previous screen)";
+  b.innerHTML='<div class="card"><h3 style="margin-top:0">Your request</h3><p>'+items.replace(/\n/g,"<br>")+'</p><p>Contractor choice: <b>'+(flow.choice||"Site-recommended")+'</b></p>'+(lockedPro?'<p>Sent from '+lockedPro.biz+'\'s page — they get notified first and confirm before anything is final. Contact opens through the board relay after they accept.</p>':"")+'</div><h3>The text that would be sent</h3><div class="simbox">To: (508) 258-9899\n\n'+txt+'</div><p style="margin-top:14px"><button class="btn gold" style="font-size:20px;padding:18px 26px" onclick="alertSim()">Text This Request to Busy Bees (simulated)</button></p><p><button class="btn ghost" onclick="go(\'home\')">⌂ Back to home</button> <button class="btn ghost" onclick="go(\'cart\')">View cart</button></p><p class="mono">Sandbox: nothing is really sent. No fee is ever shown to customers — contractors pay the lead fee, customers never pay.</p></div>';document.getElementById("stickyBar").style.display="none";}}
+function cartSummaryItems(){var parts=[];if(flow.job)parts.push("• "+flow.job.name+(flow.variant?" — "+flow.variant:"")+(flow.pick?" — "+flow.pick:"")+(flow.sizeLabel?" — "+flow.sizeLabel:"")+(flow.freq?" — "+flow.freq:""));cart.forEach(function(c){parts.push("• "+c.label);});return parts.length?parts.join("\n"):"(nothing picked yet)";}
+function alertSim(){var el=document.getElementById("stepBody");el.insertAdjacentHTML("beforeend",'<div class="note" style="margin-top:12px"><b>Simulated send complete.</b> In the live board this one tap texts the request. Here, nothing left your phone. The dispatcher view now shows it in the queue.</div>');pushQueue();}
+function pickTown(i){flow.town=TOWNS[i];flow.step=1;renderStep();}
+function pickCat(id){flow.cat=CATS.filter(function(c){return c.id===id})[0];flow.step=2;renderStep();}
+function findJob(id){return JOB_INDEX[id]||null;}
+function pickJob(i){var j=flow.cat.jobs[i];if(j.sameAs){j=findJob(j.sameAs);}flow.job=j;flow.pick=null;flow.variant=null;flow.freq=null;flow.sizeLabel=null;flow.step=3;renderStep();}
+function somethingElse(){flow.job={id:"other",name:"Something else"};flow.cat=flow.cat||{name:"Something else"};flow.step=3;renderStep();}
+function renderJobDetail(b){var j=flow.job;var h="";
+ if(j.id==="other"){h='<p>Describe it in your own words. No size or price is picked here — the dispatcher assigns it and a contractor confirms.</p><label>What do you need?<textarea id="dNotes" rows="3"></textarea></label>'+detailsFields()+'<button class="btn gold" onclick="finishDetails()">Continue</button>';b.innerHTML=h;return;}
+ if(j.tool){h='<div class="note">'+j.feeNote+'</div><div class="grid g2" style="margin-top:12px">'+j.opts.map(function(o,i){return optBtn(o,"","pickTool("+i+")");}).join("")+"</div>";b.innerHTML=h;return;}
+ if(j.variant){h+='<label>Which kind?</label><div class="grid g3">'+j.variant.map(function(v,i){return optBtn(v,"","pickVariant("+i+")");}).join("")+"</div><div id='varNext'></div>";b.innerHTML=h;return;}
+ if(j.size){h+=sizeBlock(j);b.innerHTML=h;return;}
+ if(j.opts){h+='<p style="font-weight:700">'+j.q+'</p><div class="grid g2">'+j.opts.map(function(o,i){return optBtn(o,j.feeRange?"":"",'pickOpt('+i+')');}).join("")+"</div>";if(j.note)h+='<p class="note" style="margin-top:12px">'+j.note+"</p>";if(j.mapRef)h+=mapBox();b.innerHTML=h;return;}
+ b.innerHTML="<p>Continue to your details.</p>"+detailsFields()+'<button class="btn gold" onclick="finishDetails()">Continue</button>';}
+function pickTool(i){var ids=["shovel","blower","plow","salt","rake"];if(i===5){somethingElse();return;}var j=findJob(ids[i]);flow.job=j;renderStep();}
+function pickVariant(i){flow.variant=flow.job.variant[i];var vn=document.getElementById("varNext");var j=flow.job;
+ if(j.size){vn.innerHTML=sizeBlock(j);return;}
+ if(j.id==="surfaces"){vn.innerHTML='<p style="font-weight:700">Size?</p><div class="grid g3">'+["Small","Standard","Large"].map(function(s,k){return optBtn(s,"","pickOpt("+k+")");}).join("")+"</div>"+mapBox();return;}
+ vn.innerHTML=detailsFields()+'<button class="btn gold" onclick="finishDetails()">Continue</button>';}
+function sizeBlock(j){var kind=j.size;var h="";
+ if(kind==="lawn"){h+='<p style="font-weight:700">How big is the lawn (the part that gets mowed)?</p><div class="grid g3">'+LAWN_TIERS.map(function(s,i){return optBtn(s+" lawn","","pickSize("+i+")");}).join("")+'</div><p class="mono">Total lot is not the mowed part — mowed area is roughly 60–75% of the whole lot.</p>'+sqftBox("lawn")+mapBox();}
+ if(kind==="mulch"){h+='<p style="font-weight:700">How much mulch? (1 cubic yard covers about 100 sq ft, 3 inches deep)</p><div class="grid g3">'+MULCH_TIERS.map(function(s,i){return optBtn(s,"","pickSize("+i+")");}).join("")+'</div><label>Or enter cubic yards<input id="ydIn" type="number" min="0" step="0.5" placeholder="e.g. 2.5"></label><button class="btn sm" onclick="ydMap()">Use this amount</button> <span id="ydOut" class="mono"></span>'+(flow.job.feeNote?'<p class="note" style="margin-top:10px">'+flow.job.feeNote+"</p>":"")+mapBox();}
+ if(kind==="cleanup"){h+='<p style="font-weight:700">How big is the yard?</p><div class="grid g3">'+["Tiny","Small","Standard","Acre+","Huge"].map(function(s,i){return optBtn(s,"","pickSize("+i+")");}).join("")+"</div>"+mapBox();}
+ if(kind==="drive"){h+='<p style="font-weight:700">How big is the drive?</p><div class="grid g3">'+["Small","Standard","Large"].map(function(s,i){return optBtn(s,"","pickSize("+i+")");}).join("")+"</div>"+mapBox();}
+ return h;}
+function sqftBox(kind){return '<div class="card" style="margin-top:12px"><h4 style="margin-top:0">Know your square footage? Enter it</h4><label>Square feet<input id="sqIn" type="number" min="0" placeholder="e.g. 5000"></label><button class="btn sm" onclick="sqMap()">Use this number</button> <span id="sqOut" class="mono"></span><p class="mono">Rough guides: parking space ≈160 · two-car driveway ≈400 · living room ≈200–300 · tennis court ≈2,800 sq ft. Calculator: length × width = square feet; odd shapes: split into rectangles and add.</p></div>';}
+function sqMap(){var v=parseFloat(document.getElementById("sqIn").value);if(isNaN(v))return;var t=lawnTier(v);document.getElementById("sqOut").textContent=v.toLocaleString()+" sq ft → "+LAWN_TIERS[t]+" tier (edges go to the lower tier).";flow.sizeLabel=LAWN_TIERS[t]+" ("+v.toLocaleString()+" sq ft)";flow._tier=t;showFreqOrDetails();}
+function ydMap(){var v=parseFloat(document.getElementById("ydIn").value);if(isNaN(v))return;var t=mulchTier(v);document.getElementById("ydOut").textContent=v+" yd → "+MULCH_TIERS[t]+" tier.";flow.sizeLabel=MULCH_TIERS[t]+" ("+v+" yd)";flow._tier=t;showFreqOrDetails();}
+var mapPts=0;
+function mapBox(){mapPts=0;var cells="";for(var i=0;i<50;i++)cells+='<button type="button" aria-label="lot cell" onclick="mapTap(this)"></button>';return '<div class="card" style="margin-top:12px"><h4 style="margin-top:0">📍 Measure on the map (sandbox stand-in)</h4><p class="mono">Live tiles are replaced here by a practice lot grid. Tap the corners of the area — the size updates as you go. Typing and the calculator always work too; the map is a helper, never a blocker.</p><div class="mapgrid">'+cells+'</div><p>Area so far: <b id="mapArea">0</b> sq ft <button class="btn sm gold" onclick="mapUse()">Use this number</button> <button class="btn sm ghost" onclick="renderStep()">Close map</button></p></div>';}
+function mapTap(el){el.classList.toggle("sel");mapPts=document.querySelectorAll(".mapgrid button.sel").length;document.getElementById("mapArea").textContent=(mapPts*400).toLocaleString();}
+function mapUse(){var v=mapPts*400;if(v<=0)return;var t=lawnTier(v);flow.sizeLabel=LAWN_TIERS[t]+" ("+v.toLocaleString()+" sq ft, map)";flow._tier=t;showFreqOrDetails();}
+function pickSize(i){flow._tier=i;var j=flow.job;flow.sizeLabel=(j.size==="mulch"?MULCH_TIERS[i]:j.size==="lawn"?LAWN_TIERS[i]:["Small","Standard","Large","Acre+","Huge"][i]||LAWN_TIERS[i]);showFreqOrDetails();}
+function showFreqOrDetails(){var j=flow.job;var b=document.getElementById("stepBody");
+ if(j.freq && !flow.freq){b.innerHTML='<p style="font-weight:700">How often?</p><div class="grid g3">'+j.freq.map(function(f,i){return optBtn(f,"No yearly plans — seasonal is the longest","pickFreq("+i+")");}).join("")+"</div>";return;}
+ b.innerHTML=detailsFields()+'<button class="btn gold" onclick="finishDetails()">Continue</button> <button class="btn ghost" onclick="addToCart()">Add to cart &amp; pick another service</button>';}
+function pickOpt(i){flow.pick=flow.job.opts[i];flow._tier=i;var b=document.getElementById("stepBody");b.innerHTML=detailsFields()+'<button class="btn gold" onclick="finishDetails()">Continue</button> <button class="btn ghost" onclick="addToCart()">Add to cart &amp; pick another service</button>';}
+function pickFreq(i){flow.freq=flow.job.freq[i];var b=document.getElementById("stepBody");b.innerHTML=detailsFields()+'<button class="btn gold" onclick="finishDetails()">Continue</button> <button class="btn ghost" onclick="addToCart()">Add to cart &amp; pick another service</button>';}
+function detailsFields(){var pre=persona==="returning";return '<h3>Your details</h3><label>Your name<input id="dName" value="'+(pre?"Returning Customer (dummy)":"")+'"></label><label>Your phone<input id="dPhone" value="'+(pre?"On file":"")+'"></label><label>Notes for the contractor (optional)<textarea id="dNotes2" rows="2"></textarea></label><p class="mono">Sizes are your best estimate. The contractor confirms the size before anything is final; if it differs, the dispatcher adjusts — nothing is owed until it is agreed.</p>';}
+function curLabel(){return flow.job.name+(flow.variant?" — "+flow.variant:"")+(flow.pick?" — "+flow.pick:"")+(flow.sizeLabel?" — "+flow.sizeLabel:"")+(flow.freq?" — "+flow.freq:"");}
+function addToCart(){cart.push({label:curLabel(),job:flow.job,tier:flow._tier,freq:flow.freq,pick:flow.pick});document.getElementById("cartN").textContent="("+cart.length+")";flow.step=1;flow.job=null;renderStep();}
+function finishDetails(){flow.step=4;renderStep();}
+function pickChoice(c){flow.choice=c;flow.step=5;renderStep();}
+function pickDiscover(){var r=randomMatchingPro(flow.cat?flow.cat.name:null,flow.town);flow.choice=r?("Discover — random match: "+r.biz):"Discover — no matching contractor with capacity right now (site-recommended fallback)";flow.step=5;renderStep();}
+function stepBack(){if(flow.step>0){flow.step--;if(flow.step===4&&(persona==="guest"||lockedPro))flow.step=3;renderStep();}}
+function clearLocked(){lockedPro=null;renderStep();}
+function bookWithPro(proId,catName){var p=PROS.filter(function(x){return x.id===proId})[0];if(!p)return;lockedPro=p;flow.step=0;flow.town=null;flow.cat=null;flow.job=null;resuming=true;go('customer');renderStep();var el=document.getElementById("stepBody");el.insertAdjacentHTML("afterbegin",'<div class="note" style="margin-bottom:12px"><b>Booking with '+p.biz+'.</b> Pick your town, then '+(catName?catName+" is one of their services — ":"")+'choose the job. Your request goes straight to them first; they confirm before anything is final.</div>');}
+/* ================= CART ================= */
+function cartFee(c){var j=c.job;if(!j||!j.fee)return null;if(Array.isArray(j.fee))return j.fee[c.tier||0];return null;}
+function renderCart(){var b=document.getElementById("cartBody");if(!cart.length){b.innerHTML='<div class="card">Your cart is empty. <a href="#" onclick="go(\'customer\');return false">Request a local pro →</a></div>';return;}
+ b.innerHTML='<div class="card">'+cart.map(function(c,i){return '<div class="kv"><span><b>'+(i+1)+'.</b> '+c.label+'</span><button class="btn sm ghost" onclick="cart.splice('+i+',1);renderCart();document.getElementById(\'cartN\').textContent=cart.length?\'(\'+cart.length+\')\':\'\'">Remove</button></div>';}).join("")+'<p style="margin-top:12px"><button class="btn gold" onclick="sendCart()">Send all at once (simulated)</button></p><div id="cartOut"></div><p class="mono">Routing, in plain words: each job goes to recommended contractors, split by kind of work — matched on availability, job size, site rating, town &amp; service match, verified first look, and whether they have done this work for you before. If you picked one contractor, they get the whole cart for the services they offer; anything outside that is routed normally and you are told so.</p></div>';}
+function sendCart(){var txt="Hi Busy Bees! Sandbox cart request:\n"+cart.map(function(c){return "• "+c.label;}).join("\n");document.getElementById("cartOut").innerHTML='<h4>The one summary text that would be sent</h4><div class="simbox">To: (508) 258-9899\n\n'+txt+'</div><p><button class="btn ghost" onclick="go(\'home\')">⌂ Back to home</button></p>';pushQueue();}
+/* ================= CONTRACTOR ================= */
+function feeFor(job,tier){if(Array.isArray(job.fee))return job.fee[tier||0];return null;}
+function discCalc(fee,pct){return Math.round(fee*(100-pct))/100;}
+function renderPros(){document.getElementById("proPicker").innerHTML=PROS.map(function(p,i){return '<button class="btn sm '+(p===curPro?"gold":"ghost")+'" onclick="curPro=PROS['+i+'];renderPros()">'+p.biz+'</button>';}).join("");
+ var p=curPro;var vlab=p.verified==="both"?"Verified — licence + insurance (10% off fees)":p.verified==="insurance"?"Verified — insurance shown (5% off fees)":"Not checked (no discount yet)";
+ var lvl=["","L1 New","L2 Growing","L3 Established","L4 Trusted"][p.level];
+ document.getElementById("proBody").innerHTML='<div class="grid g2"><div class="card"><h3 style="margin-top:0">'+p.biz+'</h3>'
+ +'<div class="kv"><span>Level</span><b>'+lvl+' · '+p.jobs+' completed jobs</b></div>'
+ +'<div class="kv"><span>Verification</span><b>'+vlab+'</b></div>'
+ +'<div class="kv"><span>Trust score</span><b>'+(p.trust===null?"New to Busy Bees — neutral, fully eligible":""+p.trust+" / 100 (70% site use + 30% customer ratings)")+'</b></div>'
+ +'<div class="kv"><span>Site rating</span><b>'+(p.rating?("★ "+p.rating):"No ratings yet")+'</b></div>'
+ +'<div class="kv"><span>Referral code</span><b class="mono">'+p.code+'</b></div>'
+ +'<div class="kv"><span>Your founding code</span><b class="mono">'+p.foundingCode+'</b></div><p style="margin:6px 0 0;font-size:15px">Put this code on your flyers — when a recruit joins with it, you earn your free days.</p>'
+ +'<div class="kv"><span>Services / towns</span><b>'+p.services.join(", ")+" · "+p.towns.join(", ")+'</b></div>'
+ +'<div class="kv"><span>Capacity — jobs you can still take</span><b>'+p.capacity+' open</b></div>'
+ +'<div style="margin-top:12px"><label for="refCodeIn">Try a referral code (simulated enrollment)</label><div style="display:flex;gap:8px;flex-wrap:wrap"><input id="refCodeIn" placeholder="e.g. BEES-LAWN2" style="flex:1;min-width:160px;width:auto"><button class="btn sm gold" onclick="tryReferral()">Apply code</button></div><div id="refOut" style="margin-top:8px"></div><p class="mono">Self-referral is blocked: a code belonging to your own account is rejected. Referral codes must belong to a different contractor or account.</p></div>'
+ +'<div class="kv"><span>Standing-accept (small jobs under $35)</span><b>'+(p.standing?"On — verified + opted in. Holds show a countdown; a timeout is a pass, never a strike.":"Off"+(p.verified==="none"?" (needs verification first)":""))+'</b></div>'
+ +'<div class="kv"><span>Discounts waiting (one per lead, never combined)</span><b>'+(p.discounts.length?p.discounts.join("; "):"None")+'</b></div>'
+ +'<div class="kv"><span>Membership (own page)</span><b>'+(p.member==="none"?"None — pay-per-accept only, no page":(MEMBERSHIP[p.member].label+" — $"+MEMBERSHIP[p.member].price+" / "+MEMBERSHIP[p.member].per+" (proposed) + 10% on own-page bookings"))+'</b></div>'
+ +'<div class="kv"><span>Billing</span><b>'+(p.member==="none"?"No membership — nothing to bill":p.billing==="grace"?"⚠ Card declined — 3-day grace period: your page stays live, update your card before the grace runs out":p.billing==="lapsed"?"Grace over — page unpublished until the card is updated (profile, rating, level, and history untouched)":"Card on file — OK")+'</b></div>'
+ +'<div class="kv"><span>Your page</span><b>'+(p.member==="none"?"Not published — join membership to publish":"busybeesdispatch.com/"+p.slug)+'</b></div>'
+ +'<div class="kv"><span>Own-page 10% ledger this period</span><b>'+ledgerSummary(p)+'</b></div>'
+ +'<p><button class="btn sm gold" onclick="pagePro=curPro;go(\'pages\')">Preview / manage my page</button></p>'
+ +'<div class="kv"><span>Recurring plans</span><b>'+((p.verified!=="none"&&p.jobs>=3)||p.level>=3?"Unlocked":"Locked — verified: after 3 jobs · others: Level 3+")+'</b></div>'
+ +'<div class="kv"><span>Customer ratings visible before accepting</span><b>'+((p.verified!=="none"||p.level>=4)?"Yes (verified / high level)":"No — unlocks with verification or Level 4")+'</b></div>'
+ +'<p class="mono">Profile first, then texts: services, towns, and verification photos are sent by text after this profile exists. No dashboard — board + profile only.</p></div>'
+ +'<div class="card"><h3 style="margin-top:0">Lead inbox (simulated texts)</h3>'+JOBS_BOARD.filter(function(j){return j.status!=="filled"}).map(function(j){return '<div class="simbox" style="margin-bottom:10px">Busy Bees lead '+j.id+': '+j.service+' in '+j.town+'. Flat fee $'+j.fee+'. Reply YES to accept, or tap to pay in test checkout.</div><p><button class="btn sm gold" onclick="acceptLead(\''+j.id+'\')">YES — accept &amp; pay (test mode)</button> <button class="btn sm ghost" onclick="this.parentNode.innerHTML=\'<span class=mono>Declined — free, no penalty. Lead passes to the next contractor.</span>\'">Decline (free)</button></p>';}).join("")+'<div style="border-top:1px dashed var(--line);margin-top:6px;padding-top:10px"><label for="smsIn">Reply gateway — type what you would actually text back</label><div style="display:flex;gap:8px;flex-wrap:wrap"><input id="smsIn" placeholder="Yeah · Accepted · Send it · 👍 · Pass" style="flex:1;min-width:160px;width:auto"><button class="btn sm gold" onclick="trySmsReply()">Send reply (simulated)</button></div><div id="smsOut" style="margin-top:8px"></div><p class="mono">The gateway reads natural replies — Yeah, Accepted, Send it, or a thumbs-up all count as YES, so gloves-on typos and quick texts from a job site still land. Anything unclear gets one clarifying text back (“Reply YES to accept or PASS to skip”) — it is never guessed and never charged. Short, plain replies also slip past carrier spam filters better than links or all-caps blasts.</p></div><div id="leadOut"></div></div></div>'
+ +'<h3 style="margin-top:20px">Contractor board — open jobs (service details only)</h3><div class="card"><table><tr><th>Job</th><th>Service</th><th>Town</th><th>When</th><th>Lead fee</th><th>Status</th><th></th></tr>'+JOBS_BOARD.map(function(j){return '<tr><td>'+j.id+'</td><td>'+j.service+'<br><span class="mono">'+j.desc+'</span></td><td>'+j.town+'</td><td>'+j.when+'</td><td>$'+j.fee+'</td><td><span class="tag '+(j.status==="open"?"":j.status==="held"?"gold":"gray")+'">'+j.status+'</span></td><td>'+(j.status==="open"?'<button class="btn sm" onclick="interest(this)">I\'m interested</button>':"")+'</td></tr>';}).join("")+'</table><p class="mono">No names, phones, emails, street addresses, or map pins here — town only. Interest joins the routing queue; it never jumps it. All levels can view the board.</p></div>'
+ +'<h3>Masked relay (after accept + pay)</h3><div class="card"><div class="chatlog"><p class="msg"><b>Customer (number hidden) → board relay:</b> Gate is on the left, help yourself in.</p><p class="msg"><b>You → board relay:</b> On my way — about 20 minutes out.</p><p class="msg"><b>Customer:</b> My number is my choice to share — not shared.</p></div><p class="mono">You receive the address + job notes after paying — never the customer\'s phone. The relay closes when the job is done. Customers see a badge for whether you are registered; you see the same for them (guest is never a penalty).</p></div>'
+ +'<h3>Your ratings</h3><div class="card"><p>'+(p.rating?("★ "+p.rating+" — “Great cleanup, yard looks brand new.” — Customer, "+p.towns[0]+" (approved &amp; public)"):"No public ratings yet — new contractors start neutral.")+'</p><p class="mono">Your page also links out: “See their Google reviews” — or “New to Google” when there are none. Google never changes your order here.</p></div>';
+ document.getElementById("feeTable").innerHTML='<table><tr><th>Service</th><th>Lead fee(s)</th></tr>'+feeRows()+'</table>';}
+function feeRows(){var rows=[["Tree removal","$20 · $30 · $50 · $100 by count"],["Limb removal","$15–$35 by amount & closeness"],["Stump grinding","$15 · $25 · $40"],["Bush trimming","One-time $5–$50 · Seasonal $15–$60 (tiny→huge)"],["Mowing","$5–$40 by size & frequency (one fee per plan, never per visit)"],["Aeration & seeding","Aeration $10 flat · Overseed $30/$40/$50 · Both $35/$50/$60"],["Mulch","$10 · $15 · $25 · $40 · $50"],["Yard cleanups","One-time $15–$60 · Both seasons $25–$70"],["Hardscape","$25 · $50 · $100"],["Storm debris / tarping","$15/$30/$60 · Tarping $30/$40/$50"],["Snow","Plow $5–$35 · Blower $10–$30 · Shovel $5–$35 · Salt $5 (free bundled) · Roof raking $20/$30"],["Hauling / estate","$10 · $40 · $60 · $80 with debris · Estate $10–$75"],["Washing","House $25/$35/$50 · Surfaces $10–$50 · Gutters $15/$20/$30 · Car $5–$20"],["Something else","Dispatcher assigns $15–$50 typical, $100 max"]];return rows.map(function(r){return "<tr><td>"+r[0]+"</td><td>"+r[1]+"</td></tr>";}).join("");}
+function tryReferral(){var inp=document.getElementById("refCodeIn");var out=document.getElementById("refOut");if(!inp||!out)return;var code=(inp.value||"").trim().toUpperCase();if(!code){out.innerHTML='<span class="fail">Enter a referral code first.</span>';return;}var owner=PROS.filter(function(p){return p.code.toUpperCase()===code||(p.foundingCode&&p.foundingCode.toUpperCase()===code);})[0];if(owner&&owner.id===curPro.id){out.innerHTML='<span class="fail">Rejected — self-referral is blocked.</span> You can\'t use your own referral code ('+code+'). Referral codes must belong to a different contractor or account, so no discount was added.';return;}if(owner){var isBuzz=owner.foundingCode&&code===owner.foundingCode.toUpperCase();out.innerHTML='<span class="pass">Accepted (simulated).</span> Code '+code+' belongs to a different account — referral recorded.'+(isBuzz?' Founding days will be credited to '+owner.biz+' when the recruit is approved.':'');return;}out.innerHTML='<span class="fail">Code not recognized.</span> Check the code and try again — no discount was added.';}
+function parseSmsReply(raw){var s=(raw||"").trim().toLowerCase().replace(/\s+/g," ").replace(/[!.,]+$/,"");if(!s)return{intent:"empty"};if(s.indexOf("👎")>=0)return{intent:"decline"};if(s.indexOf("👍")>=0)return{intent:"accept"};var acc=["yes","yeah","yep","yup","y","ok","okay","accepted","accept","send it","send","sure","sure thing","i'm in","im in","count me in","sounds good","do it","book it","yes please","thumbs up"];var dec=["no","nope","pass","decline","declined","not this time","no thanks","can't","cant","cannot"];if(acc.indexOf(s)>=0)return{intent:"accept"};if(dec.indexOf(s)>=0)return{intent:"decline"};return{intent:"unclear"};}
+function trySmsReply(){var inp=document.getElementById("smsIn");var out=document.getElementById("smsOut");if(!inp||!out)return;var shown=inp.value.replace(/&/g,"&amp;").replace(/</g,"&lt;");var r=parseSmsReply(inp.value);if(r.intent==="accept"){out.innerHTML='<div class="note"><b>Gateway read: ACCEPT.</b> “'+shown+'” counts as YES — the test checkout opens, and the fee is charged only when you complete it. Job details stay hidden until then.</div>';}else if(r.intent==="decline"){out.innerHTML='<div class="note"><b>Gateway read: PASS.</b> Declining is free and never a strike — the lead moves to the next matched contractor.</div>';}else{out.innerHTML='<div class="note"><b>Gateway read: NOT CLEAR.</b> Nothing was charged and nothing was guessed. The gateway texts back once: “Reply YES to accept this job, or PASS to skip it.”</div>';}}
+function interest(btn){btn.outerHTML='<span class="tag">Interest sent — routing decides</span>';}
+function acceptLead(id){document.getElementById("leadOut").innerHTML='<div class="note"><b>Test checkout paid (Stripe test mode — no real money).</b> Job details released: address + job notes for '+id+'. Customer phone: <b>not released</b> — use the masked relay. Customer type: <b>Guest</b> (badge only, never a penalty).</div>';}
+/* ================= CONTRACTOR PAGES ================= */
+function ledgerRows(p){return OWN_LEDGER[p.id]||[];}
+function ledgerTotalCents(p){return ledgerRows(p).reduce(function(s,r){return s+tenPctCents(r.fee);},0);}
+function ledgerSummary(p){if(p.member==="none")return "No page — no ledger";var rows=ledgerRows(p);if(!rows.length)return "$0.00 — no own-page accepts yet";return moneyCents(ledgerTotalCents(p))+" from "+rows.length+" accepted own-page job(s) — billed once with membership";}
+function moneyCents(centsValue){return "$"+(centsValue/100).toFixed(2);}
+function renderPages(){
+ document.getElementById("pagePicker").innerHTML=PROS.map(function(p,i){return '<button class="btn sm '+(p===pagePro?"gold":"ghost")+'" onclick="pagePro=PROS['+i+'];renderPages()">'+p.biz+'</button>';}).join("");
+ var p=pagePro;var isM=p.member!=="none";
+ var billBanner=isM&&p.billing==="grace"?'<div class="note" style="margin-bottom:12px"><b>⚠ Card declined on billing day — 3-day grace period.</b> Your page stays live and nothing is locked or deleted. Update your card before the grace runs out; if it runs out, only the page unpublishes — profile, rating, level, verified status, and history stay exactly as they were.</div>':"";
+ var vlab=p.verified==="both"?"Verified — licence + insurance shown":p.verified==="insurance"?"Verified — insurance shown":"Not checked yet";
+ var preview=isM?'<div class="grid g2"><div class="card"><h3 style="margin-top:0">'+p.biz.replace(" (dummy)","")+' <span class="tag">'+(p.verified==="none"?"Registered":"Verified")+'</span></h3>'
+  +'<p>'+p.blurb+'</p>'
+  +'<div class="kv"><span>Site rating</span><b>'+(p.rating?("★ "+p.rating):"New to Busy Bees")+'</b></div>'
+  +'<div class="kv"><span>Verification</span><b>'+vlab+'</b></div>'
+  +'<div class="kv"><span>Completed jobs</span><b>'+p.jobs+'</b></div>'
+  +'<div class="kv"><span>Areas</span><b>'+p.towns.join(", ")+'</b></div>'
+  +'<p class="mono"><a href="#" onclick="return false">See their Google reviews</a> — linked out only; Google never changes order here.</p>'
+  +'<h4>Request this contractor — '+p.biz.replace(" (dummy)","")+'</h4>'
+  +p.services.map(function(s){return '<button class="bigbtn" style="margin-bottom:8px" onclick="bookWithPro(\''+p.id+'\',\''+s+'\')">Request this contractor — '+s+'<small>Free to send — request '+s+' with '+p.biz.replace(" (dummy)","")+'. They confirm first; it\'s a request, not an instant booking.</small></button>';}).join("")
+  +'<p class="mono">This is a request page, not instant booking. No fee is shown to customers. Contact opens through the masked relay only after the contractor accepts.</p></div>'
+  +'<div class="card"><h3 style="margin-top:0">Share this page</h3><p>Your link:</p><p class="pageurl mono">busybeesdispatch.com/'+p.slug+'</p>'
+  +'<div class="qrbox" aria-label="QR code placeholder"><span>QR — sandbox placeholder</span></div>'
+  +'<p><button class="btn sm gold" onclick="shareSim(this)">Copy link (simulated)</button> <button class="btn sm ghost" onclick="shareSim(this)">Text the link (simulated)</button></p><p class="mono" id="shareOut"></p>'
+  +'<div class="kv"><span>Plan</span><b>'+MEMBERSHIP[p.member].label+' — $'+MEMBERSHIP[p.member].price+' / '+MEMBERSHIP[p.member].per+' (proposed)</b></div>'
+  +'<div class="kv"><span>Own-page booking cost</span><b>10% of the normal lead fee, on accept only</b></div>'
+  +'<div class="kv"><span>Board-matched jobs</span><b>Full normal fee — unchanged</b></div></div></div>'
+ :'<div class="card"><h3 style="margin-top:0">'+p.biz+' has no page yet</h3><p>This contractor is on plain pay-per-accept: no membership, no page. Their customers use the main board and pick a contractor the normal way.</p><p>With membership, this is where their page would live:</p><p class="pageurl mono">busybeesdispatch.com/'+p.slug+' — <b>not published</b></p><p><button class="btn gold" onclick="setMember(\''+p.id+'\',\'monthly\')">Join Monthly and publish this page (simulated)</button></p></div>';
+ if(isM&&p.billing==="lapsed"){preview='<div class="card"><h3 style="margin-top:0">'+p.biz+' — page unpublished (billing)</h3><p>The 3-day grace period ran out with the card still declined, so the page came down — nothing else did. Profile, rating, level, verified status, and job history are untouched, and board jobs keep coming at the normal fee.</p><p><button class="btn gold" onclick="setBilling(\''+p.id+'\',\'ok\')">Update card &amp; republish (simulated)</button></p></div>';}
+ document.getElementById("pagePreview").innerHTML=billBanner+preview;
+ document.getElementById("planCards").innerHTML=Object.keys(MEMBERSHIP).map(function(k){var m=MEMBERSHIP[k];var note=k==="weekly"?"Flexible and seasonal-friendly — priced above monthly on purpose, because short commitments cost more to run. Cancel anytime.":k==="monthly"?"The default pick. Cancel anytime, or pause for a season instead.":'Two months free next to paying monthly for a year ($49 × 12 = $588 vs. $490). Seasonal pause available.';return '<div class="card"><h3 style="margin-top:0">'+m.label+' <span class="tag gold">Proposed</span></h3><p style="font-size:30px;font-weight:800;margin:4px 0">$'+m.price+' <span style="font-size:16px;font-weight:600">/ '+m.per+'</span></p><p>'+note+'</p><p class="mono">Plus 10% of the normal fee on accepted own-page bookings only. Board jobs: full fee.</p></div>';}).join("");
+ var fees=[5,10,15,20,25,30,35,40,50,60,75,100];
+ document.getElementById("tenTable").innerHTML='<table><tr><th>Normal lead fee</th><th>Own-page member pays (10%)</th><th>Saved on that job</th></tr>'+fees.map(function(f){return '<tr><td>$'+f+'</td><td>'+moneyCents(tenPctCents(f))+'</td><td>'+moneyCents(cents(f)-tenPctCents(f))+'</td></tr>';}).join("")+"</table>";
+ document.getElementById("compareTable").innerHTML='<table><tr><th></th><th>No member</th><th>Member</th></tr><tr><td>Own customer books you</td><td>Full fee on accept</td><td>Membership + 10%</td></tr><tr><td>Board finds the customer</td><td>Full fee</td><td>Full fee — same</td></tr><tr><td>Own public page</td><td>No</td><td>Yes — link + QR</td></tr><tr><td>Ranking / rating / level</td><td colspan="2">Unchanged by membership</td></tr></table><p class="mono">Example on a $25 fee: own customer = $25 without membership, $2.50 (plus membership) with it.</p>';
+ document.getElementById("memberControls").innerHTML='<div style="display:flex;gap:8px;flex-wrap:wrap"><span style="font-weight:700">'+p.biz+':</span>'+["none","weekly","monthly","yearly"].map(function(k){return '<button class="btn sm '+(p.member===k?"gold":"ghost")+'" onclick="setMember(\''+p.id+'\',\''+k+'\')">'+(k==="none"?"No membership":MEMBERSHIP[k].label+" — $"+MEMBERSHIP[k].price)+'</button>';}).join("")+'</div><p class="mono">Ending membership unpublishes the page only — profile, rating, level, verified status, and history stay.</p>';
+ if(isM){document.getElementById("memberControls").innerHTML+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center"><span style="font-weight:700">Billing (simulated):</span><span class="tag '+(p.billing==="ok"?"":p.billing==="grace"?"gold":"red")+'">'+(p.billing==="ok"?"Card OK":p.billing==="grace"?"Card declined — in 3-day grace, page stays live":"Grace over — page unpublished")+'</span><button class="btn sm ghost" onclick="setBilling(\''+p.id+'\',\'grace\')">Simulate card decline</button><button class="btn sm ghost" onclick="setBilling(\''+p.id+'\',\'lapsed\')">Simulate grace running out</button><button class="btn sm gold" onclick="setBilling(\''+p.id+'\',\'ok\')">Update card (fix it)</button></div><p class="mono">A declined card never hard-locks or deletes a page on billing day: 3-day grace period + alert banner first. Only the page unpublishes if the grace runs out.</p>';}
+ var rows=ledgerRows(p);
+ document.getElementById("memberLedger").innerHTML=isM?'<h4 style="margin:0 0 6px">Own-page ledger — '+p.biz+' ('+MEMBERSHIP[p.member].label+' period, simulated)</h4>'+(rows.length?rows.map(function(r){return '<div class="kv"><span>'+r.label+' — normal fee $'+r.fee+'</span><b>10% = '+moneyCents(tenPctCents(r.fee))+'</b></div>';}).join("")+'<div class="kv"><span><b>Billed once with membership</b></span><b>$'+MEMBERSHIP[p.member].price+' + '+moneyCents(ledgerTotalCents(p))+' = '+moneyCents(cents(MEMBERSHIP[p.member].price)+ledgerTotalCents(p))+'</b></div>':'<p class="mono">No accepted own-page jobs yet this period — ledger is $0.00 on top of membership.</p>'):'<p class="mono">No ledger — '+p.biz+' has no membership or page.</p>';
+ calcMember();
+}
+function shareSim(btn){var o=document.getElementById("shareOut");if(o)o.textContent="Simulated — in the live board this copies / texts the page link. Nothing was sent here.";}
+function setMember(proId,plan){var p=PROS.filter(function(x){return x.id===proId})[0];if(!p)return;p.member=plan;pagePro=p;if(curPro.id===proId)renderPros();renderPages();if(document.getElementById("v-dispatcher").classList.contains("on"))renderDisp();}
+function setBilling(proId,state){var p=PROS.filter(function(x){return x.id===proId})[0];if(!p)return;p.billing=state;if(pagePro.id===proId)renderPages();if(curPro.id===proId)renderPros();if(document.getElementById("v-dispatcher").classList.contains("on"))renderDisp();}
+function calcMember(){var planEl=document.getElementById("calcPlan");if(!planEl)return;var plan=planEl.value;var fee=parseFloat(document.getElementById("calcFee").value);var jobs=parseFloat(document.getElementById("calcJobs").value);var out=document.getElementById("calcOut");if(isNaN(fee)||isNaN(jobs)){out.innerHTML="Enter your usual fee and a job count.";return;}
+ var m=MEMBERSHIP[plan];var tenC=tenPctCents(fee);var memberC=cents(m.price)+(jobs*tenC);var plainC=jobs*cents(fee);var be=breakevenJobs(plan,fee);
+ var quietC=cents(m.price)+tenC;
+ out.innerHTML='<div class="kv"><span>Member total this '+m.per+'</span><b>'+moneyCents(memberC)+' ($'+m.price+' membership + '+jobs+' × '+moneyCents(tenC)+')</b></div>'
+ +'<div class="kv"><span>Same jobs, no membership</span><b>'+moneyCents(plainC)+' ('+jobs+' × '+moneyCents(cents(fee))+')</b></div>'
+ +'<div class="kv"><span>Difference</span><b>'+(plainC-memberC>=0?("You save "+moneyCents(plainC-memberC)):("Membership costs "+moneyCents(memberC-plainC)+" more this period"))+'</b></div>'
+ +'<div class="kv"><span>Break-even</span><b>'+(be===null?"—":be+" accepted own-page job(s) per "+m.per)+'</b></div>'
+ +'<div class="kv"><span>Quiet '+m.per+' (just 1 own-page job)</span><b>Member '+moneyCents(quietC)+' vs. '+moneyCents(cents(fee))+' without — pay-per-accept wins a quiet '+m.per+'</b></div>';}
+/* ================= DISPATCHER ================= */
+var queue=[{id:"R-201",what:"Lawn mowing — Standard, Weekly",town:"Yarmouth",who:"Guest",status:"Waiting — verified first-look window counting down"},{id:"R-200",what:"Tree removal — 2–3 trees (from contractor page)",town:"Yarmouth",who:"Signed-in",status:"Own-page request — straight to Cape Tree Co. (dummy), awaiting their confirm; 10% fee will log to their ledger on accept"}];
+function pushQueue(){queue.push({id:"R-"+(202+queue.length),what:curLabel()||"Cart request",town:flow.town||"—",who:persona==="guest"?"Guest":"Signed-in",status:lockedPro?("Own-page request — straight to "+lockedPro.biz+", awaiting their confirm"):"New — unassigned"});renderDisp();}
+var ownerAlerts=[];
+function exhaustLead(id){var q=queue.filter(function(x){return x.id===id})[0];if(!q||q.escalated)return;q.escalated=true;q.status="Escalated — every matched contractor declined or timed out. Moved to the unassigned regional queue and the owner was alerted. The customer was told we are still on it — never left hanging in silence.";ownerAlerts.push("Lead "+id+" ("+q.what+", "+q.town+") ran out of matched contractors — it is in the unassigned regional queue for a manual match.");renderDisp();}
+function renderDisp(){var el=document.getElementById("dispBody");if(!el)return;
+ el.innerHTML='<div class="grid g2"><div class="card"><h3 style="margin-top:0">Routing queue</h3>'+(ownerAlerts.length?ownerAlerts.map(function(a){return '<div class="note" style="margin-bottom:8px"><b>🔔 Owner alert:</b> '+a+'</div>';}).join(""):"")+queue.map(function(q){return '<div class="kv"><span><b>'+q.id+'</b> '+q.what+' — '+q.town+' <span class="tag gray">'+q.who+'</span></span><span>'+q.status+(q.escalated?"":' <button class="btn sm ghost" onclick="exhaustLead(\''+q.id+'\')">All decline / time out (simulate)</button>')+'</span></div>';}).join("")+'<p class="mono">Routing order: named company → continuity (per kind of work) → matching pool (verified first-look, then all) → next on decline/timeout → if the pool runs dry: unassigned regional queue + owner alert, and the customer is told we are still on it → accept → pay → details.</p></div>'
+ +'<div class="card"><h3 style="margin-top:0">Suggestion cards (design only — never auto-applied)</h3><p><b>Sorter:</b> “Fallen tree” request → tree-removal flow. <button class="btn sm gold" onclick="this.outerHTML=\'Accepted ✓\'">Accept</button> <button class="btn sm ghost" onclick="this.outerHTML=\'Dismissed\'">Dismiss</button></p><p><b>Matcher:</b> Cape Tree Co. fits J-104 (verified, town match). <button class="btn sm gold" onclick="this.outerHTML=\'Accepted ✓\'">Accept</button> <button class="btn sm ghost" onclick="this.outerHTML=\'Dismissed\'">Dismiss</button></p><p class="mono">Helpers never refund, never change prices, never add or remove contractors, never post ratings. Kill switch: manual mode. Only job descriptions — never names, phones, or addresses — go to any helper.</p></div></div>'
+ +'<div class="grid g2" style="margin-top:12px"><div class="card"><h3 style="margin-top:0">Referrals &amp; discounts</h3><div class="kv"><span>Customer referral (code BEES-TREE1)</span><b>20% queued — earned when the referred customer\'s first request was accepted</b></div><div class="kv"><span>Contractor referral (both accounts)</span><b>25% each — added on approval</b></div><div class="kv"><span>Peak rebate</span><b>10% back as credit after payment (a rebate, not a discount — it can sit alongside one discount)</b></div><div class="kv"><span>Rule check</span><b>One discount per lead, ever. Extras queue.</b></div></div>'
+ +'<div class="card"><h3 style="margin-top:0">Ratings awaiting approval</h3><p>★ 5 — “On time, spotless cleanup.” — for Yarmouth Lawn Care (dummy). <button class="btn sm gold" onclick="this.outerHTML=\'Posted ✓\'">Approve &amp; post</button></p><p class="mono">Private customer-rating notes stay here only — never public.</p></div></div>'
+ +'<div class="card" style="margin-top:12px"><h3 style="margin-top:0">Contractor pages &amp; membership (owner view)</h3>'+PROS.map(function(p){var rows=ledgerRows(p);return '<div class="kv"><span><b>'+p.biz+'</b> — '+(p.member==="none"?"No membership, no page":"Member ("+MEMBERSHIP[p.member].label+") · page live: busybeesdispatch.com/"+p.slug)+'</span><span>'+(p.member==="none"?"—":rows.length+" own-page accept(s) · 10% ledger due: "+moneyCents(ledgerTotalCents(p))+" (billed once with membership) · Billing: "+(p.billing==="grace"?"⚠ card declined — 3-day grace, page stays live":p.billing==="lapsed"?"grace over — page unpublished, awaiting card update":"card OK"))+'</span></div>';}).join("")+'<p class="mono">Own-page requests route straight to that contractor, but still confirm-before-pay: no details and no relay until they accept and the 10% is logged. Membership never changes routing order, rating, level, or verified status for board jobs.</p></div>';
+ document.getElementById("logBody").innerHTML=LOG.map(function(l){return '<div class="card" style="margin-bottom:8px"><b>Customer said:</b> '+l.w+'<br><b>Dispatcher call:</b> '+l.c+'</div>';}).join("");}
+function addLog(){var w=document.getElementById("logWords").value,c=document.getElementById("logCall").value;if(!w||!c)return;LOG.push({w:"“"+w+"”",c:c});renderDisp();}
+/* ================= SPONSORS (sandbox — fake stores only) ================= */
+/* Local retail stores only: nurseries, garden centers, hardware stores. Never contractors, never services. */
+var SPONSORS=[
+ {name:"Example Garden Center — your store here",line:"Plants, mulch, and soil on Route 28 — family-run nursery and garden center (example).",kind:"Nursery & garden center"},
+ {name:"Harbor Hardware — Example Store",line:"Tools, tarps, rakes, and yard supplies for storm season and cleanup season (example).",kind:"Hardware store"},
+ {name:"Cape Nursery — Example Partner",line:"Hydrangeas, native shrubs, and fall bulbs, with staff who know Cape soil (example).",kind:"Nursery"}];
+function sponsorCard(i){var s=SPONSORS[i%SPONSORS.length];return '<aside class="sponsor" aria-label="Sponsored local partner"><p class="slabel">Sponsored — Local Partner</p><p class="sname">'+s.name+'</p><p class="sline">'+s.line+'</p><p class="sfake">Example sponsor card — a fake store in the sandbox. In the live board this spot is sold only to a local retail store (nursery, garden center, or hardware store) — never to a contractor.</p></aside>';}
+/* Placement counts (from the ads research): article 2 guest / 1 member · almanac index 2 guest / 1 member · area page 1 for everyone · request flow 0. */
+function adCount(page,member){if(page==="article"||page==="almanac")return member?1:2;if(page==="area")return 1;return 0;}
+var almMember=false;
+function setAlmViewer(){almMember=document.getElementById("almViewer").value==="member";renderAlmanac();}
+function topCard(page){return almMember?"":sponsorCard(page==="article"?1:0);} /* guests-only "presented by" card */
+function bottomCard(idx){return sponsorCard(idx);} /* shown to everyone */
+
+/* ================= ALMANAC ================= */
+var AFFIL_NOTE='Busy Bees earns a small commission if you buy through links on this page — it costs you nothing extra.';
+var PRO_LINE='<p style="margin-top:22px">If a job on this page is bigger than a weekend project, you can <a href="#" onclick="go(\'customer\');return false">request a local pro through Busy Bees</a> — a pro confirms first, and it is always free to ask.</p>';
+var ARTICLES=[
+ {id:"this-month",title:"This Month in Your Yard: Cape Cod",kicker:"Late October on the Cape",product:true,
+  intro:"Late October is the hinge of the Cape Cod yard year: the last mowings, the leaf season in full swing, and a short, valuable window to plant before the ground cools. Sandy soil and salt wind change the timing here — what works inland in September often wants doing now on the Cape.",
+  body:'<h3>The short list for right now</h3><ul><li><b>Keep mowing, a notch higher.</b> Grass going into winter at about 3 inches resists matting under snow and leaf cover. Keep cutting until growth truly stops.</li><li><b>Mulch leaves, don\'t just rake them.</b> A mower pass chops leaves into pieces that feed the soil. Thick whole-leaf mats smother grass — those get raked or picked up.</li><li><b>Plant spring bulbs now.</b> Daffodils and alliums go in while the soil is still workable — tulips too, though deer treat them as a salad bar in many Cape neighborhoods.</li><li><b>Water new plantings until freeze.</b> Anything planted this fall — shrubs, perennials, a new tree — needs a deep drink weekly until the ground freezes. Fall rain alone is not always enough in sand.</li><li><b>Drain and store hoses.</b> Disconnect outdoor hoses and shut off exterior faucets before the first hard freeze, so a split pipe does not greet you in spring.</li></ul><h3>What you\'ll need</h3><p>Bulbs from a garden center, a bag of compost to work into planting holes (Cape sand needs the help), and a soaker hose for new shrubs. A basic soil test kit tells you whether your beds want lime — most Cape soil runs acidic, which hydrangeas love and lawns tolerate less well.</p><h3>One thing to skip</h3><p>Do not fertilize the lawn late. Nitrogen now pushes soft growth that winter burns. The fall feeding window on the Cape is late August through September — if you missed it, spring is your next honest chance.</p>'},
+ {id:"planting-calendar",title:"The Cape Cod Planting Calendar",kicker:"When to plant what, in sandy soil and a short season",product:true,
+  intro:"Cape Cod sits in a mild coastal pocket — winters softened by the ocean, springs slowed by it. Last frost often holds into late April or early May near the water, and the first fall frost usually arrives from mid-October into November. This calendar is built for that rhythm, and for soil that is mostly sand: fast-draining, low in nutrients, and quick to dry out.",
+  body:'<h3>Month by month</h3><table><tr><th>When</th><th>Plant / sow</th><th>Notes</th></tr>'
+  +'<tr><td><b>March</b></td><td>Peas, spinach (late month)</td><td>Start tomato and pepper seed indoors. Prune summer-blooming shrubs before bud break.</td></tr>'
+  +'<tr><td><b>April</b></td><td>Lettuce, kale, carrots, onions</td><td>Divide perennials. Bare-root shrubs and trees go in well now.</td></tr>'
+  +'<tr><td><b>May</b></td><td>Beans, squash, cucumbers (after frost risk)</td><td>Tomatoes and peppers transplant after mid-May near the shore. Hydrangeas and roses plant well all month.</td></tr>'
+  +'<tr><td><b>June</b></td><td>Basil, zinnias, marigolds</td><td>Warm-season planting finishes. Mulch everything — sand dries fast in June sun.</td></tr>'
+  +'<tr><td><b>July–August</b></td><td>Succession lettuce, fall carrots (August)</td><td>Watering season. New plantings need deep water twice a week in dry spells.</td></tr>'
+  +'<tr><td><b>September</b></td><td>Garlic (late), cover crops, lawn overseed</td><td>The best lawn month of the year on the Cape: aerate and overseed now. Shrubs planted now root before winter.</td></tr>'
+  +'<tr><td><b>October</b></td><td>Spring bulbs, garlic, trees &amp; shrubs</td><td>Bulbs in by late month. Keep watering new trees until freeze.</td></tr>'
+  +'<tr><td><b>November–February</b></td><td>—</td><td>Planning season. Order seed early; the good varieties sell out.</td></tr></table>'
+  +'<h3>The sandy-soil rule</h3><p>Whatever you plant, work compost into the hole and mulch on top. Sand alone will not hold water or food long enough for most plants. Seed packets from a garden supplier list sowing depth and spacing — in sand, sow a touch deeper than the packet says, so seed stays moist.</p>'},
+ {id:"hydrangea-help",title:"Hydrangea Help",kicker:"The Cape\'s signature shrub, without the guesswork",product:true,
+  intro:"Hydrangeas are the Cape Cod postcard flower — and the shrub that generates the most confused questions. Almost every disappointment comes down to one of three things: pruning at the wrong time, soil that is too dry, or expecting the wrong kind of hydrangea to behave like another kind.",
+  body:'<h3>First: which kind do you have?</h3><ul><li><b>Bigleaf (the blue/pink mopheads).</b> Bloom on last year\'s wood. Prune them in spring and you cut off this summer\'s flowers. Only remove dead wood, and do it after leaves appear so you can see what is alive.</li><li><b>Panicle (conical white blooms, like \'Limelight\').</b> Bloom on new wood. Prune in late winter or early spring, as hard as you like.</li><li><b>Smooth (big white balls, like \'Annabelle\').</b> Also new wood — cut back in early spring.</li><li><b>Oakleaf.</b> Old wood, like bigleaf. Hands off except dead wood.</li></ul><h3>Blue or pink?</h3><p>Bigleaf color follows soil acidity: acidic soil (common on the Cape) gives blue; less acidic gives pink. A soil test kit settles the guessing in one afternoon. Aluminum sulfate pushes toward blue; garden lime toward pink. Change is slow — expect a season, not a week.</p><h3>Water is the real secret</h3><p>The name says it: hydrangeas are thirsty. In Cape sand, a shrub that wilts every afternoon is not being dramatic — it is telling you the soil drains faster than its roots can drink. A soaker hose at the base, run deep once or twice a week, plus 3 inches of mulch, fixes most sad hydrangeas. Morning wilting that recovers by evening is heat stress; wilting that does not recover is a watering problem that needs attention that day.</p><h3>Winter note</h3><p>Bigleaf flower buds sit on the stems all winter, and a harsh, windy cold snap can kill buds while the plant itself survives — leaves in spring, no flowers in summer. A burlap wind screen on the exposed side helps in open, windy spots.</p>'},
+ {id:"storm-checklist",title:"Before a Coastal Storm: A Yard Checklist",kicker:"An hour of prep beats a weekend of cleanup",product:false,
+  intro:"Cape storms arrive with wind first and questions later. This checklist is the calm, one-hour pass that keeps loose things from becoming flying things and water from going where it should not. Work it top to bottom when a coastal storm is in the forecast.",
+  body:'<h3>The one-hour pass</h3><ul class="checklist"><li>Bring in or tie down patio furniture, grills, and umbrellas</li><li>Move trash barrels and recycling bins into the garage or against a sheltered wall</li><li>Check trees for dead limbs over the roof, driveway, and walkways — note them, do not climb anything before a storm</li><li>Clear gutters and the ground drains at the bottom of downspouts</li><li>Move pots and planters off decks and away from windows</li><li>Secure lids on compost bins and covers on woodpiles — a tarp and bungee cords do the job</li><li>Walk the yard for anything light and loose: toys, tools, decorations, leftover lumber</li><li>Know where your flashlights, batteries, and a charged phone battery pack are</li></ul><h3>After the storm</h3><p>Wait for wind to fully drop before cleanup. Treat every downed wire as live and stay clear. Photograph damage before you move it, if insurance might be involved. Branches on the ground are a cleanup job; a leaning tree or a limb resting on a roof is a professional job — that line is worth respecting.</p>'},
+ {id:"fall-countdown",title:"Fall Cleanup Countdown",kicker:"Leaves, aeration, and overseeding — in the right order",product:false,
+  intro:"Fall cleanup is not one job; it is a sequence, and the order matters. Seed before the leaves bury it, aerate before the ground hardens, and save the final leaf pass for after the oaks finally let go. Here is the countdown Cape homeowners actually use.",
+  body:'<h3>The countdown</h3><ul><li><b>6 weeks out (mid-September):</b> aerate and overseed the lawn — the single best window of the year. Seed needs soil contact and a few warm weeks to establish.</li><li><b>5 weeks out:</b> divide and move perennials; plant shrubs and trees while soil is still warm.</li><li><b>4 weeks out (early October):</b> first full leaf pass. Maples and early trees drop now; mulch-mow what you can, rake what mats.</li><li><b>3 weeks out:</b> plant spring bulbs; cut back spent perennials, but leave seed heads standing for birds where they look tidy doing it.</li><li><b>2 weeks out (late October):</b> second leaf pass — the oaks are starting. Clean gutters as leaves come down, not after they pack in wet.</li><li><b>Final week:</b> last mow, a notch shorter than summer height; drain hoses; final gutter check; beds get their mulch topped up before freeze.</li></ul><h3>Leaves: the honest math</h3><p>A mature oak can drop enough leaves to blanket a yard ankle-deep. Mulch-mowing handles the first half of the season; by the end, most yards need at least one real pickup. Leaves left in a thick layer all winter will kill the grass under them by spring — thin and chopped is fine, thick and whole is not.</p>'}];
+var curArticle=null;
+function renderAlmanac(){var b=document.getElementById("almanacBody");if(!b)return;
+ var firstTwo='<div class="grid g2">'+ARTICLES.slice(0,2).map(function(a){return cardOf(a);}).join("")+"</div>";
+ var rest='<div class="grid g2" style="margin-top:12px">'+ARTICLES.slice(2).map(function(a){return cardOf(a);}).join("")+"</div>";
+ b.innerHTML=topCard("almanac")+firstTwo+bottomCard(1)+rest
+ +'<div class="card" style="margin-top:14px"><h3 style="margin-top:0">About these guides</h3><p>Written for Cape Cod conditions: sandy soil, salt wind, and a coastal season that starts late and ends in a hurry. They are free to read and share. Sponsor cards on Almanac pages are local retail stores only — the Almanac never carries contractor advertising.</p><p class="mono">Sandbox sample content — a few starter guides shown; more would be added over time.</p></div>';
+ function cardOf(a){return '<div class="card"><h3 style="margin-top:0">'+a.title+'</h3><p style="color:var(--mut);margin:2px 0 8px">'+a.kicker+'</p><p>'+a.intro.split(". ")[0]+'.</p><p><button class="btn sm gold" onclick="openArticle(\''+a.id+'\')">Read the guide →</button></p></div>';}}
+function openArticle(id){curArticle=ARTICLES.filter(function(a){return a.id===id})[0];if(!curArticle)return;renderArticle();go("article");}
+function renderArticle(){var a=curArticle;if(!a)return;var b=document.getElementById("articleBody");if(!b)return;
+ var viewerSel='<div style="text-align:right"><label style="display:inline;font-size:15px" for="almViewer2">Viewing as: </label><select id="almViewer2" style="width:auto;display:inline-block" onchange="almMember=this.value===\'member\';renderArticle()"><option value="guest"'+(almMember?"":" selected")+'>Guest (not signed in)</option><option value="member"'+(almMember?" selected":"")+'>Signed-in member</option></select></div>';
+ b.innerHTML=viewerSel+'<h2 style="margin-bottom:4px">'+a.title+'</h2><p style="color:var(--mut);margin-top:0">'+a.kicker+' · The Cape Cod Yard Almanac — free for everyone, no sign-in needed.</p>'
+ +(a.product?'<p class="affil"><b>Affiliate note (sample):</b> '+AFFIL_NOTE+'</p>':"")
+ +topCard("article")
+ +'<div class="article-body"><p>'+a.intro+'</p>'+a.body+'</div>'
+ +PRO_LINE
+ +bottomCard(2);}
+
+/* ================= AREAS ================= */
+function renderAreas(){document.getElementById("areasBody").innerHTML=AREAS.map(function(a,i){var sp='<div style="max-width:520px">'+sponsorCard(i)+'</div>';if(a.status==="live")return '<div class="card" style="margin-bottom:12px"><h3 style="margin-top:0">'+a.name+' <span class="tag">LIVE</span></h3><p>Towns: '+a.towns.join(", ")+'</p><button class="btn sm gold" onclick="go(\'customer\')">Request a local pro</button>'+sp+'</div>';
+ var ready=a.approved>=a.need;return '<div class="card" style="margin-bottom:12px"><h3 style="margin-top:0">'+a.name+' <span class="tag '+(ready?"gold":"gray")+'">'+(ready?"Pre-launch — threshold reached, opening date to be confirmed":"Coming soon")+'</span></h3><p>Proposed towns — to be confirmed: '+a.towns.join(", ")+'</p><p>Contractors approved: <b>'+a.approved+' of '+a.need+'</b> — an area never opens with fewer than 3. Going-live date: <b>to be confirmed</b>.</p><p>Contractor sign-up is open: simulated login + profile first, then the text steps.</p><button class="btn sm" onclick="go(\'contractor\')">Join the roster (simulated)</button>'+sp+'</div>';}).join("");}
+/* ================= CONTACT / CHAT ================= */
+function sendContact(){var a=document.getElementById("cAbout").value,m=document.getElementById("cMsg").value,n=document.getElementById("cName").value;document.getElementById("contactOut").innerHTML='<h4>The text that would be sent</h4><div class="simbox">To: (508) 258-9899\n\n['+a+'] '+m+(n?"\n— "+n:"")+'</div><p class="mono">Simulated — nothing was sent. Messages are private to the board owner.</p>';}
+var FAQ=[["How much does it cost me?","Customers never pay the board. You agree a job price with your contractor directly."],["Do I need an account?","No. Guests can request any job. Signing in only adds saved details, history, and one-tap repeats."],["How do contractors join?","Contractors log in, build a profile, then finish setup by text. See the Contractors page."]];
+function renderFaq(){document.getElementById("faq").innerHTML=FAQ.map(function(f){return "<details><summary style='font-size:16px'>"+f[0]+"</summary><p>"+f[1]+"</p></details>";}).join("");}
+function chatAsk(){var q=(document.getElementById("chatIn").value||"").toLowerCase();var out=document.getElementById("chatOut");var ans="I could not match that one. Try the category list, “Something else — tell us,” or the contact form above.";if(q.indexOf("mow")>=0||q.indexOf("lawn")>=0)ans='That sounds like <a href="#" onclick="go(\'customer\');return false">Lawn Care → Lawn mowing</a>. Want me to add it to your cart? <button class="btn sm gold" onclick="cart.push({label:\'Lawn mowing (helper-added, size picked in flow)\',job:null});document.getElementById(\'cartN\').textContent=\'(\'+cart.length+\')\'">Add to cart</button>';if(q.indexOf("tree")>=0)ans='That sounds like <a href="#" onclick="go(\'customer\');return false">Tree Work</a> — removal, limbs, stumps, and trimming live there.';if(q.indexOf("snow")>=0||q.indexOf("plow")>=0)ans='That is <a href="#" onclick="go(\'customer\');return false">Snow Removal</a> — start with the tool picker so the scope fits your place.';out.innerHTML+='<p class="msg"><b>You:</b> '+document.getElementById("chatIn").value+'</p><p class="msg"><b>Helper (automated):</b> '+ans+'</p>';}
+/* ================= TESTS ================= */
+function runTests(){var T=[];function t(name,cond,detail){T.push({name:name,pass:!!cond,detail:detail||""});}
+ var saved={persona:persona,personaValue:document.getElementById("custPersona").value,flow:Object.assign({},flow),lockedPro:lockedPro,cart:cart.slice(),curPro:curPro,pagePro:pagePro,members:PROS.map(function(p){return p.member;}),billing:PROS.map(function(p){return p.billing;}),almMember:almMember,curArticle:curArticle,resuming:resuming};
+ function textOf(id){return document.getElementById(id).textContent;}
+ function proText(p){curPro=p;renderPros();return textOf("proBody");}
+ var contractorText=textOf("v-contractor");renderDisp();var dispatcherText=textOf("v-dispatcher");
+ var proTexts={};PROS.forEach(function(p){proTexts[p.id]=proText(p);});
+ t("Boundary 5,000 sq ft = Small",lawnTier(5000)===1);t("Boundary 10,000 = Standard",lawnTier(10000)===2);t("Boundary 20,000 = Large",lawnTier(20000)===3);t("2,001 sq ft = Small (no gap)",lawnTier(2001)===1);t("Mulch 2.5 yd = Standard",mulchTier(2.5)===2);t("Mulch 6 yd = Full",mulchTier(6)===3);t("Mulch 1 yd = Tiny (lower tier)",mulchTier(1)===0);
+ t("Mowing weekly huge = $35",CATS[1].jobs[0].fee.weekly[4]===35);t("No yearly frequency anywhere",JSON.stringify(CATS).toLowerCase().indexOf("annual")<0&&JSON.stringify(CATS).toLowerCase().indexOf("yearly")<0);
+ t("Cross-listed stump totals the same both routes",CATS[2].jobs[5].sameAs==="stump"&&findJob(CATS[2].jobs[5].sameAs)===findJob("stump")&&findJob("stump").fee.join()==="15,25,40");t("Fallen tree routes to tree-removal fee",CATS[3].jobs[1].sameAs==="treeremoval"&&findJob(CATS[3].jobs[1].sameAs).fee[1]===30);
+ t("Verified maths: 5% of $20 = $19.00",discCalc(20,5)===19);t("Verified maths: 10% of $35 = $31.50",discCalc(35,10)===31.5);t("Licence alone = 0% (rule encoded)",contractorText.indexOf("insurance shown = 5%")>=0&&contractorText.indexOf("licence + insurance = 10%")>=0&&contractorText.indexOf("licence alone = 0%")>=0,"insurance alone 5% · both 10% · licence alone 0%");
+ t("No-stacking: one discount per lead",contractorText.indexOf("One discount per lead, ever")>=0&&contractorText.indexOf("discounts never combine")>=0&&dispatcherText.indexOf("it can sit alongside one discount")>=0,"welcome / verified / referral / cart-level never combine; extras queue; peak 10% rebate is post-payment credit, so it coexists");
+ t("Cart = sum, not higher-only",cartFee({job:findJob("housewash"),tier:0})+cartFee({job:findJob("single"),tier:0})===35,"e.g. $25 + $10 cart = $35 before the level discount (L4 10% / L3 5% proposed)");
+ t("Referral: customer 20% referrer-only, on acceptance",dispatcherText.indexOf("Customer referral (code BEES-TREE1)")>=0&&dispatcherText.indexOf("20% queued")>=0&&dispatcherText.indexOf("first request was accepted")>=0);t("Referral: contractor 25% both, on approval",dispatcherText.indexOf("Contractor referral (both accounts)")>=0&&dispatcherText.indexOf("25% each")>=0&&dispatcherText.indexOf("added on approval")>=0);t("Referral timing: code ≤7 days, discount expires 30 days, self-referral blocked",contractorText.indexOf("Codes must be used within 7 days")>=0&&contractorText.indexOf("earned discounts expire after 30 days")>=0&&contractorText.toLowerCase().indexOf("self-referral")>=0,"7-day code and 30-day expiry wording present; self-referral block checked in contractor copy");
+ go("contractor");var foundingEl=document.getElementById("foundingReferralCard");var foundingTxt=foundingEl?foundingEl.textContent:"";var contractorViewOn=document.getElementById("v-contractor").classList.contains("on");t("Founding referral callout is present in the rendered Contractor view",contractorViewOn&&!!foundingEl&&foundingTxt.indexOf("Founding referral incentive \u2014 first core contractors:")>=0&&foundingTxt.indexOf("Among the first 6\u201310 core roster contractors")>=0&&foundingTxt.indexOf("90 days for the first referral")>=0&&foundingTxt.indexOf("plus 30 days for each additional one")>=0&&foundingTxt.indexOf("credited when the new contractor is approved")>=0&&foundingTxt.indexOf("banked with no cap")>=0&&foundingTxt.indexOf("replace your normal 25%-off referral bonus \u2014 they never stack")>=0&&foundingTxt.indexOf("baseline free trial for the test-run period itself, referrals or not")>=0&&foundingTxt.indexOf("Once the roster reaches 10 contractors the days stop adding up \u2014 nothing else ends: banked days stay yours to use and trials run their course")>=0&&foundingTxt.indexOf("Self-referral is blocked.")>=0,"rendered via go('contractor') and read from the live #foundingReferralCard element in the page, not a data constant");
+ curPro=PROS[0];renderPros();var buzzProfileText=textOf("proBody");var buzzInEl=document.getElementById("refCodeIn");var buzzOutEl=document.getElementById("refOut");buzzInEl.value=PROS[1].foundingCode;tryReferral();var buzzOtherText=buzzOutEl.textContent;buzzInEl.value=PROS[0].foundingCode;tryReferral();var buzzSelfText=buzzOutEl.textContent;t("Founding codes: profile shows your BUZZ code and referral entry accepts another founder's code",buzzProfileText.indexOf("Your founding code")>=0&&buzzProfileText.indexOf("BUZZ-01")>=0&&buzzProfileText.indexOf(PROS[0].foundingCode)>=0&&buzzProfileText.indexOf("Put this code on your flyers")>=0&&buzzProfileText.indexOf("you earn your free days")>=0&&FOUNDING_CODES.length===20&&FOUNDING_CODES[0]==="BUZZ-01"&&FOUNDING_CODES[9]==="BUZZ-10"&&FOUNDING_CODES[10]==="BUZZ-11"&&FOUNDING_CODES[19]==="BUZZ-20"&&PROS[1].foundingCode==="BUZZ-02"&&PROS[2].foundingCode==="BUZZ-03"&&foundingTxt.indexOf("Your founding code is how days get credited")>=0&&foundingTxt.indexOf("BUZZ-11 through BUZZ-20 are spare / next-batch tracking codes")>=0&&foundingTxt.indexOf("free days still stop adding once the roster reaches 10")>=0&&foundingTxt.indexOf("captured automatically from the flyer QR ref link")>=0&&foundingTxt.indexOf("JOIN BUZZ-xx")>=0&&foundingTxt.indexOf("stored on the recruit's record")>=0&&foundingTxt.indexOf("only credited when that recruit is approved")>=0&&foundingTxt.indexOf("manual entry remains the fallback")>=0&&buzzOtherText.indexOf("Accepted")>=0&&buzzOtherText.indexOf("BUZZ-02")>=0&&buzzSelfText.indexOf("Rejected")>=0&&buzzSelfText.indexOf("self-referral is blocked")>=0,"rendered contractor profile for the signed-in contractor shows BUZZ-01 under 'Your founding code'; pool is BUZZ-01–BUZZ-20 with BUZZ-11–BUZZ-20 spare/next-batch and accrual still stopping at 10; callout states auto-capture from QR ref link or JOIN text, stored on the recruit's record, credited only on approval, manual entry as fallback; entering BUZZ-02 through the real referral entry is accepted, entering own BUZZ-01 is blocked");
+ t("Standing-accept: verified only + opt-in + under $35 + countdown hold",PROS[0].verified==="both"&&PROS[0].standing&&proTexts.p1.indexOf("Standing-accept (small jobs under $35)")>=0&&proTexts.p1.indexOf("On — verified + opted in")>=0&&proTexts.p1.indexOf("Holds show a countdown")>=0&&PROS[2].verified==="none"&&!PROS[2].standing&&proTexts.p3.indexOf("needs verification first")>=0);t("Approve window caps at 60 min (proposed 15/30/45/60)",contractorText.indexOf("Windows: 15 / 30 / 45 / 60 minutes, never over 1 hour")>=0);
+ t("Trust = 70% site use + 30% ratings; new = neutral",proTexts.p1.indexOf("88 / 100 (70% site use + 30% customer ratings)")>=0&&proTexts.p3.indexOf("New to Busy Bees — neutral, fully eligible")>=0);t("Recurring gate: verified after 3 jobs, others Level 3+",proTexts.p1.indexOf("Unlocked")>=0&&proTexts.p2.indexOf("Unlocked")>=0&&proTexts.p3.indexOf("Locked — verified: after 3 jobs · others: Level 3+")>=0);t("Rating visibility: verified any level OR Level 4",proTexts.p1.indexOf("Yes (verified / high level)")>=0&&proTexts.p2.indexOf("Yes (verified / high level)")>=0&&proTexts.p3.indexOf("No — unlocks with verification or Level 4")>=0);
+ var boardHtml=document.getElementById("proBody").innerHTML;var boardStart=boardHtml.indexOf("Contractor board — open jobs");var boardEnd=boardHtml.indexOf("</table>",boardStart);var boardBox=document.createElement("div");boardBox.innerHTML=boardHtml.slice(boardStart,boardEnd+8);var boardText=boardBox.textContent;
+ t("Board shows no name/phone/address/pin",boardText.indexOf("J-101")>=0&&PROS.every(function(p){return boardText.indexOf(p.biz)<0;})&&!/\b\d{3}[- ]\d{3}[- ]\d{4}\b/.test(boardText)&&boardText.toLowerCase().indexOf("pin")<0);
+ lockedPro=null;document.getElementById("custPersona").value="guest";setPersona();flow.town=TOWNS[0];flow.cat=CATS[0];flow.job=findJob("treeremoval");flow.choice=null;flow.step=4;renderStep();
+ t("Guest skips contractor-choice ask",persona==="guest"&&flow.step===5&&flow.choice==="Site-recommended"&&document.getElementById("stepTitle").textContent.indexOf("What contractor")<0&&document.getElementById("stepBody").textContent.indexOf("A previous contractor")<0,"guests route to site-recommended");
+ document.getElementById("custPersona").value="returning";setPersona();flow.town="Yarmouth";flow.cat=CATS[0];flow.job=findJob("treeremoval");flow.choice=null;flow.step=4;renderStep();var discoverText=document.getElementById("stepBody").textContent;var listedPros=PROS.filter(function(p){return discoverText.indexOf(p.biz)>=0;});
+ t("Discover random only among matching service + town + capacity",document.getElementById("stepTitle").textContent==="What contractor would you want?"&&discoverText.indexOf("random contractor who matches this service and town")>=0&&listedPros.length>0&&listedPros.every(function(p){return p.services.indexOf(flow.cat.name)>=0&&p.towns.indexOf(flow.town)>=0&&typeof p.capacity!=="undefined"&&p.capacity>0;})&&matchingPros(flow.cat.name,flow.town).every(function(p){return discoverText.indexOf(p.biz)>=0;})&&randomMatchingPro(flow.cat.name,flow.town)!==null&&matchingPros(flow.cat.name,flow.town).indexOf(randomMatchingPro(flow.cat.name,flow.town))>=0,"rendered Discover list, matchingPros pool, and random draw checked against the selected service, town, and capacity > 0");
+ curPro=PROS[0];renderPros();var refIn=document.getElementById("refCodeIn");var refOutEl=document.getElementById("refOut");refIn.value=PROS[0].code;tryReferral();var selfRefText=refOutEl.textContent;refIn.value=PROS[1].code;tryReferral();var otherRefText=refOutEl.textContent;refIn.value=PROS[0].code.toLowerCase();tryReferral();var selfRefLowerText=refOutEl.textContent;
+ t("Self-referral block rejects own code in the simulated flow",selfRefText.indexOf("Rejected")>=0&&selfRefText.indexOf("self-referral is blocked")>=0&&selfRefText.indexOf("no discount was added")>=0&&selfRefLowerText.indexOf("Rejected")>=0&&otherRefText.indexOf("Accepted")>=0,"own code (any case) driven through the real referral entry and rejected; a different contractor's code is accepted");
+ t("Pre-launch: 2-of-3 not live, 3-of-3 ready, never before 3",AREAS[1].approved<3&&AREAS[2].approved>=3);renderHome();t("Yarmouth counter hidden while testing",textOf("mission").indexOf("Yarmouth + surrounding counter")>=0&&textOf("mission").indexOf("Hidden while testing")>=0);
+ var body=document.body.textContent;var bw="emer"+"gen";var un="41"+"3";t("Banned word check on all visible copy",body.toLowerCase().indexOf(bw)<0);t("Retired board number absent from visible copy",body.indexOf(un)<0);flow.step=0;renderStep();t("Customer flow shows no fees",document.getElementById("stepBody").textContent.indexOf("$")<0);
+ t("Home link in header on every screen",!!document.querySelector(".homebtn"));t("Back + path cue in customer flow",!!document.getElementById("pathCue"));flow.town=TOWNS[0];flow.cat=CATS[0];flow.job=findJob("single");flow.choice="Site-recommended";flow.step=5;renderStep();t("Confirmation has Back to home",document.getElementById("stepBody").textContent.indexOf("Back to home")>=0&&document.getElementById("stepBody").innerHTML.indexOf("go('home')")>=0);
+ t("Snow is winter-season only in data",CATS[4].winterOnly===true);t("Roof raking ≠ on-roof removal (raking labelled ground-only)",findJob("rake").name.indexOf("from the ground")>=0&&findJob("rake").note.indexOf("Done from the ground")>=0&&findJob("rake").note.indexOf("Going up on the roof itself is not a board service")>=0);
+ t("10% maths: $5 → $0.50, $25 → $2.50, $50 → $5.00, $100 → $10.00",tenPctCents(5)===50&&tenPctCents(25)===250&&tenPctCents(50)===500&&tenPctCents(100)===1000);
+ t("10% maths across the schedule: $15 → $1.50, $35 → $3.50, $75 → $7.50",tenPctCents(15)===150&&tenPctCents(35)===350&&tenPctCents(75)===750);
+ t("Ledger adds up, billed once: Cape Tree dummy ledger = $7.00",ledgerTotalCents(PROS[0])===700,"300¢ + 250¢ + 150¢ accumulated in integer cents ($7.00), one charge with membership — not three tiny charges");
+ t("Member total: Monthly $49 + 4 jobs at $25 fee = $59",memberPeriodCostCents("monthly",4,25)===5900);t("Same 4 jobs without membership = $100",[0,1,2,3].reduce(function(sum){return sum+cartFee({job:findJob("housewash"),tier:0});},0)===100);
+ t("Break-even: Monthly at $25 avg fee = 3 jobs",breakevenJobs("monthly",25)===3);t("Break-even: Weekly $19 at $25 avg fee = 1 job",breakevenJobs("weekly",25)===1);t("Break-even: Yearly $490 at $25 avg fee = 22 jobs",breakevenJobs("yearly",25)===22);
+ t("Quiet month is honest: Monthly + 1 job at $25 = $51.50, more than $25 pay-per-accept",memberPeriodCostCents("monthly",1,25)===5150&&memberPeriodCostCents("monthly",1,25)>cents(25));
+ t("Yearly is two months free vs monthly: $49 × 12 = $588, yearly $490",MEMBERSHIP.monthly.price*12===588&&MEMBERSHIP.yearly.price===490);t("Weekly priced above monthly pro-rata ($19/wk ≈ $82/mo > $49/mo)",Math.round(MEMBERSHIP.weekly.price*52/12)===82&&Math.round(MEMBERSHIP.weekly.price*52/12)>MEMBERSHIP.monthly.price);
+ pagePro=PROS[0];renderPages();var ownPageText=textOf("pagePreview");t("Own-page routing keeps confirm-before-pay",ownPageText.indexOf("They confirm first")>=0&&ownPageText.indexOf("request, not an instant booking")>=0&&queue[1].status.indexOf("awaiting their confirm")>=0&&queue[1].status.indexOf("10% fee will log to their ledger on accept")>=0,"page request → contractor notified → confirm → 10% logged on accept → details + masked relay; page is a request, never instant booking");
+ var memberCheck=PROS[1];var beforeMember=[memberCheck.level,memberCheck.rating,memberCheck.verified,memberCheck.trust,memberCheck.jobs,PROS.indexOf(memberCheck)].join("|");setMember(memberCheck.id,"yearly");var afterMember=[memberCheck.level,memberCheck.rating,memberCheck.verified,memberCheck.trust,memberCheck.jobs,PROS.indexOf(memberCheck)].join("|");t("Membership buys no ranking, rating, level, or verified status",beforeMember===afterMember&&textOf("v-pages").indexOf("Membership never buys")>=0&&textOf("v-pages").indexOf("Ranking or order on the board")>=0,"member plan switched in the sandbox, then level, rating, verified status, trust, jobs, and board order re-read unchanged");
+ t("No stacking on member bookings: flat 10%, no second discount",tenPctCents(25)===250&&textOf("v-pages").indexOf("No other discount stacks on a member booking")>=0&&textOf("v-pages").indexOf("never combine on the same job")>=0,"verified/level still give priority and first look, never a second cut off the 10%");
+ t("Non-member keeps full pay-per-accept and no page",PROS[2].member==="none"&&ledgerRows(PROS[2]).length===0);
+ var endCheck=PROS[0];var beforeEnd=[endCheck.level,endCheck.rating,endCheck.verified,endCheck.trust,endCheck.jobs].join("|");setMember(endCheck.id,"none");var afterEnd=[endCheck.level,endCheck.rating,endCheck.verified,endCheck.trust,endCheck.jobs].join("|");t("Ending membership unpublishes page only — profile, rating, level, verified, history stay",beforeEnd===afterEnd&&textOf("pagePreview").indexOf("has no page yet")>=0&&textOf("pagePreview").indexOf("not published")>=0&&textOf("v-pages").indexOf("profile, rating, level, verified status, and job history stay")>=0);
+ t("Almanac ad counts: article 2 guest / 1 member",adCount("article",false)===2&&adCount("article",true)===1);
+ t("Almanac ad counts: index 2 guest / 1 member",adCount("almanac",false)===2&&adCount("almanac",true)===1);
+ t("Area pages: exactly 1 sponsor card for everyone",adCount("area",false)===1&&adCount("area",true)===1);
+ t("Request flow: zero ads",adCount("customer",false)===0&&adCount("customer",true)===0);
+ t("Sponsor cards are labelled and retail-only (no contractor ads)",SPONSORS.every(function(s){return /store|center|nursery|hardware/i.test(s.name+" "+s.kind)})&&sponsorCard(0).indexOf("Sponsored — Local Partner")>=0);
+ t("Almanac has 5 sample guides, open with no sign-in wall",ARTICLES.length===5&&!!document.getElementById("v-almanac"));
+ var affilOk=ARTICLES.filter(function(a){return a.product;}).every(function(a){curArticle=a;renderArticle();return textOf("articleBody").split(AFFIL_NOTE).length-1===1;});t("Affiliate note appears once per product article, in the report's plain wording",affilOk&&AFFIL_NOTE.indexOf("earns a small commission if you buy through links on this page")>=0);
+ bookWithPro(PROS[0].id,"Tree Work");var hadLock=!!lockedPro;go("home");go("customer");t("Fresh start clears a locked contractor left over from an abandoned page booking",hadLock&&lockedPro===null&&flow.step===0&&document.getElementById("lockedBanner").textContent.indexOf("Your contractor")<0,"book from a contractor page, leave, start a normal request: no contractor stays locked in");
+ almMember=false;renderAlmanac();var almGuestN=document.querySelectorAll("#almanacBody .sponsor").length;almMember=true;renderAlmanac();var almMemN=document.querySelectorAll("#almanacBody .sponsor").length;t("On-screen sponsor cards: Almanac index renders 2 guest / 1 member",almGuestN===2&&almMemN===1,"counted in the rendered page, not just the adCount() table");
+ almMember=false;curArticle=ARTICLES[0];renderArticle();var artGuestN=document.querySelectorAll("#articleBody .sponsor").length;almMember=true;renderArticle();var artMemN=document.querySelectorAll("#articleBody .sponsor").length;t("On-screen sponsor cards: article renders 2 guest / 1 member",artGuestN===2&&artMemN===1,"counted in the rendered article, top card guests-only, bottom card for everyone");
+ renderAreas();var areaCardsN=document.querySelectorAll("#areasBody .sponsor").length;t("On-screen sponsor cards: exactly 1 per area page",areaCardsN===AREAS.length,"rendered Areas view holds one sponsor card per area ("+AREAS.length+" areas)");
+ document.getElementById("custPersona").value="guest";setPersona();lockedPro=null;flow.step=0;flow.town=null;flow.cat=null;flow.job=null;renderStep();t("On-screen sponsor cards: request flow renders zero",document.querySelectorAll("#v-customer .sponsor").length===0,"checked on the live customer view, not just the count table");
+ t("SMS gateway reads natural accepts",parseSmsReply("Yeah").intent==="accept"&&parseSmsReply("Accepted").intent==="accept"&&parseSmsReply("Send it").intent==="accept"&&parseSmsReply("👍").intent==="accept"&&parseSmsReply("yes!").intent==="accept","Yeah / Accepted / Send it / 👍 / yes! all parse as YES");
+ t("SMS gateway reads passes and never guesses the unclear ones",parseSmsReply("Pass").intent==="decline"&&parseSmsReply("👎").intent==="decline"&&parseSmsReply("maybe later").intent==="unclear"&&parseSmsReply("yesterday").intent!=="accept","exact-match parsing: 'yesterday' contains 'yes' but is not an accept; unclear replies get one clarifying text, never a charge");
+ curPro=PROS[0];renderPros();var smsInEl=document.getElementById("smsIn");smsInEl.value="Send it";trySmsReply();var smsAcceptTxt=document.getElementById("smsOut").textContent;smsInEl.value="hmm not sure";trySmsReply();var smsUnclearTxt=document.getElementById("smsOut").textContent;t("SMS gateway UI: 'Send it' lands as accept, mush gets a clarification",smsAcceptTxt.indexOf("ACCEPT")>=0&&smsUnclearTxt.indexOf("NOT CLEAR")>=0&&smsUnclearTxt.indexOf("Nothing was charged")>=0,"driven through the real reply box on the contractor screen");
+ setMember(PROS[0].id,"monthly");pagePro=PROS[0];var billSnap=[PROS[0].level,PROS[0].rating,PROS[0].verified,PROS[0].trust,PROS[0].jobs].join("|");setBilling(PROS[0].id,"grace");var graceHtml=document.getElementById("pagePreview").innerHTML;t("Billing grace: a declined card keeps the page live under an alert banner",graceHtml.indexOf("3-day grace period")>=0&&graceHtml.indexOf("Request this contractor")>=0&&textOf("proBody").indexOf("3-day grace")>=0,"no instant hard-lock or deletion on billing day");
+ setBilling(PROS[0].id,"lapsed");var lapseHtml=document.getElementById("pagePreview").innerHTML;var billAfter=[PROS[0].level,PROS[0].rating,PROS[0].verified,PROS[0].trust,PROS[0].jobs].join("|");t("Billing grace runs out: page unpublishes only — profile data untouched",lapseHtml.indexOf("unpublished (billing)")>=0&&lapseHtml.indexOf("Request this contractor")<0&&billSnap===billAfter);setBilling(PROS[0].id,"ok");
+ queue.push({id:"R-TEST",what:"Test job — routing exhaustion",town:"Yarmouth",who:"Guest",status:"Waiting"});exhaustLead("R-TEST");var dispTxt2=textOf("v-dispatcher");var qTest=queue.filter(function(x){return x.id==="R-TEST"})[0];t("Exhausted routing: pool runs dry → regional queue + owner alert, customer not left silent",qTest.status.indexOf("regional queue")>=0&&qTest.status.indexOf("still on it")>=0&&dispTxt2.indexOf("Owner alert")>=0,"driven through the real Dispatcher escalate button path");queue.splice(queue.indexOf(qTest),1);ownerAlerts.pop();renderDisp();
+ persona=saved.persona;document.getElementById("custPersona").value=saved.personaValue;Object.keys(flow).forEach(function(k){if(!(k in saved.flow))delete flow[k];});Object.assign(flow,saved.flow);lockedPro=saved.lockedPro;cart=saved.cart;curPro=saved.curPro;pagePro=saved.pagePro;PROS.forEach(function(p,i){p.member=saved.members[i];p.billing=saved.billing[i];});almMember=saved.almMember;curArticle=saved.curArticle;renderHome();renderPros();renderPages();renderDisp();renderStep();go("tests");resuming=saved.resuming;
+ var passed=T.filter(function(x){return x.pass}).length;document.getElementById("testSummary").textContent=passed+" / "+T.length+" passed";
+ document.getElementById("testBody").innerHTML=T.map(function(x){return '<div class="card" style="margin-bottom:6px;padding:10px 14px"><span class="'+(x.pass?"pass":"fail")+'">'+(x.pass?"✓ PASS":"✗ FAIL")+'</span> <b>'+x.name+'</b>'+(x.detail?' <span class="mono">'+x.detail+"</span>":"")+"</div>";}).join("");}
+/* ================= INIT ================= */
+renderHome();renderPros();renderFaq();go("home");flow.step=0;renderStep();
+</script>
+</body>
+</html>
