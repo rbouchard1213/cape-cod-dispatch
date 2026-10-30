@@ -88,6 +88,8 @@
     <label>Your name<br><input id="bbName" type="text" autocomplete="name" style="width:100%;padding:10px;font-size:16px;margin:4px 0 10px"></label>
     <label>Your review code (example: BEE-01)<br><input id="bbCode" type="text" style="width:100%;padding:10px;font-size:16px;margin:4px 0 14px"></label>
     <button id="bbAgree" disabled style="width:100%;padding:14px;font-size:17px;font-weight:700;background:#DFB25D;color:#14161F;border:0;border-radius:10px;opacity:.5">I agree — let me in</button>
+    <p id="bbMsg" style="display:none;font-size:14px;color:#B00020;margin:10px 0 0"></p>
+    <p style="font-size:13px;color:#5B5A52">Tapping "I agree" checks you in — your name, code, and the time are logged by Busy Bees, and your code is checked against the Busy Bees list before you enter. Use the same device and the same browser for the whole review — this device is what remembers your agreement.</p>
     <p style="font-size:13px;color:#5B5A52">The full agreement text is <a href="agreement.html">right here</a> — same words as the paper packet and the message Busy Bees sent you. Family reviewers: your personal family terms still apply.</p>
   </div>
 </div>
@@ -100,11 +102,26 @@
     function chk(){var ok=n.value.trim().length>1&&c.value.trim().length>3;b.disabled=!ok;b.style.opacity=ok?'1':'.5';}
     n.addEventListener('input',chk);c.addEventListener('input',chk);
     b.addEventListener('click',function(){
-      localStorage.setItem('bb_agreed','1');
-      localStorage.setItem('bb_name',n.value.trim());
-      localStorage.setItem('bb_code',c.value.trim().toUpperCase());
-      localStorage.setItem('bb_date',new Date().toISOString());
-      g.style.display='none';
+      var name=n.value.trim(),code=c.value.trim().toUpperCase();
+      var msg=document.getElementById('bbMsg');
+      b.disabled=true;b.style.opacity='.6';b.textContent='Checking your code…';msg.style.display='none';
+      function fail(t){msg.textContent=t;msg.style.display='block';b.disabled=false;b.style.opacity='1';b.textContent='I agree — let me in';}
+      fetch('https://script.google.com/macros/s/AKfycbzjNkwdM7ZN3cphmBQ4J1PBroFikjWWirOee2RdqCnx8d2iaetn-YNqpL7F-CYJ0XYI/exec',{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({name:name,code:code})})
+      .then(function(r){return r.text();})
+      .then(function(t){
+        if(t.trim().indexOf('ok')===0){
+          localStorage.setItem('bb_agreed','1');
+          localStorage.setItem('bb_name',name);
+          localStorage.setItem('bb_code',code);
+          localStorage.setItem('bb_date',new Date().toISOString());
+          g.style.display='none';
+        }else if(t.trim().indexOf('no')===0){
+          fail("That code isn't on the list — check the message Busy Bees sent you, then try again.");
+        }else{
+          fail("We couldn't check your code just now — check your connection and tap again.");
+        }
+      })
+      .catch(function(){fail("We couldn't check your code just now — check your connection and tap again.");});
     });
   }catch(e){}
 })();
