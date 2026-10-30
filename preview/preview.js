@@ -119,6 +119,60 @@
     });
   }
 
+  /* ---- Multi-job cart (pretend): jobs saved on this device only ---- */
+  function getCart(){ try{ return JSON.parse(sessionStorage.getItem("bb_cart") || "[]"); }catch(e){ return []; } }
+  function setCart(c){ try{ sessionStorage.setItem("bb_cart", JSON.stringify(c)); }catch(e){} }
+
+  var addBtn = document.getElementById("addJob");
+  if(addBtn){
+    addBtn.addEventListener("click", function(){
+      var parts = [P.get("v"), P.get("p"), P.get("f")].filter(Boolean);
+      var c = getCart();
+      c.push({ j: P.get("j") || "Your job", size: parts.join(" — "), t: P.get("t") || "" });
+      setCart(c);
+      var t = P.get("t");
+      location.href = "category.html" + (t ? "?t=" + encodeURIComponent(t) : "");
+    });
+  }
+  var cartBtn = document.getElementById("cartBtn");
+  if(cartBtn && getCart().length > 0){
+    var n = getCart().length;
+    cartBtn.textContent = "Your jobs (" + n + ") — review & send together";
+    cartBtn.style.display = "block";
+    var cnote = document.getElementById("cartNote");
+    if(cnote){
+      cnote.textContent = "You have " + n + " saved job" + (n > 1 ? "s" : "") +
+        ". Add this one too, then send them all together from Your jobs — or just send this one on its own with the gold button.";
+      cnote.style.display = "block";
+    }
+  }
+  var cartList = document.getElementById("cartList");
+  if(cartList){
+    var renderCart = function(){
+      var c = getCart();
+      cartList.innerHTML = "";
+      if(!c.length){
+        cartList.innerHTML = '<p class="note">No jobs saved yet. Start a request, and on the review screen tap “Add another job” to build a list here.</p>';
+        return;
+      }
+      c.forEach(function(job, i){
+        var row = document.createElement("div");
+        row.className = "kv";
+        var txt = document.createElement("span");
+        txt.textContent = job.j + (job.size ? " — " + job.size : "") + (job.t ? " · " + job.t : "");
+        var rm = document.createElement("button");
+        rm.type = "button"; rm.className = "rmbtn"; rm.textContent = "Remove";
+        rm.addEventListener("click", function(){
+          var cc = getCart(); cc.splice(i, 1); setCart(cc); renderCart();
+        });
+        row.appendChild(txt); row.appendChild(rm);
+        cartList.appendChild(row);
+      });
+    };
+    renderCart();
+  }
+  if(document.getElementById("clearCart")){ setCart([]); }
+
   /* Cubic-yard helper (mulch). */
   var ydBtn = document.getElementById("ydBtn");
   if(ydBtn){
