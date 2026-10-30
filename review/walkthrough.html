@@ -51,6 +51,7 @@
   <li><strong>You can't change the test site yourself</strong> — and you don't need to. When you spot something that should change, write it in your notes in plain words ("on the cart screen, the button is hard to tap") and send the notes to Bobby.</li>
   <li><strong>Jot problems down as you find them, or save up a list.</strong> Either way works. If something looks broken, note what you tapped right before it broke.</li>
   <li><strong>Don't worry about these — they don't go live:</strong> the Dispatcher view link on the home page (it's a test link, marked as one), the made-up example data, and the map box picture (see Part 3). Judge the flow and the wording, not those.</li>
+  <li><strong>Some real-build pieces are not in the test site at all</strong> — a working contractor-choice screen, contractor profiles, a lead inbox, a job board, and a breakeven calculator. Where a part below describes one of these, it says so plainly. Don't flag them as broken or missing — they were never put in the test site. Do flag it if the test site's own words about them are confusing.</li>
 </ul>
 
 <p><strong>Plain words used in this guide:</strong></p>
@@ -90,26 +91,22 @@
 
 <p>Do this whole guest flow at least once. Then repeat steps 2–8 for <strong>one job from each of the other 6 categories</strong> — you don't need every single service, just one per category, so all 7 get covered.</p>
 
-<h2>Part 2 — Customer flow, signed in (contractor choice)</h2>
+<h2>Part 2 — Customer flow, signed in (the account pages)</h2>
 
-<p>Sign in as the pretend signed-in customer (the test site gives you a pretend signed-in state — no real account needed).</p>
+<p>The test site's signed-in side is a pair of pretend account pages — there is no real sign-in and no working contractor-choice screen in the test site. Here is what to try:</p>
 
 <ol>
-  <li>Go through town, category, job, and size again.</li>
-  <li>At the end of picking the service, you should get asked <strong>which contractor you want</strong>. Try each of the three choices:
-    <ul>
-      <li><strong>A previous contractor</strong> (someone you've used before).</li>
-      <li><strong>A site-recommended one</strong> (picked by availability, capacity, rating, and verified first-look).</li>
-      <li><strong>Discover one</strong> — this shows a top 5 list, and also offers a random matching contractor. Random only ever means a contractor who matches the service, the town, and has room — never the wrong trade.</li>
-    </ul>
-  </li>
-  <li>Finish the request and check the confirmation screen again.</li>
+  <li>From the home page's Customers group, open <strong>Your account — free &amp; premium</strong>. Read what a free account holds: saved details, request history, one-tap re-requests, tracking, and "pick your contractor."</li>
+  <li>Tap the pretend sign-in to reach the <strong>account home</strong> (a made-up customer, Jane). Check her saved details, her past requests with "Request again" links, and her main-contractor card (Example Tree Co, for tree work).</li>
+  <li>Read the Premium panel: $20/month after a 30-day free trial, for a main contractor per kind of work plus preference extras. Premium is not for sale yet — judge the wording only.</li>
 </ol>
+
+<p><strong>Know before you judge:</strong> in the <strong>real build</strong>, a signed-in customer also gets a <strong>contractor-choice question</strong> during a request — a previous contractor, a site-recommended one, or discovering one from a matching list. That working choice screen is <strong>not in the test site</strong>; the account pages only describe it. Don't flag the missing screen — flag it only if the account pages explain it badly.</p>
 
 <p><strong>Check as you go:</strong></p>
 <ul class="check">
-  <li>The three choices are clear and easy to tell apart.</li>
-  <li>Guests never see this question (they go straight to recommended routing).</li>
+  <li>The free account and Premium are easy to tell apart, and what Premium adds is plain.</li>
+  <li>Nothing says an account is needed to send a request — requesting is always free, with or without one.</li>
   <li>Nothing here promises a contractor is available or how fast they'll come.</li>
 </ul>
 
@@ -138,7 +135,7 @@
   <li>Open the cart (top-right corner of the screen).</li>
   <li>Check every item shows <strong>which service, which variant, and which size</strong> — not just the group name. For example, if you picked a grouped button like "Driveways, patios &amp; decks," the cart must say which one you actually picked.</li>
   <li>Check the cart total adds the jobs up.</li>
-  <li>Check the confirmation tells you, in plain words, that each job goes to recommended contractors based on availability, job size, site rating, town and service match, verified first-look, and continuity.</li>
+  <li>After sending, check the confirmation screen says, in plain words: Busy Bees matches the request to a local pro who does this work in your town, the pro confirms before anything is final, you talk through the private relay (your real number stays hidden), and if every matched contractor passes, Busy Bees keeps working on it and lets you know — you are never just left hanging.</li>
 </ol>
 
 <p><strong>Check as you go:</strong></p>
@@ -178,104 +175,90 @@
 
 <h2>Part 7 — Contractor side</h2>
 
-<p>The test site has 3 pretend contractors. Try all three, because they show different states:</p>
-
-<ul>
-  <li><strong>Contractor A:</strong> verified with both proofs (licence + insurance), higher level.</li>
-  <li><strong>Contractor B:</strong> insurance only, mid level.</li>
-  <li><strong>Contractor C:</strong> unverified ("not checked"), new, low level.</li>
-</ul>
-
-<p>For each one:</p>
+<p>The contractor side of the test site is a set of explainer pages plus two sample job offers. There are <strong>no contractor profiles, no lead inbox, and no job board</strong> in the test site — those are real-build pieces. Work through the pages that are there:</p>
 
 <ol>
-  <li>Open the contractor view and look at their profile.</li>
-  <li>Open their lead inbox. Accept one lead and pay it in test mode (pretend money only — nothing is charged).</li>
-  <li>Decline or pass on another lead. Check that passing costs nothing and the job moves to the next contractor.</li>
-  <li>Open the contractor job board. It must show <strong>service details only</strong>: service, town, size/tier, timing, job description, lead fee. It must NEVER show a customer name, phone, email, address, or map pin.</li>
-  <li>Try the <strong>I'm interested</strong> button on a board listing. Check it feeds into routing — it does not let anyone jump the queue or claim the job directly.</li>
-  <li>Check the job statuses read open / held / filled, and that a held job shows a countdown.</li>
-  <li>After an accept + pay, check the masked relay: the contractor gets the address and job notes, but NOT the customer's phone number.</li>
-  <li>Look at the ratings pages: the public side shows stars and approved comments with business name, service, town, and customer first name + town only. Google reviews, if any, are a link out — never part of the ranking.</li>
+  <li>Open <strong>Join &amp; how job offers work</strong> and read it end to end: the deal (pay only on accept, flat fee, no commission, decline always free), how an offer arrives by text, what happens if a job dies through no fault of the contractor (the fee comes back as account credit), and the optional own-page extra.</li>
+  <li>Open <strong>See a pretend job offer</strong>. There are two samples: a one-time tree removal (flat fee $30) and a weekly mowing arrangement (fee paid once per arrangement, never per visit). Tap <strong>Accept</strong> on one and read the accepted screen; go back and tap <strong>Decline</strong> on the other and read the declined screen.</li>
+  <li>Open <strong>Levels &amp; verified</strong>. Check it explains, in plain words: levels grow with jobs completed; verified contractors get the first look; standing-accept fires at the end of the first look; the trust score stays private; and the paperwork rules — customers see <strong>"Paperwork shown,"</strong> insurance alone earns 5% off, insurance plus a second paper of a different kind earns 10%, a license or certificate alone earns the status but no discount, and Busy Bees keeps a copy on file without checking it with the issuer.</li>
+  <li>Open <strong>Founding codes</strong> and check the founding offer wording (see the checklist lines about it).</li>
+  <li>Open <strong>Don't see your trade?</strong> — the future-trades application (three short screens). It is a <strong>process, not a live service</strong>: a contractor in a trade Busy Bees doesn't carry yet (the examples are auto repair and HVAC) can apply to a waitlist. Applying is free, promises no jobs, and opens nothing automatically — Bobby reviews every application himself, the back-office AI only sorts and counts, and a trade is normally only designed once three approved contractors offer it in the same area.</li>
 </ol>
 
 <p><strong>Check as you go:</strong></p>
 <ul class="check">
-  <li>Verified contractors get first look with a countdown; if they don't answer in time, the job passes on with no penalty.</li>
-  <li>Standing-accept (a job held for a contractor to approve) only exists for verified contractors who opted in, and only on small jobs.</li>
-  <li>Unverified contractors are labelled "not checked" — never hidden, never described as bad.</li>
-  <li>New contractors start neutral ("New to Busy Bees"), never penalised for having no history.</li>
-  <li>No contractor screen shows the dispatcher/owner view, fees for other contractors, or any customer list.</li>
+  <li>Both sample offers show the job, town, size, how often it repeats (when it repeats), and the flat fee — before any accept.</li>
+  <li>Neither sample offer shows a customer name, street address, or phone number.</li>
+  <li>Declining is stated as free everywhere it comes up, and never counts against the contractor.</li>
+  <li>Nothing promises how fast jobs or customers will come.</li>
+  <li>The future-trades screens never make it sound like a new trade is open or that applying guarantees anything.</li>
 </ul>
 
-<h2>Part 8 — Contractor Pages and membership (new)</h2>
+<h2>Part 8 — Membership and a member's own page</h2>
 
-<p>This is the newest part: contractors get their own page for their own customers.</p>
+<p>Members get their own Busy Bees page, where their own customers request them directly. In the test site this is two pages:</p>
 
 <ol>
-  <li>Open the <strong>Contractor Pages</strong> screen.</li>
-  <li>Look at a member's page: a shareable link (busybeesdispatch.com/plus their name) and a QR placeholder to share.</li>
-  <li>Open a member's page as if you were their customer. Pick a service. Check the request flow shows a <strong>Your contractor</strong> banner with that contractor locked in, and skips the contractor-choice question.</li>
-  <li>Check the contractor still gets notified, and it's still a request with confirm-before-pay and masked contact — not an instant booking.</li>
-  <li>Look at the membership + 10% ledger on a pretend contractor: members pay a membership PLUS 10% of the normal tier fee on each accepted own-page booking only (10% of $5 is $0.50, of $25 is $2.50, of $50 is $5, of $100 is $10). The 10% amounts add up and are billed once with the membership, not charged one by one.</li>
-  <li>Try the breakeven calculator. Type in a membership price, an average fee, and a number of jobs, and check the maths makes sense — including the quiet month with 0 or 1 jobs, where membership costs more than pay-per-job.</li>
-  <li>Check board-matched jobs (jobs the board routes, not from a contractor's own page) still cost the FULL tier fee for everyone, member or not.</li>
-  <li>Check membership never buys ranking, rating, level, or verified status.</li>
+  <li>Open <strong>Membership — your own page</strong>. Check the price, stated plainly: <strong>$19/week · $49/month · $490/year</strong>, renewing automatically until cancel, cancel anytime in two taps, page stays up to the end of the paid period, no refunds for unused time.</li>
+  <li>Check the own-page maths on the same page: own-page bookings cost membership <strong>plus 10% of the normal fee</strong> — the page's own examples are a $30 fee becoming $3, and 10% of $25 being $2.50, figured to the cent. The 10% amounts are tallied and billed with the membership, not charged job by job. If the member declines an own-page request, it closes, the customer is asked before it can go to the board, and the member owes no 10% for it.</li>
+  <li>Check board-matched jobs still cost the <strong>full fee</strong> for everyone, member or not, and that membership never buys ranking, ratings, level, or verified status.</li>
+  <li>Tap the pretend sign-up and read the <strong>member welcome</strong> screen (the page switched on).</li>
+  <li>Open <strong>A member's own page</strong> (Example Tree Co) — from the home page's Customers group or the link on the membership page. Check the banner: you're requesting Example Tree Co directly, they're already chosen, and it's still a request — they confirm first, contact stays masked, and if they decline, the request closes there and Busy Bees asks you before sending it to the board. Pick a kind of work and note the flow continues one question at a time, like the normal request flow.</li>
 </ol>
+
+<p><strong>Not in the test site:</strong> a breakeven calculator and plan-switching controls are design pieces for the real build — they are not in the test site, so don't flag them as missing or broken.</p>
 
 <p><strong>Check as you go:</strong></p>
 <ul class="check">
-  <li>The member page flow is as easy as the normal customer flow.</li>
-  <li>The plan-switching controls on pretend contractors are clearly just pretend controls — they don't go live.</li>
-  <li><strong>The prices on the page (Weekly $19 / Monthly $49 / Yearly $490) are the real, decided prices</strong> — Bobby set them on October 27. Membership itself is not for sale yet (a legal review comes first), so your job is just to check the maths and the wording.</li>
+  <li>The member page flow reads as easily as the normal customer flow.</li>
+  <li><strong>The prices on the page ($19 / $49 / $490) are the real, decided prices</strong> — Bobby set them on October 27. Membership itself is not for sale yet (a legal review comes first), so your job is just to check the maths and the wording.</li>
 </ul>
 
 <h2>Part 9 — Dispatcher view (owner only — Bobby's screen)</h2>
 
-<p>This is Bobby's screen — you're getting a look behind the counter. Contractors and customers never see it.</p>
+<p>This is Bobby's screen — you're getting a look behind the counter. On the test site's home page it's the "Behind the scenes" link, clearly marked as a test link. Real customers and contractors never see this screen on the real site.</p>
 
 <ol>
-  <li>Open the dispatcher view and look at the routing queue.</li>
-  <li>Look at the suggestion cards. These are design-only ideas — nothing here applies itself. Bobby decides everything.</li>
-  <li>Look at the referral and discount tracking, and the decision log (a record of past calls, so future suggestions can learn from them).</li>
-  <li>Check the queue shows whether each customer is registered (signed in) or a guest.</li>
+  <li>Read the <strong>incoming requests</strong> list: four pretend requests with their states — one awaiting a contractor (offered in a Level 4 first look), one accepted by Example Tree Co, one more awaiting, and one marked <strong>needs Bobby</strong> because every match passed. Note the line under it: a request that lands on Bobby's desk never just disappears, and the customer gets an honest update.</li>
+  <li>Read the <strong>contractor roster</strong>: four pretend contractors with their levels and Verified marks.</li>
+  <li>Read the <strong>Today</strong> counts: fees collected ($135, pretend), requests in, accepted, and how many are on Bobby's desk.</li>
+  <li>Find the <strong>suggestions inbox</strong> line: 3 new — Bobby reads and decides every one; nothing changes on its own.</li>
+  <li>Read the closing note about how the real desk runs the matching: verified first look, then the level cascade, then Bobby.</li>
 </ol>
 
 <p><strong>Check as you go:</strong></p>
 <ul class="check">
-  <li>The queue is readable at a glance: what the job is, where, what tier, who it's with, and what state it's in.</li>
-  <li>Nothing on this screen is reachable from a customer or contractor screen.</li>
-  <li>The page is clearly marked as owner-only.</li>
+  <li>The screen is readable at a glance: what the job is, where, what state it's in, and who it's with.</li>
+  <li>The page is clearly marked as Bobby's screen, and the only way in is the clearly marked test link on the home page.</li>
+  <li>Nothing on this screen asks you to approve, run, or change anything — there are no working buttons, and that is on purpose.</li>
 </ul>
 
-<h2>Part 10 — Areas and pre-launch pages</h2>
+<h2>Part 10 — Areas and pre-launch areas</h2>
 
 <ol>
-  <li>Open <strong>Areas we serve</strong> from the home page's Customers group and check it works as an area directory.</li>
-  <li>On the Cape Cod (live) area, check the 8 towns are right: Yarmouth, Hyannis/Barnstable, Dennis, Sandwich, Chatham, Harwich, Mashpee, Brewster.</li>
-  <li>Check the three pre-launch areas on the same page:
+  <li>Open <strong>Areas we serve</strong> from the home page's Customers group. The whole thing is one page with four area cards.</li>
+  <li>On the <strong>Cape Cod — LIVE</strong> card, check the 8 towns are right: Yarmouth, Hyannis/Barnstable, Dennis, Sandwich, Chatham, Harwich, Mashpee, Brewster.</li>
+  <li>Check the three pre-launch cards on the same page:
     <ul>
-      <li><strong>South Shore:</strong> should show 2 of 3 contractors on the roster (a pretend count), NOT live yet.</li>
-      <li><strong>Western Mass:</strong> should show 1 of 3 (a pretend count), NOT live yet, and no going-live date — never a made-up date.</li>
-      <li><strong>Rhode Island:</strong> should show 2 of 3 (a pretend count), NOT live yet.</li>
+      <li><strong>South Shore:</strong> "opening soon," 2 of 3 contractors on the roster (a pretend count), and a note that contractors there can already join the list.</li>
+      <li><strong>Western Mass:</strong> "opening soon," 1 of 3 (a pretend count), and no going-live date — never a made-up date.</li>
+      <li><strong>Rhode Island:</strong> "opening soon," 2 of 3 (a pretend count).</li>
     </ul>
   </li>
-  <li>Check the Yarmouth + surrounding counter is <strong>hidden</strong> while testing.</li>
-  <li>Check every pre-launch page says plainly: sign-up is open, the area goes live only when 3 approved contractors are on the roster, and the date moves if 3 aren't reached (no empty boards, ever).</li>
-  <li>Check each area has its own look (its own skin) but the same deal, flow, tiers, and fees underneath.</li>
+  <li>Check every pre-launch card says the same rule in plain words: the area opens when <strong>3 local contractors are on the roster</strong>.</li>
 </ol>
 
 <p><strong>Check as you go:</strong></p>
 <ul class="check">
-  <li>Every counter shows real approved-roster numbers only — never fake numbers.</li>
-  <li>Town lists on pre-launch pages are labelled "Proposed towns — to be confirmed" where they aren't final.</li>
-  <li>The Home link works from every area page.</li>
+  <li>Every counter is labelled a pretend count in this test version — on the real site, counters only ever count contractors on the roster, never padded numbers.</li>
+  <li>No pre-launch card promises a date.</li>
+  <li>The Home link works from the areas page.</li>
 </ul>
 
-<h2>Part 11 — Suggestions page and Home link sweep</h2>
+<h2>Part 11 — Home link sweep (and where suggestions live)</h2>
 
 <ol>
-  <li>Open the Suggestions/Contact page. Send a test suggestion. Check the form is simple (what it's about + a message + optional name) and that suggestions are private to Bobby by default.</li>
+  <li>Know this first: the test site has <strong>no separate Suggestions page</strong>. Suggestions live in the dispatcher view's suggestions inbox (Part 9) — Bobby reads every one and decides himself. If you went looking for a suggestions page of your own, note that in your notes; it helps Bobby.</li>
   <li>Go through every screen you can find and check the <strong>Home link is in the header on every single one</strong>, and the confirmation screen has <strong>Back to home</strong>.</li>
 </ol>
 
@@ -292,8 +275,8 @@
 <ol>
   <li><strong>Membership prices — decided.</strong> Bobby set them on October 27: $19/week, $49/month, $490/year. Membership is not for sale until the legal review clears. (Also settled: the 10% applies to own-page bookings only; board-matched jobs cost the full flat fee.)</li>
   <li><strong>Range fees.</strong> Some fees are ranges (for example tree trimming $15–$30). Every range endpoint needs a value from the 13 Stripe amounts ($5–$100), unless Bobby approves the rule that the dispatcher may use any of the 13 amounts.</li>
-  <li><strong>Snow flow fix + plow split.</strong> Bobby to approve: putting options before size in the snow flow, and splitting the plow options so no screen has more than 8.</li>
-  <li><strong>Bush seasonal routing + roof-wash fee.</strong> Bobby to approve: routing bush jobs through the frequency screen, and setting the roof-wash fee.</li>
+  <li><strong>Snow flow + plow split.</strong> The reordered snow flow and the split plow options (one-time vs. seasonal) are built into the test site for you to try — Bobby still gives the final yes before the real build copies them.</li>
+  <li><strong>Bush routing + roof-wash fee.</strong> Bush jobs routing through the "how often" screen is built into the test site to try; the roof-wash fee is still Bobby's to set.</li>
   <li><strong>Spec values (proposed, not final).</strong> Level bands (New 0–4 / Growing 5–19 / Established 20–49 / Trusted 50+), approve-window minutes (15 / 30 / 45 / 60, 1 hour max), cart level discount (Trusted 10% / Established 5% / else 0%), and peak promo windows. Bobby says which he keeps and which he changes.</li>
   <li><strong>Whole-property vs cart-sum rule.</strong> A whole-property cleanout is one fee, but adding house + driveway + deck separately in the cart sums higher. Bobby rules which one wins when they overlap.</li>
   <li><strong>Attorney review.</strong> Bobby approves the Terms Rev 3 direction, and a Massachusetts attorney reviews them before anything launches.</li>
