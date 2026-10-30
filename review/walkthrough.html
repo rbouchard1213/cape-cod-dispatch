@@ -50,7 +50,7 @@
   <li><strong>Open the test site from the review page</strong> — button 2, "Open the test site." It opens in the phone layout, which is how most people will see it.</li>
   <li><strong>You can't change the test site yourself</strong> — and you don't need to. When you spot something that should change, write it in your notes in plain words ("on the cart screen, the button is hard to tap") and send the notes to Bobby.</li>
   <li><strong>Jot problems down as you find them, or save up a list.</strong> Either way works. If something looks broken, note what you tapped right before it broke.</li>
-  <li><strong>Don't worry about these — they don't go live:</strong> the Test Runs page, the plan-switching controls on pretend contractors, the made-up example data, and the map box picture (see Part 3). Judge the flow and the wording, not those.</li>
+  <li><strong>Don't worry about these — they don't go live:</strong> the Dispatcher view link on the home page (it's a test link, marked as one), the made-up example data, and the map box picture (see Part 3). Judge the flow and the wording, not those.</li>
 </ul>
 
 <p><strong>Plain words used in this guide:</strong></p>
@@ -68,8 +68,8 @@
 <p>This is the most important part. A guest is someone who just opens the site and asks for work, without an account.</p>
 
 <ol>
-  <li>Open the test site. You should land on the main page with the areas listed.</li>
-  <li>Tap <strong>Request a local pro</strong> for Cape Cod.</li>
+  <li>Open the test site. You land on the preview home page: a "Give us a buzz" welcome, two big buttons (Request a local pro, and I'm a contractor), a short "How it works" card, and below that a menu in three groups — <strong>Customers</strong>, <strong>For contractors</strong>, and <strong>Behind the scenes</strong>. The areas live under "Areas we serve" in the Customers group.</li>
+  <li>Tap <strong>Request a local pro</strong>.</li>
   <li>Pick a town from the town grid.</li>
   <li>Pick a category (there are 7: Tree Work, Lawn Care, Landscaping, Storm Cleanup, Snow Removal, Heavy Hauling, Pressure Washing).</li>
   <li>Pick a job inside that category.</li>
@@ -227,7 +227,7 @@
 <ul class="check">
   <li>The member page flow is as easy as the normal customer flow.</li>
   <li>The plan-switching controls on pretend contractors are clearly just pretend controls — they don't go live.</li>
-  <li><strong>The prices on the page right now (Weekly $19 / Monthly $49 / Yearly $490) are placeholders, NOT decided.</strong> They are there so the calculator has numbers to work with. Bobby picks the real prices at the end (Part 13) — your job is just to check the maths and the wording.</li>
+  <li><strong>The prices on the page (Weekly $19 / Monthly $49 / Yearly $490) are the real, decided prices</strong> — Bobby set them on October 27. Membership itself is not for sale yet (a legal review comes first), so your job is just to check the maths and the wording.</li>
 </ul>
 
 <h2>Part 9 — Dispatcher view (owner only — Bobby's screen)</h2>
@@ -251,13 +251,13 @@
 <h2>Part 10 — Areas and pre-launch pages</h2>
 
 <ol>
-  <li>Open the main page and check it works as an area directory.</li>
-  <li>Open the Cape Cod board (live area) and check the 8 towns are right: Yarmouth, Hyannis/Barnstable, Dennis, Sandwich, Chatham, Harwich, Mashpee, Brewster.</li>
-  <li>Open each pre-launch area page:
+  <li>Open <strong>Areas we serve</strong> from the home page's Customers group and check it works as an area directory.</li>
+  <li>On the Cape Cod (live) area, check the 8 towns are right: Yarmouth, Hyannis/Barnstable, Dennis, Sandwich, Chatham, Harwich, Mashpee, Brewster.</li>
+  <li>Check the three pre-launch areas on the same page:
     <ul>
-      <li><strong>South Shore:</strong> should show 2 of 3 approved contractors, NOT live yet.</li>
-      <li><strong>Western Mass:</strong> should show 3 of 3, still pre-launch with its going-live date "to be confirmed" — never a made-up date.</li>
-      <li><strong>Rhode Island:</strong> same pre-launch treatment.</li>
+      <li><strong>South Shore:</strong> should show 2 of 3 contractors on the roster (a pretend count), NOT live yet.</li>
+      <li><strong>Western Mass:</strong> should show 1 of 3 (a pretend count), NOT live yet, and no going-live date — never a made-up date.</li>
+      <li><strong>Rhode Island:</strong> should show 2 of 3 (a pretend count), NOT live yet.</li>
     </ul>
   </li>
   <li>Check the Yarmouth + surrounding counter is <strong>hidden</strong> while testing.</li>
@@ -290,7 +290,7 @@
 <p>These are open items for Bobby to decide — not for you. They're listed so you know what's still unsettled, like the placeholder prices in Part 8. You don't need to pick anything. If you have an opinion on any of them, put it in your notes.</p>
 
 <ol>
-  <li><strong>Membership prices.</strong> The $19 / $49 / $490 on the page are placeholders. Bobby picks the real weekly, monthly, and yearly prices — and whether membership covers own-page bookings only, or all bookings.</li>
+  <li><strong>Membership prices — decided.</strong> Bobby set them on October 27: $19/week, $49/month, $490/year. Membership is not for sale until the legal review clears. (Also settled: the 10% applies to own-page bookings only; board-matched jobs cost the full flat fee.)</li>
   <li><strong>Range fees.</strong> Some fees are ranges (for example tree trimming $15–$30). Every range endpoint needs a value from the 13 Stripe amounts ($5–$100), unless Bobby approves the rule that the dispatcher may use any of the 13 amounts.</li>
   <li><strong>Snow flow fix + plow split.</strong> Bobby to approve: putting options before size in the snow flow, and splitting the plow options so no screen has more than 8.</li>
   <li><strong>Bush seasonal routing + roof-wash fee.</strong> Bobby to approve: routing bush jobs through the frequency screen, and setting the roof-wash fee.</li>
@@ -320,16 +320,14 @@
 <p>The free gardening section and the sponsor cards went into the test site on Oct 30. Check them like this:</p>
 
 <ol>
-  <li>Tap <strong>🌱 Almanac</strong> in the header. It must open with NO sign-in wall — anybody can read it.</li>
-  <li>On the Almanac index page, count the sponsor cards as a <strong>guest: 2</strong>. Flip the <strong>Guest/Member toggle</strong> to Member: it must drop to <strong>1</strong>. Cards must say "Sponsored — Local Partner" and show garden-type stores only (nurseries, garden centers, hardware) — never a contractor.</li>
-  <li>Open two articles (try "This Month in Your Yard" and "Hydrangea Help"). Same count rule: 2 cards as guest, 1 as member. Each article ends with ONE calm line pointing to "Request a local pro" — nothing pushy, no pop-ups, nothing moving.</li>
-  <li>In an article that mentions a product, find the small affiliate note (one per article, plain words about earning a small commission). It should read like information, not an ad.</li>
-  <li>Go to each of the three area pages (South Shore, Western Mass, Rhode Island). Each shows exactly <strong>1 sponsor card, below the request button</strong> — the card never competes with the button.</li>
+  <li>Open <strong>The Cape Cod Yard Almanac</strong> from the home page's Customers group. It must open with NO sign-in wall — anybody can read it.</li>
+  <li>On the Almanac page, count the sponsor cards: <strong>2</strong>. Cards must say "Sponsored — Local Partner" and show garden-type stores only (nurseries, garden centers, hardware) — never a contractor.</li>
+  <li>Open the one finished article, <strong>"When to do your fall cleanup."</strong> It has <strong>1</strong> sponsor card, and it ends with ONE calm button pointing to "Request a local pro" — nothing pushy, no pop-ups, nothing moving. The other topics on the Almanac page are marked "Coming soon" — they should NOT open the fall-cleanup article.</li>
   <li>Run one full request (guest) start to finish and confirm: <strong>zero ads anywhere in the request flow.</strong></li>
   <li>Anything off — wrong count, a card in the wrong place, wording that feels pushy — note the screen name and put it in your notes for Bobby, like the other parts.</li>
 </ol>
 
-<p>Done when: counts check out on index + 2 articles + 3 area pages, the toggle works, and the request flow is clean.</p>
+<p>Done when: counts check out on the Almanac page and the one article, and the request flow is clean.</p>
 
 <footer>
   <a class="back" href="index.html">&larr; Back to the review page</a>

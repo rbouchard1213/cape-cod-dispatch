@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Busy Bees — Your Review Notes</title>
+<style>
+  body { margin: 0; font-family: Georgia, 'Times New Roman', serif; background: #F7F3EA; color: #14161F; line-height: 1.5; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 24px 18px 40px; }
+  header { background: #14161F; color: #F7F3EA; border-radius: 10px; padding: 26px 22px; text-align: center; }
+  header h1 { margin: 0; font-size: 28px; color: #DFB25D; }
+  header p { margin: 6px 0 0; font-size: 15px; }
+  .note { background: #FBF3DF; border: 2px solid #DFB25D; border-radius: 8px; padding: 12px 16px; margin: 18px 0; font-weight: bold; text-align: center; }
+  .deal { background: #ffffff; border: 1.5px solid #DFB25D; border-radius: 8px; padding: 16px 18px; margin: 18px 0; }
+  h2 { font-size: 19px; margin: 26px 0 6px; border-bottom: 2px solid #DFB25D; padding-bottom: 3px; }
+  h3 { font-size: 16px; margin: 18px 0 4px; }
+  p { margin: 8px 0; }
+  label { display: block; font-weight: bold; margin: 12px 0 4px; }
+  label span { display: block; font-weight: normal; font-size: 13.5px; color: #555; }
+  input[type="text"], textarea { width: 100%; box-sizing: border-box; padding: 10px; font-size: 16px; font-family: inherit; border: 1.5px solid #B9B2A0; border-radius: 8px; background: #FFFDF7; }
+  textarea { min-height: 74px; }
+  textarea.big { min-height: 110px; }
+  button { width: 100%; padding: 15px; font-size: 17px; font-weight: 700; background: #DFB25D; color: #14161F; border: 0; border-radius: 10px; margin-top: 22px; font-family: inherit; }
+  .small { font-size: 13.5px; color: #555; }
+  a { color: #14161F; }
+  footer { text-align: center; color: #555; font-size: 13px; margin-top: 26px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Busy Bees</h1>
+  <p>Your Review Notes</p>
+</header>
+
+<div class="note">Please do not share this link without Bobby's permission.</div>
+
+<p>Fill this in as you go through the test site, right on your phone. When you're done, tap the <strong>Copy all my notes</strong> button at the bottom and paste them into a message to Bobby — or just take screenshots. (This page doesn't save or send anything by itself, so copy your notes before you close it.)</p>
+
+<label>Your name
+  <input type="text" id="f_name" autocomplete="name">
+</label>
+<label>Your review code <span>The code from Bobby's message — like BEE-01. This is how your review gets matched to you.</span>
+  <input type="text" id="f_code">
+</label>
+<label>Date finished
+  <input type="text" id="f_date">
+</label>
+<label>Phone or computer you used
+  <input type="text" id="f_device">
+</label>
+
+<h2>Your time</h2>
+<p class="small">Breaks don't count against you — just be honest.</p>
+<label>What time did you start?
+  <input type="text" id="f_start">
+</label>
+<label>What time did you finish?
+  <input type="text" id="f_finish">
+</label>
+<label>Any long breaks in the middle? About how long, total?
+  <input type="text" id="f_breaks">
+</label>
+
+<div class="deal">
+  <p style="margin:0"><strong>The deal:</strong> $30 cash or a $35 gift card when you finish and send your notes back <strong>by Friday, November 13</strong>. Finish <strong>by Friday, November 6</strong> for an extra $10. Extra real finds that aren't on the checklist: $5 each, up to $25. One truly exceptional catch: $20. Pay comes in full, all at once, when your notes are checked in. <strong>Contractors:</strong> one free month of membership ($49 value) instead of the cash or gift card — it banks if you're already in free time.</p>
+</div>
+
+<h2>Notes by pass</h2>
+<p class="small">Anything you noticed while doing each pass — confusing words, awkward screens, things that looked wrong. If a note is about a checklist line or a brand-new find, also put it in the sections below.</p>
+
+<label>Pass 1 — Pretend you're a homeowner <span>The request flow, your account, the Almanac.</span>
+  <textarea class="big" id="f_pass1"></textarea>
+</label>
+<label>Pass 2 — Pretend you're a contractor <span>Job offers, membership, levels &amp; verified, founding codes.</span>
+  <textarea class="big" id="f_pass2"></textarea>
+</label>
+<label>Pass 3 — Bobby's seat <span>The dispatcher view.</span>
+  <textarea class="big" id="f_pass3"></textarea>
+</label>
+
+<h2>Checklist items that were NOT true</h2>
+<p class="small">For each one: which part of the site (Customers / For contractors / Dispatcher), what screen, what the checklist said should be true, and what you actually saw.</p>
+
+<h3>1.</h3>
+<label>Which part / what screen
+  <input type="text" id="f_no1_where">
+</label>
+<label>What the checklist said — and what you actually saw
+  <textarea id="f_no1_what"></textarea>
+</label>
+<h3>2.</h3>
+<label>Which part / what screen
+  <input type="text" id="f_no2_where">
+</label>
+<label>What the checklist said — and what you actually saw
+  <textarea id="f_no2_what"></textarea>
+</label>
+<h3>3.</h3>
+<label>Which part / what screen
+  <input type="text" id="f_no3_where">
+</label>
+<label>What the checklist said — and what you actually saw
+  <textarea id="f_no3_what"></textarea>
+</label>
+
+<h2>Extra things you found</h2>
+<p class="small">Not on the checklist — these earn extra. For each one: which part of the site, what screen, what you tapped or typed, what you expected, and what happened.</p>
+
+<h3>1.</h3>
+<label>Which part / what screen
+  <input type="text" id="f_ex1_where">
+</label>
+<label>What you tapped, what you expected, what happened
+  <textarea id="f_ex1_what"></textarea>
+</label>
+<h3>2.</h3>
+<label>Which part / what screen
+  <input type="text" id="f_ex2_where">
+</label>
+<label>What you tapped, what you expected, what happened
+  <textarea id="f_ex2_what"></textarea>
+</label>
+<h3>3.</h3>
+<label>Which part / what screen
+  <input type="text" id="f_ex3_where">
+</label>
+<label>What you tapped, what you expected, what happened
+  <textarea id="f_ex3_what"></textarea>
+</label>
+
+<h2>Anything that confused you</h2>
+<p class="small">Confusion counts — it's some of the most useful feedback there is.</p>
+<label>What confused you
+  <textarea class="big" id="f_confused"></textarea>
+</label>
+
+<h2>Overall</h2>
+<label>Could you use this site on your own, without help? <span>Yes / mostly / no</span>
+  <input type="text" id="f_overall_use">
+</label>
+<label>Anything else you want to tell Bobby
+  <textarea class="big" id="f_overall_more"></textarea>
+</label>
+
+<button id="copyBtn" type="button">Copy all my notes</button>
+<p class="small" id="copyMsg" style="text-align:center"></p>
+
+<p style="text-align:center"><a href="index.html">&larr; Back to the review page</a> · <a href="notes.txt">Plain-text notes sheet (notes.txt)</a></p>
+
+<footer>Busy Bees · Local Service Dispatch · Cape Cod · (508) 258-9899</footer>
+
+</div>
+<script>
+(function(){
+  var fields = [
+    ['f_name','Name'], ['f_code','Review code'], ['f_date','Date finished'], ['f_device','Phone or computer used'],
+    ['f_start','Started'], ['f_finish','Finished'], ['f_breaks','Long breaks (total)'],
+    ['f_pass1','PASS 1 — HOMEOWNER'], ['f_pass2','PASS 2 — CONTRACTOR'], ['f_pass3','PASS 3 — DISPATCHER'],
+    ['f_no1_where','NOT TRUE #1 — where'], ['f_no1_what','NOT TRUE #1 — details'],
+    ['f_no2_where','NOT TRUE #2 — where'], ['f_no2_what','NOT TRUE #2 — details'],
+    ['f_no3_where','NOT TRUE #3 — where'], ['f_no3_what','NOT TRUE #3 — details'],
+    ['f_ex1_where','EXTRA FIND #1 — where'], ['f_ex1_what','EXTRA FIND #1 — details'],
+    ['f_ex2_where','EXTRA FIND #2 — where'], ['f_ex2_what','EXTRA FIND #2 — details'],
+    ['f_ex3_where','EXTRA FIND #3 — where'], ['f_ex3_what','EXTRA FIND #3 — details'],
+    ['f_confused','ANYTHING THAT CONFUSED ME'], ['f_overall_use','Could use it on my own?'], ['f_overall_more','Anything else for Bobby']
+  ];
+  var btn = document.getElementById('copyBtn'), msg = document.getElementById('copyMsg');
+  btn.addEventListener('click', function(){
+    var out = 'BUSY BEES — REVIEW NOTES\n';
+    fields.forEach(function(pair){
+      var el = document.getElementById(pair[0]);
+      var v = el ? el.value.trim() : '';
+      if (v) { out += '\n' + pair[1] + ': ' + v + '\n'; }
+    });
+    function done(ok){ msg.textContent = ok ? 'Copied! Now paste it into a message to Bobby.' : 'Copy did not work here — take screenshots of this page instead and send those to Bobby.'; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(out).then(function(){ done(true); }, function(){ done(false); });
+    } else { done(false); }
+  });
+})();
+</script>
+</body>
+</html>
