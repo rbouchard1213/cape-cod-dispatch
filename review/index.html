@@ -27,10 +27,27 @@
 
 <header>
   <h1>Busy Bees</h1>
-  <p>Test Site Review</p>
+  <p>Local Service Dispatch</p>
+  <p style="font-size:13px;letter-spacing:2px;">EST. 2026 &middot; CAPE COD, MASSACHUSETTS</p>
+  <p style="font-size:17px;font-weight:bold;">Test Site Review Packet</p>
 </header>
 
-<div class="note">Please do not share this link without permission from Busy Bees.</div>
+<div class="note">PRIVATE REVIEW MATERIALS — PLEASE DO NOT SHARE, COPY, OR POST.</div>
+
+<div class="deal">
+  <h2>What's inside this packet</h2>
+  <p>The papers in this packet go with this private review page. Same packet, same order — on paper or right here:</p>
+  <ol style="margin:10px 0 10px;padding-left:22px;">
+    <li style="margin-bottom:8px;"><a href="agreement.html"><strong>Agreement</strong></a> — read first, then reply "I agree"</li>
+    <li style="margin-bottom:8px;"><a href="guide.html"><strong>Review Guide</strong></a> — the walkthrough, in plain words</li>
+    <li style="margin-bottom:8px;"><a href="checklist.html"><strong>Yes / No Checklist</strong></a> — circle as you go</li>
+    <li style="margin-bottom:8px;"><a href="notes.html"><strong>Your Notes Sheet</strong></a> — write your finds here</li>
+    <li style="margin-bottom:8px;"><a href="../preview/"><strong>The test site</strong></a> — the site itself, worked through in the guide's three passes</li>
+  </ol>
+  <p style="margin:10px 0 0;">Prepared for: <span id="covName">________________</span><br>
+  Review code: <span id="covCode">________________</span><br>
+  Date given: <span id="covDate">________________</span></p>
+</div>
 
 <p>This is the pretend test version of the new Busy Bees site. Everything here is made up — fake customers, fake jobs, pretend payments. Nothing you tap is real, and you can't break anything. Busy Bees just needs fresh eyes on it before the real one goes live.</p>
 
@@ -45,12 +62,15 @@
 <a class="small" href="notes.html">Notes page — fill in on your phone (readable version)</a>
 <a class="small" href="notes.txt">Notes sheet — plain text file (same thing, no formatting)</a>
 <a class="small" href="walkthrough.html">More technical? The full walkthrough guide (deep version)</a>
+<a class="small" href="review-packet.pdf">Prefer paper? Download the full packet (PDF) — the exact same packet.</a>
 
 <p class="closing">When you're done, send your notes sheet — or a photo of it — back to Busy Bees, however you normally get in touch.</p>
 
 <div class="note">Please do not share this link without permission from Busy Bees.</div>
 
-<footer>Busy Bees · Local Service Dispatch · Cape Cod · (508) 258-9899</footer>
+<p class="closing" style="font-style:italic;">"Give us a buzz."</p>
+
+<footer>Busy Bees · (508) 258-9899 · dispatch@busybeesdispatch.com · busybeesdispatch.com</footer>
 
 </div>
 
@@ -68,7 +88,7 @@
     <label>Your name<br><input id="bbName" type="text" autocomplete="name" style="width:100%;padding:10px;font-size:16px;margin:4px 0 10px"></label>
     <label>Your review code (example: BEE-01)<br><input id="bbCode" type="text" style="width:100%;padding:10px;font-size:16px;margin:4px 0 14px"></label>
     <button id="bbAgree" disabled style="width:100%;padding:14px;font-size:17px;font-weight:700;background:#DFB25D;color:#14161F;border:0;border-radius:10px;opacity:.5">I agree — let me in</button>
-    <p style="font-size:13px;color:#5B5A52">Full agreement text is in the message Busy Bees sent you. Family reviewers: your personal family terms still apply.</p>
+    <p style="font-size:13px;color:#5B5A52">The full agreement text is <a href="agreement.html">right here</a> — same words as the paper packet and the message Busy Bees sent you. Family reviewers: your personal family terms still apply.</p>
   </div>
 </div>
 <script>
@@ -86,6 +106,16 @@
       localStorage.setItem('bb_date',new Date().toISOString());
       g.style.display='none';
     });
+  }catch(e){}
+})();
+</script>
+<script>
+(function(){
+  try{
+    var n=localStorage.getItem('bb_name'),c=localStorage.getItem('bb_code'),d=localStorage.getItem('bb_date');
+    if(n){document.getElementById('covName').textContent=n;}
+    if(c){document.getElementById('covCode').textContent=c;}
+    if(d){var dt=new Date(d);if(!isNaN(dt)){document.getElementById('covDate').textContent=dt.toLocaleDateString();}}
   }catch(e){}
 })();
 </script>
