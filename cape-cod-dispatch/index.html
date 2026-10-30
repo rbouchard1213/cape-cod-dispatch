@@ -6,7 +6,7 @@
 <title>Busy Bees &mdash; Cape Cod Service Dispatch</title>
 <meta name="description" content="Cape Cod's premier coastal service dispatch. Text-only lead routing for tree work, storm debris, equipment hauling, and power washing across the Mid & Upper Cape." />
 <meta property="og:title" content="Busy Bees &mdash; Cape Cod&rsquo;s Premier Service Dispatch" />
-<meta property="og:description" content="Storm damage, tree hazards, heavy hauls, power washing — one free request, a local Cape contractor gets a text alert in minutes. No calls, no card, no obligation." />
+<meta property="og:description" content="Storm damage, tree hazards, heavy hauls, power washing — one free request, a local Cape contractor is notified by text. No calls, no card, no obligation." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://busybeesdispatch.com/cape-cod-dispatch/" />
 <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Race_Point_Beach_-_Cape_Cod_National_Seashore_%2814081872902%29.jpg/1280px-Race_Point_Beach_-_Cape_Cod_National_Seashore_%2814081872902%29.jpg" />
@@ -85,13 +85,13 @@ tailwind.config = {
       <div class="flex justify-center mb-4"><span class="bg-white rounded-2xl w-16 h-16 flex shadow-lg ring-4 ring-white/20 p-1"><span class="bb-shield block w-full h-full"></span></span></div>
       <p class="text-teal-300 font-semibold tracking-widest text-xs uppercase mb-3"><i class="fa-solid fa-water mr-1"></i> Yarmouth &bull; Hyannis &bull; Mid &amp; Upper Cape</p>
       <h1 class="text-3xl sm:text-5xl font-black leading-tight">Cape Cod&rsquo;s Premier<br class="sm:hidden" /> Service Dispatch</h1>
-      <p class="mt-4 text-slate-200 max-w-xl mx-auto text-sm sm:text-base">Storm damage, tree hazards, heavy hauls, and salt prep &mdash; tell us what you need and a vetted local contractor gets a <strong class="text-white">text alert within minutes</strong>. No phone tag. No robocalls. Ever.</p>
+      <p class="mt-4 text-slate-200 max-w-xl mx-auto text-sm sm:text-base">Storm damage, tree hazards, heavy hauls, and salt prep &mdash; tell us what you need and a local contractor covering your town gets your request by text. No phone tag. No robocalls. Ever.</p>
       <div class="mt-5 flex justify-center"><span class="inline-flex items-center gap-2 bg-gold text-navy font-extrabold text-base sm:text-lg rounded-full px-5 py-2.5 shadow-lg ring-4 ring-gold/30"><i class="fa-solid fa-circle-check"></i>FREE to request &mdash; no card, no obligation</span></div>
       <p class="mt-3 text-teal-100 font-medium text-sm sm:text-base">You only ever pay the contractor directly &mdash; and only for work you approve.</p>
       <div class="mt-5 flex flex-wrap justify-center gap-1.5" id="heroTowns"></div>
       <div class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs sm:text-sm text-teal-100">
         <span><i class="fa-solid fa-message mr-1.5"></i>Text-only dispatch</span>
-        <span><i class="fa-solid fa-bolt mr-1.5"></i>Urgent hazards prioritized</span>
+        <span><i class="fa-solid fa-circle-check mr-1.5"></i>Free to request</span>
         <span><i class="fa-solid fa-tree mr-1.5"></i>Local Cape contractors</span>
       </div>
     </div>
@@ -117,7 +117,7 @@ tailwind.config = {
         </div>
         <div class="flex flex-col sm:flex-row items-center gap-2.5">
           <span class="bg-emerald-50 text-teal rounded-xl w-11 h-11 flex items-center justify-center shrink-0"><i class="fa-solid fa-shield-halved text-lg"></i></span>
-          <div><p class="font-bold text-sm leading-tight">Private by Design</p><p class="text-xs text-slate-500 leading-snug">Your info goes only to your matched contractor. Never sold. No spam calls.</p></div>
+          <div><p class="font-bold text-sm leading-tight">Private by Design</p><p class="text-xs text-slate-500 leading-snug">Busy Bees uses your details for this request only. Never sold. No spam calls.</p></div>
         </div>
       </div>
       <p class="mt-4 text-center text-xs font-semibold text-navy bg-linen border border-dashed border-gold/50 rounded-lg py-2 px-3">
@@ -154,30 +154,12 @@ tailwind.config = {
           <div>
             <label for="fPhone" class="block text-sm font-semibold mb-1.5">Text-Enabled Phone Number</label>
             <input id="fPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(508) 555-0123" class="w-full border border-slate-300 rounded-xl px-4 py-3 text-base bg-white" />
-            <p class="text-xs text-slate-500 mt-1.5"><i class="fa-solid fa-lock text-teal mr-1"></i>Used for text updates only &mdash; never voice calls, never shared beyond your contractor.</p>
+            <p class="text-xs text-slate-500 mt-1.5"><i class="fa-solid fa-lock text-teal mr-1"></i>Used for text updates about this request only &mdash; never voice calls, never sold, and never added to a call list.</p>
             <p id="errPhone" class="hidden text-sm text-red-600 font-medium mt-1.5">Please enter a valid 10-digit mobile number.</p>
           </div>
         </div>
 
-        <fieldset>
-          <legend class="text-sm font-semibold mb-2">How urgent is it?</legend>
-          <div class="grid sm:grid-cols-2 gap-3">
-            <label class="relative block">
-              <input type="radio" name="urgency" value="Immediate Hazard" class="peer sr-only" />
-              <span class="block border-2 border-slate-200 peer-checked:border-red-400 peer-checked:bg-red-50 rounded-xl p-4 cursor-pointer transition">
-                <span class="font-bold text-red-700 flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation"></i>Immediate Hazard</span>
-                <span class="block text-xs text-slate-500 mt-1">Fallen tree, blocked driveway, dangerous limb &mdash; routed first.</span>
-              </span>
-            </label>
-            <label class="relative block">
-              <input type="radio" name="urgency" value="Scheduled 24-48 hrs" class="peer sr-only" checked />
-              <span class="block border-2 border-slate-200 peer-checked:border-teal peer-checked:bg-emerald-50 rounded-xl p-4 cursor-pointer transition">
-                <span class="font-bold text-teal flex items-center gap-2"><i class="fa-regular fa-calendar-check"></i>Scheduled &mdash; 24 to 48 hrs</span>
-                <span class="block text-xs text-slate-500 mt-1">Not dangerous. A contractor texts you to book a time.</span>
-              </span>
-            </label>
-          </div>
-        </fieldset>
+
 
         <div>
           <label for="fNotes" class="block text-sm font-semibold mb-1.5">Brief Job Description / Notes</label>
@@ -189,7 +171,7 @@ tailwind.config = {
         <div class="bg-linen border border-slate-200 rounded-xl px-4 py-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
           <span><i class="fa-solid fa-screwdriver-wrench text-teal mr-1.5"></i><strong id="sumService">No service picked</strong></span>
           <span><i class="fa-solid fa-location-dot text-gold mr-1.5"></i><strong id="sumTown">No town picked</strong></span>
-          <span class="ml-auto text-xs font-extrabold text-teald bg-emerald-50 border border-emerald-200 rounded-full px-2.5 py-1"><i class="fa-solid fa-circle-check mr-1"></i>FREE for you &mdash; the fee is billed to the contractor</span>
+          <span class="ml-auto text-xs font-extrabold text-teald bg-emerald-50 border border-emerald-200 rounded-full px-2.5 py-1"><i class="fa-solid fa-circle-check mr-1"></i>FREE for you to request</span>
         </div>
 
         <button type="submit" id="submitBtn" class="w-full bg-teal hover:bg-teald text-white font-extrabold text-lg rounded-xl py-4 shadow-soft transition flex items-center justify-center gap-2">
@@ -207,7 +189,7 @@ tailwind.config = {
     <!-- HOW IT WORKS -->
     <section class="mt-8 grid sm:grid-cols-3 gap-3 text-center">
       <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5"><i class="fa-solid fa-clipboard-list text-2xl text-teal"></i><p class="font-bold mt-2">1. Send the request</p><p class="text-xs text-slate-500 mt-1">60 seconds. No account, no card, no phone call.</p></div>
-      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5"><i class="fa-solid fa-tower-broadcast text-2xl text-gold"></i><p class="font-bold mt-2">2. We text a local pro</p><p class="text-xs text-slate-500 mt-1">Your job is routed instantly to a contractor in your town.</p></div>
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5"><i class="fa-solid fa-tower-broadcast text-2xl text-gold"></i><p class="font-bold mt-2">2. We contact a local pro</p><p class="text-xs text-slate-500 mt-1">Busy Bees reviews your request and contacts a local contractor who covers your town.</p></div>
       <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5"><i class="fa-solid fa-comments text-2xl text-navy"></i><p class="font-bold mt-2">3. They text you back</p><p class="text-xs text-slate-500 mt-1">Quotes and scheduling happen by text, on your terms.</p></div>
     </section>
 
@@ -215,11 +197,11 @@ tailwind.config = {
     <section class="mt-8 bg-white rounded-2xl shadow-soft border border-slate-100 p-5 sm:p-7">
       <h2 class="text-xl font-extrabold"><i class="fa-solid fa-circle-question text-teal mr-2"></i>Straight answers before you ask</h2>
       <div class="mt-4 space-y-4 text-sm">
-        <div><p class="font-bold">Is it really free to request?</p><p class="text-slate-500 mt-0.5">Yes. Submitting is always free and no card is ever asked for. Contractors pay a small dispatch fee to receive local jobs &mdash; that's how the service runs, so it costs you nothing.</p></div>
+        <div><p class="font-bold">Is it really free to request?</p><p class="text-slate-500 mt-0.5">Yes. Submitting is always free and no card is ever asked for. You pay only the contractor directly &mdash; and only for work you approve.</p></div>
         <div><p class="font-bold">Who actually shows up to do the work?</p><p class="text-slate-500 mt-0.5">A local contractor who covers your town. They'll text you first with who they are and a quote &mdash; nothing starts until you say yes to it.</p></div>
-        <div><p class="font-bold">How fast will I hear back?</p><p class="text-slate-500 mt-0.5">Tap the text button on the confirmation screen and your request reaches Busy Bees instantly. Immediate hazards are routed first. Scheduled jobs get a text within the 24&ndash;48 hr window you picked.</p></div>
+        <div><p class="font-bold">How fast will I hear back?</p><p class="text-slate-500 mt-0.5">Busy Bees reviews each request and replies by text with the next step. Timing depends on which local contractors are available, so there is no guaranteed response time.</p></div>
         <div><p class="font-bold">How do I pay for the work itself?</p><p class="text-slate-500 mt-0.5">Directly to your contractor when the job's done, the way you've always paid local pros. If a card payment is ever involved, it runs through Stripe's secure checkout &mdash; your card details are never stored on this site or shared.</p></div>
-        <div><p class="font-bold">What happens to my phone number?</p><p class="text-slate-500 mt-0.5">It goes to your matched contractor only, for texts about your job. Never sold, never put on a call list, and we never voice-call you. Questions in the meantime? Give us a buzz &mdash; text us at <a href="sms:+15082589899" class="font-bold text-teal">(508) 258-9899</a>.</p></div>
+        <div><p class="font-bold">What happens to my phone number?</p><p class="text-slate-500 mt-0.5">Busy Bees uses it for text updates about your job. It is never sold or put on a call list, and we never voice-call you. Questions in the meantime? Give us a buzz &mdash; text us at <a href="sms:+15082589899" class="font-bold text-teal">(508) 258-9899</a>.</p></div>
       </div>
     </section>
 
@@ -233,7 +215,7 @@ tailwind.config = {
     <footer class="mt-10 text-center text-xs text-slate-400 space-y-1.5 pb-20 md:pb-0">
       <p><i class="fa-solid fa-anchor mr-1"></i>Busy Bees &mdash; based in Yarmouth, serving Yarmouth, Barnstable/Hyannis, Dennis, Sandwich, Chatham, Harwich, Mashpee &amp; Brewster. <a href="../" class="underline font-semibold whitespace-nowrap">&larr; All Busy Bees areas</a></p>
       <p><i class="fa-solid fa-message text-teal mr-1"></i>Questions? Give us a buzz &mdash; text <a href="sms:+15082589899" class="font-semibold text-slate-500">(508) 258-9899</a>. Text only; we reply by text.</p>
-      <p>Your request reaches us by text — tap the text button on the confirmation screen and it lands with Busy Bees instantly. No voice calls.</p>
+      <p>Your request reaches us by text — tap the text button on the confirmation screen. No voice calls.</p>
       <p class="text-slate-300">Photos via Wikimedia Commons: Race Point Beach &mdash; m01229 (CC BY 2.0); tree work &mdash; TreeMinion15 (CC BY-SA 4.0); storm damage &mdash; Wil540 art (CC BY 4.0); equipment haul &mdash; Digger470751 (CC BY-SA 4.0); pressure washing &mdash; GeorgeTan#5 (CC0); fall leaves &mdash; David Morris (CC BY 2.0).</p>
     </footer>
   </div>
@@ -325,7 +307,7 @@ tailwind.config = {
       <div id="emptyState" class="hidden bg-white border border-dashed border-slate-300 rounded-2xl p-10 text-center text-slate-400">
         <i class="fa-solid fa-wind text-3xl mb-2"></i>
         <p class="font-semibold">No leads in the queue.</p>
-        <p class="text-sm">Submit one from the Customer portal &mdash; it will land here instantly and survive a page reload.</p>
+        <p class="text-sm">Submit one from the Customer portal &mdash; it will appear here and survive a page reload.</p>
       </div>
     </section>
 
@@ -349,12 +331,12 @@ tailwind.config = {
     <div class="bg-linen border border-slate-200 rounded-xl p-3 mt-4 text-left text-sm space-y-1">
       <p><span class="text-slate-400 font-semibold">Reference:</span> <strong id="cLeadId"></strong></p>
       <p><span class="text-slate-400 font-semibold">Service:</span> <strong id="cService"></strong></p>
-      <p><span class="text-slate-400 font-semibold">Urgency:</span> <strong id="cUrgency"></strong></p>
+      <p><span class="text-slate-400 font-semibold">Request type:</span> <strong id="cUrgency"></strong></p>
     </div>
     <div class="mt-4 bg-emerald-50 border border-emerald-100 rounded-xl p-3 text-xs text-left space-y-1.5">
       <p class="font-bold text-navy"><i class="fa-solid fa-lock text-teal mr-1"></i>Sent over a secure, encrypted connection</p>
       <p class="text-slate-500"><i class="fa-brands fa-stripe mr-1"></i>If a payment is ever needed, it runs through Stripe&rsquo;s secure checkout &mdash; your card details are never stored here or shared.</p>
-      <p class="text-slate-500"><i class="fa-solid fa-shield-halved text-teal mr-1"></i>Your number was shared only with your matched contractor.</p>
+      <p class="text-slate-500"><i class="fa-solid fa-shield-halved text-teal mr-1"></i>Your number is used only for text updates about this request.</p>
     </div>
     <details class="mt-3 text-left">
       <summary class="text-xs font-semibold text-slate-400 cursor-pointer">View dispatch payload (JSON)</summary>
@@ -407,7 +389,7 @@ function loadLeads(){
   const seed = [
     { id:'CCD-7K2P9', createdAt:new Date(now-42*60000).toISOString(), demo:true, status:'New',
       customer:{name:'Demo — Sarah M.', phone:'5085550142'}, serviceId:'tree', serviceLabel:'Tree & Stump Removal', fee:35,
-      town:'Yarmouth', urgency:'Immediate Hazard', notes:'Demo lead: oak limb down across the driveway after the gale.' },
+      town:'Yarmouth', urgency:'Standard request', notes:'Demo lead: oak limb down across the driveway after the gale.' },
     { id:'CCD-3X8QD', createdAt:new Date(now-5*3600000).toISOString(), demo:true, status:'Dispatched',
       customer:{name:'Demo — Tom H.', phone:'7745550198'}, serviceId:'wash', serviceLabel:'Power Washing & Salt Prep', fee:25,
       town:'Chatham', urgency:'Scheduled 24-48 hrs', notes:'Demo lead: cedar shingles + deck need a wash before listing photos.' },
@@ -502,7 +484,7 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
   const name  = document.getElementById('fName').value.trim();
   const phoneDigits = document.getElementById('fPhone').value.replace(/\D/g,'').replace(/^1(?=\d{10}$)/,'');
   const notes = document.getElementById('fNotes').value.trim();
-  const urgency = document.querySelector('input[name="urgency"]:checked').value;
+  const urgency = 'Standard request';
 
   let ok = true;
   const badName = name.length < 2;                    showErr('errName', badName);   fieldErr('fName', badName);   ok = ok && !badName;
@@ -548,7 +530,6 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
   document.getElementById('textRequestBtn').href = 'sms:+15082589899?&body=' + encodeURIComponent(smsBody);
   document.getElementById('confirmModal').classList.remove('hidden');
   document.getElementById('leadForm').reset();
-  document.querySelector('input[name="urgency"][value="Scheduled 24-48 hrs"]').checked = true;
   btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Dispatch My Request';
 });
 function closeModal(){ document.getElementById('confirmModal').classList.add('hidden'); }
@@ -570,52 +551,7 @@ function setFilter(f){
   renderDispatcher();
 }
 function statusBadge(s){ return `<span class="status-${s} text-[11px] font-extrabold uppercase tracking-wide rounded-full px-2.5 py-1">${s}</span>`; }
-function urgencyBadge(u){ return u === 'Immediate Hazard'
-  ? `<span class="badge-urgent text-[11px] font-bold rounded-full px-2.5 py-1"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Immediate Hazard</span>`
-  : `<span class="badge-sched text-[11px] font-bold rounded-full px-2.5 py-1"><i class="fa-regular fa-clock mr-1"></i>24–48 hrs</span>`; }
-
-function renderDispatcher(){
-  const total = leads.length;
-  const value = leads.reduce((a,l) => a + l.fee, 0);
-  const pending = leads.filter(l => l.status === 'New').length;
-  const billed = leads.filter(l => l.status === 'Invoiced');
-  document.getElementById('mTotal').textContent = total;
-  document.getElementById('mValue').textContent = '$' + value;
-  document.getElementById('mPending').textContent = pending;
-  document.getElementById('mBilled').innerHTML = billed.length + ' <span class="text-base font-bold text-slate-400">($' + billed.reduce((a,l)=>a+l.fee,0) + ')</span>';
-
-  const list = leads.filter(l => activeFilter === 'All' || l.status === activeFilter);
-  document.getElementById('emptyState').classList.toggle('hidden', list.length > 0);
-  document.getElementById('leadList').innerHTML = list.map(l => `
-    <article class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 sm:p-5">
-      <div class="flex flex-wrap items-start justify-between gap-2">
-        <div class="min-w-0">
-          <p class="font-extrabold leading-tight">${escapeHtml(l.customer.name)} ${l.demo ? '<span class="text-[10px] font-bold bg-slate-100 text-slate-400 rounded px-1.5 py-0.5 align-middle">DEMO</span>' : ''}
-            <span class="text-slate-300 font-medium">·</span> <span class="text-sm font-semibold text-slate-500">${l.id}</span></p>
-          <p class="text-sm text-slate-500 mt-0.5"><i class="fa-solid fa-phone text-teal mr-1"></i>${fmtPhone(l.customer.phone)}
-            <span class="mx-1 text-slate-300">|</span><i class="fa-solid fa-location-dot text-gold mr-1"></i>${l.town}
-            <span class="mx-1 text-slate-300">|</span>${new Date(l.createdAt).toLocaleString([], {month:'short', day:'numeric', hour:'numeric', minute:'2-digit'})}</p>
-        </div>
-        <div class="text-right shrink-0">
-          <p class="text-2xl font-black text-navy">$${l.fee}</p>
-          <p class="text-[11px] font-semibold text-slate-400 -mt-0.5">lead fee</p>
-        </div>
-      </div>
-      <p class="mt-2.5 font-semibold text-sm"><i class="fa-solid fa-screwdriver-wrench text-teal mr-1.5"></i>${l.serviceLabel}</p>
-      <p class="text-sm text-slate-500 mt-1 leading-snug">${escapeHtml(l.notes)}</p>
-      <div class="flex flex-wrap items-center gap-2 mt-3">
-        ${urgencyBadge(l.urgency)} ${statusBadge(l.status)}
-        <span class="ml-auto flex flex-wrap gap-2">
-          ${l.status === 'New' ? `<button onclick="dispatchLead('${l.id}')" class="px-3 py-2 rounded-lg bg-teal hover:bg-teald text-white text-xs font-bold"><i class="fa-solid fa-message mr-1.5"></i>Dispatch via Text (Webhook)</button>` : ''}
-          ${l.status === 'Dispatched' ? `<button onclick="acceptLead('${l.id}')" class="px-3 py-2 rounded-lg bg-navy text-white text-xs font-bold"><i class="fa-solid fa-handshake mr-1.5"></i>Mark Accepted</button>` : ''}
-          ${(l.status === 'Dispatched' || l.status === 'Accepted') ? `<button onclick="clearViaStripe('${l.id}')" class="px-3 py-2 rounded-lg bg-gold hover:bg-amber-600 text-white text-xs font-bold"><i class="fa-solid fa-lock mr-1.5"></i>Clear via Stripe — $${l.fee}</button>` : ''}
-          ${l.status === 'Invoiced' ? `<span class="text-xs font-bold text-emerald-600 py-2"><i class="fa-solid fa-circle-check mr-1"></i>Paid via Stripe ${l.stripeId ? '· ' + l.stripeId : ''}</span>` : ''}
-          <button onclick="deleteLead('${l.id}')" title="Delete lead" class="px-2.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-red-500 hover:border-red-200 text-xs"><i class="fa-solid fa-trash-can"></i></button>
-        </span>
-      </div>
-    </article>`).join('');
-}
-function findLead(id){ return leads.find(l => l.id === id); }
+function urgencyBadge(u){ return `<span class="badge-sched text-[11px] font-bold rounded-full px-2.5 py-1"><i class="fa-regular fa-clock mr-1"></i>Standard request</span>`; }function findLead(id){ return leads.find(l => l.id === id); }
 
 async function dispatchLead(id){
   const l = findLead(id); if(!l) return;
@@ -623,7 +559,7 @@ async function dispatchLead(id){
     event:'lead.dispatch_sms', lead_id:l.id, provider:'Twilio (via Make/Zapier)',
     to_contractor: config.contractorPhone || '(contractor number not set — simulated)',
     to_customer_updates: l.customer.phone, channel:'sms', vocal:false,
-    message: `NEW ${l.urgency === 'Immediate Hazard' ? 'URGENT ' : ''}LEAD — ${l.serviceLabel} in ${l.town}. ${l.customer.name}, ${fmtPhone(l.customer.phone)}. "${l.notes}" Reply ACCEPT to claim. Lead fee $${l.fee}.`
+    message: `NEW LEAD — ${l.serviceLabel} in ${l.town}. ${l.customer.name}, ${fmtPhone(l.customer.phone)}. "${l.notes}" Reply ACCEPT to claim. Lead fee $${l.fee}.`
   };
   const mode = await fireWebhook('SMS DISPATCH', sms);
   l.status = 'Dispatched'; saveLeads(); renderDispatcher();
