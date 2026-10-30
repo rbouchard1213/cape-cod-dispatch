@@ -223,7 +223,7 @@ def build_home():
 <a class="opt" href="contractor/future-trades.html" style="margin-bottom:0">Don't see your trade?<span class="arr">→</span><span class="d">Apply to the future-trades list — the trade is not live yet.</span></a>
 </div>
 <div class="card"><h2>Behind the scenes</h2>
-<a class="opt" href="dispatch.html" style="margin-bottom:0">Dispatcher view<span class="arr">→</span><span class="d">Only Bobby sees this screen — the control desk for the whole board. (Test link — not on the real site.)</span></a>
+<a class="opt" href="dispatch.html" style="margin-bottom:0">Dispatcher view<span class="arr">→</span><span class="d">Only the dispatcher sees this screen — the control desk for the whole board. (Test link — not on the real site.)</span></a>
 </div>
 """
     write("index.html", page("Busy Bees — pretend test version", 0, body))
@@ -733,10 +733,10 @@ def build_future_trades():
 <div class="card"><h2 style="margin-top:0">How the process works</h2>
 <ol class="tight">
 <li><b>You apply by text</b> with the short template on the next screen.</li>
-<li><b>Bobby reviews every application himself.</b> Busy Bees’ back-office AI can sort applications by trade and town, spot missing information or duplicates, count the list, and draft possible jobs and sizes for Bobby to review.</li>
-<li><b>The AI never approves an application</b>, never adds a trade, never promises work, and never contacts you on its own. Bobby decides.</li>
-<li>A new trade is normally considered when <b>three approved contractors</b> offer the same trade in the same area. Before it can open, Bobby still has to approve its jobs, size questions, flat fees, and any legal or licensing requirements.</li>
-<li>Until Bobby opens the trade, <b>Busy Bees takes no customer requests for it</b>.</li>
+<li><b>Busy Bees reviews every application personally.</b> Busy Bees’ back-office AI can sort applications by trade and town, spot missing information or duplicates, count the list, and draft possible jobs and sizes for the owner to review.</li>
+<li><b>The AI never approves an application</b>, never adds a trade, never promises work, and never contacts you on its own. The owner decides.</li>
+<li>A new trade is normally considered when <b>three approved contractors</b> offer the same trade in the same area. Before it can open, the owner still has to approve its jobs, size questions, flat fees, and any legal or licensing requirements.</li>
+<li>Until the owner opens the trade, <b>Busy Bees takes no customer requests for it</b>.</li>
 </ol></div>
 <a class="btn btn-gold" href="future-trades-apply.html">See the application text<span class="d">The exact words to copy, fill in, and text to Busy Bees in the real build.</span></a>
 <a class="btn btn-ghost" href="join.html">Back to how the board works</a>
@@ -746,7 +746,7 @@ def build_future_trades():
 
     apply_body = """
 <h1>Future-trade application</h1>
-<p class="sub">In the real build, this opens as a text to Busy Bees. Fill in every line you can — the AI uses these words to sort the application, and Bobby reads the original.</p>
+<p class="sub">In the real build, this opens as a text to Busy Bees. Fill in every line you can — the AI uses these words to sort the application, and the owner reads the original.</p>
 <div class="msg"><div class="msg-hd">💬 Application text — copy and fill in</div>
 <div class="msg-bd">
 <p><b>NEW TRADE APPLICATION</b></p>
@@ -757,7 +757,7 @@ def build_future_trades():
 <p>Jobs you want from Busy Bees: ____</p>
 <p>Shop, mobile, or both (if it applies): ____</p>
 <p>Best text number: ____</p>
-<p style="margin-bottom:0">Anything Bobby should know: ____</p>
+<p style="margin-bottom:0">Anything Busy Bees should know: ____</p>
 </div></div>
 <div class="card"><h2 style="margin-top:0">Before you send it</h2>
 <p style="margin-bottom:0">Applying puts you on the <b>future-trades waitlist</b> only. It does not create a live category, does not put customer requests in front of you, and does not guarantee the trade will open.</p></div>
@@ -772,12 +772,12 @@ def build_future_trades():
 <h1 class="center">You’re on the future-trades list</h1>
 <p class="sub center">Pretend version: nothing was sent. On the real board, here is exactly what happens after an application arrives:</p>
 <div class="card"><ol class="tight">
-<li>The application goes into Bobby’s <b>future-trades waitlist</b>, under its trade and towns.</li>
+<li>The application goes into the Busy Bees <b>future-trades waitlist</b>, under its trade and towns.</li>
 <li>The back-office AI sorts it, checks for missing lines or a duplicate, and keeps the count for that trade and area.</li>
-<li><b>Bobby reviews it himself</b> and decides whether it is approved for the waitlist.</li>
-<li>When a trade reaches three approved contractors in an area, Bobby can decide whether to design and open it. The jobs, sizes, and fees are built first — the trade is never switched on automatically.</li>
+<li><b>Busy Bees reviews it personally</b> and decides whether it is approved for the waitlist.</li>
+<li>When a trade reaches three approved contractors in an area, the owner can decide whether to design and open it. The jobs, sizes, and fees are built first — the trade is never switched on automatically.</li>
 </ol></div>
-<p class="note">No customer requests are taken for a trade until Bobby opens it. If that happens, the contractors on its waitlist are contacted first.</p>
+<p class="note">No customer requests are taken for a trade until the owner opens it. If that happens, the contractors on its waitlist are contacted first.</p>
 <a class="btn btn-gold" href="future-trades.html">Back to future trades</a>
 <a class="btn btn-ghost" href="../index.html">⌂ Back to the start</a>
 """
@@ -903,13 +903,13 @@ def build_founding():
 def build_dispatch():
     body = """
 <h1>Dispatcher view</h1>
-<p class="sub"><b>Dispatcher view — only Bobby sees this screen.</b> Pretend data, so reviewers can see how the board is run.</p>
+<p class="sub"><b>Dispatcher view — only the dispatcher sees this screen.</b> Pretend data, so reviewers can see how the board is run.</p>
 <div class="card"><h2 style="margin-top:0">Incoming requests</h2>
 <div class="kv"><b>Tree removal</b><span>2–3 trees · Dennis — <b>awaiting contractor</b> (offered 10:04 AM, Level 4 first look)</span></div>
 <div class="kv"><b>Lawn mowing</b><span>Standard lawn · Weekly · Yarmouth — <b>accepted</b> by Example Tree Co</span></div>
 <div class="kv"><b>Curbside leaf pickup</b><span>One big pile · Harwich — <b>awaiting contractor</b></span></div>
-<div class="kv"><b>House wash</b><span>Standard 2-story · Chatham — <b>needs Bobby</b> (every match passed — it's on Bobby's desk, and the customer has been told we're still working on it)</span></div>
-<p class="small" style="margin-bottom:0">If every matched contractor passes, the request lands here with Bobby — it never just disappears, and the customer gets an honest update.</p></div>
+<div class="kv"><b>House wash</b><span>Standard 2-story · Chatham — <b>needs the dispatcher</b> (every match passed — it's on the dispatcher's desk, and the customer has been told we're still working on it)</span></div>
+<p class="small" style="margin-bottom:0">If every matched contractor passes, the request lands here with the dispatcher — it never just disappears, and the customer gets an honest update.</p></div>
 <div class="card"><h2 style="margin-top:0">Contractor roster</h2>
 <div class="kv"><b>Example Tree Co</b><span>Level 4 · Verified ✓ · Tree work, storm cleanup</span></div>
 <div class="kv"><b>Bob of All Trades</b><span>Level 3 · Hauling, cleanouts, handyman yard work</span></div>
@@ -919,9 +919,9 @@ def build_dispatch():
 <div class="kv"><b>Fees collected</b><span>$135 (pretend)</span></div>
 <div class="kv"><b>Requests in</b><span>7</span></div>
 <div class="kv"><b>Accepted</b><span>5</span></div>
-<div class="kv"><b>On Bobby's desk</b><span>1</span></div>
-<div class="kv"><b>Suggestions inbox</b><span>3 new — Bobby reads and decides every one; nothing changes on its own</span></div></div>
-<p class="note">On the real board this desk runs the matching: verified first look, then the level cascade, then Bobby — with texts and checkout handled by the board's tools, and Bobby making the calls.</p>
+<div class="kv"><b>On the dispatcher's desk</b><span>1</span></div>
+<div class="kv"><b>Suggestions inbox</b><span>3 new — Busy Bees reads and decides every one; nothing changes on its own</span></div></div>
+<p class="note">On the real board this desk runs the matching: verified first look, then the level cascade, then the dispatcher — with texts and checkout handled by the board's tools, and the owner making the calls.</p>
 <a class="btn btn-ghost" href="index.html">⌂ Back to the start</a>
 """
     write("dispatch.html", page("Dispatcher view", 0, body,
