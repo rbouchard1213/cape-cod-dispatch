@@ -35,14 +35,14 @@
   <p>Your Review Notes</p>
 </header>
 
-<div class="note">Please do not share this link without Bobby's permission.</div>
+<div class="note">Please do not share this link without permission from Busy Bees.</div>
 
-<p>Fill this in as you go through the test site, right on your phone. When you're done, tap the <strong>Copy all my notes</strong> button at the bottom and paste them into a message to Bobby — or just take screenshots. (This page doesn't save or send anything by itself, so copy your notes before you close it.)</p>
+<p>Fill this in as you go through the test site, right on your phone. When you're done, tap the <strong>Copy all my notes</strong> button at the bottom and paste them into a message to Busy Bees — or just take screenshots. (This page doesn't save or send anything by itself, so copy your notes before you close it.)</p>
 
 <label>Your name
   <input type="text" id="f_name" autocomplete="name">
 </label>
-<label>Your review code <span>The code from Bobby's message — like BEE-01. This is how your review gets matched to you.</span>
+<label>Your review code <span>The code from the message Busy Bees sent you — like BEE-01. This is how your review gets matched to you.</span>
   <input type="text" id="f_code">
 </label>
 <label>Date finished
@@ -77,7 +77,7 @@
 <label>Pass 2 — Pretend you're a contractor <span>Job offers, membership, levels &amp; verified, founding codes, future trades.</span>
   <textarea class="big" id="f_pass2"></textarea>
 </label>
-<label>Pass 3 — Bobby's seat <span>The dispatcher view.</span>
+<label>Pass 3 — the dispatcher's seat <span>The dispatcher view.</span>
   <textarea class="big" id="f_pass3"></textarea>
 </label>
 
@@ -141,7 +141,7 @@
 <label>Could you use this site on your own, without help? <span>Yes / mostly / no</span>
   <input type="text" id="f_overall_use">
 </label>
-<label>Anything else you want to tell Bobby
+<label>Anything else you want to tell Busy Bees
   <textarea class="big" id="f_overall_more"></textarea>
 </label>
 
@@ -165,7 +165,7 @@
     ['f_ex1_where','EXTRA FIND #1 — where'], ['f_ex1_what','EXTRA FIND #1 — details'],
     ['f_ex2_where','EXTRA FIND #2 — where'], ['f_ex2_what','EXTRA FIND #2 — details'],
     ['f_ex3_where','EXTRA FIND #3 — where'], ['f_ex3_what','EXTRA FIND #3 — details'],
-    ['f_confused','ANYTHING THAT CONFUSED ME'], ['f_overall_use','Could use it on my own?'], ['f_overall_more','Anything else for Bobby']
+    ['f_confused','ANYTHING THAT CONFUSED ME'], ['f_overall_use','Could use it on my own?'], ['f_overall_more','Anything else for Busy Bees']
   ];
   var btn = document.getElementById('copyBtn'), msg = document.getElementById('copyMsg');
   btn.addEventListener('click', function(){
@@ -175,7 +175,7 @@
       var v = el ? el.value.trim() : '';
       if (v) { out += '\n' + pair[1] + ': ' + v + '\n'; }
     });
-    function done(ok){ msg.textContent = ok ? 'Copied! Now paste it into a message to Bobby.' : 'Copy did not work here — take screenshots of this page instead and send those to Bobby.'; }
+    function done(ok){ msg.textContent = ok ? 'Copied! Now paste it into a message to Busy Bees.' : 'Copy did not work here — take screenshots of this page instead and send those to Busy Bees.'; }
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(out).then(function(){ done(true); }, function(){ done(false); });
     } else { done(false); }
