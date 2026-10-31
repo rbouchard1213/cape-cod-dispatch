@@ -816,6 +816,7 @@ def build_membership():
 <div class="card"><h2 style="margin-top:0">The price, plainly</h2>
 <ul class="tight">
 <li><b>$19/week · $49/month · $490/year</b> — pick what fits. Membership <b>renews automatically</b> until you cancel, and <b>every renewal is 10% off</b> the regular price — <b>$17.10/week · $44.10/month · $441/year</b>, every time. The discount is always figured on the regular price; it never compounds. Cancel anytime in two taps; your page stays up until the end of the paid period, and there are <b>no refunds for unused time</b>.</li>
+<li><b>Free time and plan switches</b> start at the regular price — the 10% off is only for automatic renewals, and it never combines with lead-fee discounts.</li>
 <li><b>Membership never buys</b> ranking, ratings, level, or verified status — ever. Those are earned, not sold.</li>
 <li><b>Never required</b> to join the board or accept any job.</li>
 </ul></div>
