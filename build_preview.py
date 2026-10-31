@@ -709,7 +709,7 @@ def build_contractor():
 <h1 class="center">You got the job</h1>
 <p class="sub center">Pretend version: no fee was charged and no details were really released. On the real board, here's exactly what happens when you accept:</p>
 <div class="card"><ol class="tight">
-<li><b>You pay the flat fee</b> — $30 for this job — through a secure checkout. That fee is the only thing Busy Bees ever charges you for this job. If the job falls through for a covered reason, the fee comes back as credit.</li>
+<li><b>You pay the flat fee</b> — $30 for this job — through a secure checkout. That fee is the only thing Busy Bees ever charges you for this job. If the job falls through for a covered reason, the fee comes back as credit. Need the fee back? Text Busy Bees within 7 days.</li>
 <li><b>The details are released:</b> the customer's address and their notes open up for you.</li>
 <li><b>You talk through the private relay:</b> messages pass through the board, so neither of you ever sees the other's real phone number.</li>
 <li><b>You quote the job price yourself, on site</b> — and you keep 100% of it. Busy Bees takes no commission, ever.</li>
