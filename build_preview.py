@@ -874,7 +874,7 @@ def build_levels():
 <li><b>Level 3</b> — 20–49 jobs done</li>
 <li><b>Level 4</b> — 50+ jobs done</li>
 </ul>
-<p>New jobs start at the top of the ladder: <b>every contractor at the highest level with a match for the job gets it</b>. Verified contractors at that level get the <b>first look</b>. The clock never runs on a level with no matching contractor. The job opens in steps (decided Oct 31, 2026): <b>Level 4 sees it first</b>, Level 3 joins at <b>15 minutes</b>, Level 2 at <b>30 minutes</b>, and Level 1 at <b>45 minutes</b> — from then it's open to the whole roster, and the <b>first contractor to accept wins</b>. The clock is capped, so <b>no job ever waits more than 1 hour total</b> before it lands in the Busy Bees dispatch queue.</p>
+<p>New jobs start at the top of the ladder: <b>every contractor at the highest level with a match for the job gets it</b>. Verified contractors at that level get the <b>first look</b>. The clock never runs on a level with no matching contractor. The job opens in steps: <b>Level 4 sees it first</b>, Level 3 joins at <b>15 minutes</b>, Level 2 at <b>30 minutes</b>, and Level 1 at <b>45 minutes</b> — from then it's open to the whole roster, and the <b>first contractor to accept wins</b>. The clock is capped, so <b>no job ever waits more than 1 hour total</b> before it lands in the Busy Bees dispatch queue.</p>
 <p style="margin-bottom:0">Your level grows with jobs done. Separately, the private ratings customers leave feed your <b>trust score</b> — figured from jobs you complete through the board (70%) and your ratings (30%) — it grows only from completed jobs and ratings, and paying for anything adds nothing to it. Your trust score is kept private, and membership can't change it. <b>Declining a job is never a strike against you</b> — a pass is a pass. Not answering counts the same as declining: free, and never a strike.</p></div>
 <div class="card deal"><h2 style="margin-top:0">Verified — show your business paperwork</h2>
 <p>Showing your business paperwork is <b>optional</b> — any business paper counts: a trade license, a town business certificate, or insurance. We keep a copy on file — we don't check it with the issuer. No paperwork is needed to join the board or get jobs; this is only the bonus. If you show them:</p>
@@ -910,7 +910,7 @@ def build_founding():
 <li><b>Each approved referral after that: +30 days.</b> No cap — the time banks up. Free time stops piling up once the founding roster reaches 10 contractors — everything already banked stays yours.</li>
 <li>Banked time starts counting when paid membership begins.</li>
 </ul>
-<p style="margin-bottom:0">A recruit joins by scanning the QR on your flyer, texting “JOIN BUZZ-01” to (508) 258-9899, or just telling us the code.</p></div>
+<p style="margin-bottom:0">A recruit joins by scanning the QR on your flyer, texting “JOIN” plus your own code to (508) 258-9899, or just telling us the code.</p></div>
 <a class="btn btn-gold" href="membership.html">See what membership includes</a>
 <a class="btn btn-ghost" href="join.html">Back to how the board works</a>
 """
