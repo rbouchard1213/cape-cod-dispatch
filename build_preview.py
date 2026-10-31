@@ -185,7 +185,7 @@ def page(title, depth, body, back=None, step=None, gate=True):
 <footer><b>Busy Bees</b> — pretend test version · busybeesdispatch.com<br>
 {VERSION_LABEL}<br>
 Questions? Call or text <b>(508) 258-9899</b> · dispatch@busybeesdispatch.com<br>
-<a href="{up}privacy.html">Privacy — what's counted</a></footer>
+<a href="{up}privacy.html">Privacy — what's counted</a> · <a href="{up}whats-new.html">What's New</a></footer>
 <script src="{up}preview.js"></script>
 <script src="{up}bbtrack.js" defer></script>
 </body>
@@ -1226,6 +1226,28 @@ def build_privacy():
 """
     write("privacy.html", page("Privacy — what's counted", 0, body, gate=False))
 
+def build_whatsnew():
+    body = """
+<h1>What's New</h1>
+<p class="sub">Every change to Busy Bees, posted here in plain words — what changed, and what it means for you. Newest first.</p>
+<p class="note">This is the practice copy of the page. On the real site this page is public, and every change lands here as it ships — nothing quiet, nothing buried.</p>
+<div class="card"><p class="tag">October 31, 2026</p><h2 style="margin-top:0">The Hive — a back office for members</h2>
+<p>Contractors now have their own back office, called <b>The Hive</b>: their customers, estimates, jobs, and invoices in one place — fed by the jobs they win on the board, so a job they accept shows up in their own records on its own. It even keeps track of what each job made them.</p>
+<p style="margin-bottom:0">Invoices run through the contractor's own payment account: money goes straight from the customer to the contractor, and Busy Bees never holds job money and never takes a cut of it. Coming for members after that: <b>Lead Hunter</b>, an optional extra that finds local work looking for a pro. It's not on sale yet.</p></div>
+<div class="card"><p class="tag">October 31, 2026</p><h2 style="margin-top:0">Your work saves as you go</h2>
+<p style="margin-bottom:0">Forms and notes on this site now save on your own device while you type. Close a page halfway through a request and you can pick up right where you left off — nothing gets lost because a page closed.</p></div>
+<div class="card"><p class="tag">October 31, 2026</p><h2 style="margin-top:0">A privacy page in plain words</h2>
+<p style="margin-bottom:0">Busy Bees added a <a href="privacy.html"><b>privacy page</b></a> that says exactly what this site counts and why — visits are counted in Busy Bees' own system, with no outside trackers and no ad cookies — and it carries a switch to turn the counting off in your browser.</p></div>
+<div class="card"><p class="tag">October 30, 2026</p><h2 style="margin-top:0">Plainer words, on purpose</h2>
+<p style="margin-bottom:0">We cleaned up the board's wording: out went words that promised more than we do — no "vetted" claims, no fast-response promises. Here, "verified" means one thing only: a contractor's business paperwork is on file. Nothing more is implied, ever.</p></div>
+<div class="card"><p class="tag">October 30, 2026</p><h2 style="margin-top:0">Where this starts — how Busy Bees works</h2>
+<p>Busy Bees is a local dispatch board for Cape Cod. A customer picks a town, answers a few plain questions, and sends one simple request — free, always. Local contractors get matched job offers by text and pay one flat fee only when they accept a job; saying no is always free, and no contractor ever pays a percentage of the job.</p>
+<p style="margin-bottom:0">This page starts here. Every change from now on gets posted above, in the open.</p></div>
+<p class="note">Questions about any change: call or text <b>(508) 258-9899</b> · dispatch@busybeesdispatch.com</p>
+"""
+    write("whats-new.html", page("What's New", 0, body,
+          back="index.html", step="Busy Bees · What's New"))
+
 # ------------------------------------------------------------ the hive ----
 # The member tools — The Hive. The whole point of ours: it is fed by the
 # board — a job a member accepts on the board lands in My Jobs and My
@@ -1583,6 +1605,7 @@ def main():
     build_almanac_article()
     build_analytics()
     build_privacy()
+    build_whatsnew()
     print("done")
 
 if __name__ == "__main__":
