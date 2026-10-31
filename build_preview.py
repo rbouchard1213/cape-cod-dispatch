@@ -9,9 +9,16 @@ contractor screens, exactly as in the locked design.
 
 Re-run:  python3 build_preview.py     (writes into ./preview/)
 """
-import html, os, urllib.parse
+import html, json, os, urllib.parse
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "preview")
+
+# Preview version + reviewer-safe changelog: single source of truth lives in
+# review/version.json (also shown on the review packet page). Bump it there.
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                       "review", "version.json"), encoding="utf-8") as _vf:
+    _VER = json.load(_vf)
+VERSION_LABEL = f"Test site version {_VER['version']} · Updated {_VER['date_label']}"
 
 def q(s):
     return urllib.parse.quote(s, safe="")
@@ -169,6 +176,7 @@ def page(title, depth, body, back=None, step=None):
 </main>
 {back_html}
 <footer><b>Busy Bees</b> — pretend test version · busybeesdispatch.com<br>
+{VERSION_LABEL}<br>
 Questions? Call or text <b>(508) 258-9899</b> · dispatch@busybeesdispatch.com</footer>
 <script src="{up}preview.js"></script>
 </body>
@@ -856,7 +864,7 @@ def build_levels():
 <li><b>Level 3</b> — 20–49 jobs done</li>
 <li><b>Level 4</b> — 50+ jobs done</li>
 </ul>
-<p>New jobs start at the top of the ladder: <b>every contractor at the highest level with a match for the job gets it</b>. Verified contractors at that level get the <b>first look</b> — they're texted first. Inside each group, the higher trust score is texted first, and the texts go out one after another, minutes apart. The clock never runs on a level with no matching contractor. If nobody at a level takes the job, it drops one level at a time — each level's turn has a cap (Level 4 up to <b>60 minutes</b>, Level 3 up to <b>45</b>, Level 2 up to <b>30</b>, Level 1 up to <b>15</b>) and the clock is shared, so <b>no job ever waits more than 1 hour total</b> before it lands in the Busy Bees dispatch queue. If the top level uses its whole window, lower levels may not see that job at all.</p>
+<p>New jobs start at the top of the ladder: <b>every contractor at the highest level with a match for the job gets it</b>. Verified contractors at that level get the <b>first look</b> — they're texted first. Inside each group, the higher trust score is texted first, and the texts go out one after another, minutes apart. The clock never runs on a level with no matching contractor. The job opens in steps (decided Oct 31, 2026): <b>Level 4 sees it first</b>, Level 3 joins at <b>15 minutes</b>, Level 2 at <b>30 minutes</b>, and Level 1 at <b>45 minutes</b> — from then it's open to the whole roster, and the <b>first contractor to accept wins</b>. The clock is capped, so <b>no job ever waits more than 1 hour total</b> before it lands in the Busy Bees dispatch queue.</p>
 <p style="margin-bottom:0">Your level grows with jobs done. Separately, the private ratings customers leave feed your <b>trust score</b> — figured from jobs you complete through the board (70%) and your ratings (30%) — it grows only from completed jobs and ratings, and paying for anything adds nothing to it — which decides who gets texted first inside a level. Your trust score is kept private, and membership can't change it. <b>Declining a job is never a strike against you</b> — a pass is a pass. Not answering counts the same as declining: free, and never a strike.</p></div>
 <div class="card deal"><h2 style="margin-top:0">Verified — show your business paperwork</h2>
 <p>Showing your business paperwork is <b>optional</b> — any business paper counts: a trade license, a town business certificate, or insurance. We keep a copy on file — we don't check it with the issuer. No paperwork is needed to join the board or get jobs; this is only the bonus. If you show them:</p>
