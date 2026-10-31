@@ -1239,7 +1239,7 @@ def build_whatsnew():
 <div class="card"><p class="tag">October 30, 2026</p><h2 style="margin-top:0">Plainer words, on purpose</h2>
 <p style="margin-bottom:0">We cleaned up the board's wording: out went words that promised more than we do — no "vetted" claims, no fast-response promises. Here, "verified" means one thing only: a contractor's business paperwork is on file. Nothing more is implied, ever.</p></div>
 <div class="card"><p class="tag">October 30, 2026</p><h2 style="margin-top:0">Where this starts — how Busy Bees works</h2>
-<p>Busy Bees is a local dispatch board for Cape Cod. A customer picks a town, answers a few plain questions, and sends one simple request — free, always. Local contractors get matched job offers by text and pay one flat fee only when they accept a job; saying no is always free, and no contractor ever pays a percentage of the job.</p>
+<p>Busy Bees is a local dispatch board for Cape Cod. A customer picks a town, answers a few plain questions, and sends one simple request — free, always. Local contractors get matched job offers by text and pay one flat fee only when they accept a job; saying no is always free, and no contractor ever pays a percentage of the job price.</p>
 <p style="margin-bottom:0">This page starts here. Every change from now on gets posted above, in the open.</p></div>
 <p class="note">Questions about any change: call or text <b>(508) 258-9899</b> · dispatch@busybeesdispatch.com</p>
 """
@@ -1264,7 +1264,7 @@ This is the pretend member view — fake customers, fake jobs, fake money.</p>
 <div class="kv"><b>Estimates out</b><span>2 waiting on customers · 1 approved this week</span></div>
 <div class="kv"><b>Invoices open</b><span>2 — $1,820 out, $275 paid this week</span></div>
 <div class="kv"><b>Follow-ups</b><span>2 due — Dana W. (stump quote) and Pat M. (spring cleanup)</span></div>
-<div class="kv"><b>Your level</b><span>Level 2 · 11 board jobs done · $15 in referral credit</span></div>
+<div class="kv"><b>Your level</b><span>Level 2 · 11 board jobs done · referral reward waiting: 25% off a lead</span></div>
 </div>
 <a class="opt" href="backoffice-customers.html">My Customers<span class="arr">→</span><span class="d">Your own customer list — everyone the board has sent you, plus anyone you add. Yours, not the board's.</span></a>
 <a class="opt" href="backoffice-estimates.html">Estimates<span class="arr">→</span><span class="d">Write it up once, send it, and the customer can approve it with one tap.</span></a>
