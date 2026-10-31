@@ -662,6 +662,7 @@ def build_contractor():
 <div class="card"><h2 style="margin-top:0">Good to know</h2>
 <ul class="tight">
 <li><b>Verified discount:</b> show insurance = 5% off the fee · insurance + a second paper of a different kind (license or business certificate — two papers of the same kind count as one) = 10% off · a license or certificate alone earns the status but 0% off until insurance is shown. Any business paper counts toward verified — we keep a copy on file; we don't check it with the issuer. No paperwork is needed to join the board or get jobs. When a paper expires, the discount ends and verified pauses until you show a current copy. Busy Bees texts a reminder 30 days before a paper expires.</li>
+<li><b>Standing-accept</b> is optional and off unless you turn it on (see Levels).</li>
 <li><b>One discount per lead</b> — discounts never combine.</li>
 <li><b>Welcome pick (choose one when you join):</b> 50% off your first lead, or 25% off your first 3 leads. Lead fees are never free — discounts are percentages only.</li>
 <li><b>Referrals:</b> bring a new contractor and you both get 25% off a lead once they're approved. Bring a new customer and you get 20% off your next lead when their first request is accepted.</li>
