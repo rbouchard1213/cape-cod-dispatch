@@ -1016,7 +1016,7 @@ def build_almanac_article():
 # site-activity-deploy-runbook.md). ANALYTICS_ENDPOINT stays "" until that
 # script is deployed — with no endpoint the logger is a complete no-op,
 # so the site is safe to ship before, during, or after the deploy.
-ANALYTICS_ENDPOINT = ""
+ANALYTICS_ENDPOINT = "https://script.google.com/macros/s/AKfycbzoOal_JmYyjT5Z9hviIJXdG0DtC5kY8_oycSp85DBb9R5d7y7-oUuKcJqdjSxvG60a/exec"
 
 BBTRACK_JS = r"""/* Busy Bees — first-party visitor counting (bbtrack.js).
    Counts page views, taps on buttons and links, how far a request

@@ -18,7 +18,7 @@
    simply carries on. */
 (function () {
   "use strict";
-  var ENDPOINT = "";
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbzoOal_JmYyjT5Z9hviIJXdG0DtC5kY8_oycSp85DBb9R5d7y7-oUuKcJqdjSxvG60a/exec";
   if (!ENDPOINT) { return; }
 
   function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
