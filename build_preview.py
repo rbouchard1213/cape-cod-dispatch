@@ -145,7 +145,7 @@ for c in CATS:
         JOB_BY_ID[j["id"]] = (c, j)
 
 # ------------------------------------------------------------- chrome -----
-def page(title, depth, body, back=None, step=None):
+def page(title, depth, body, back=None, step=None, gate=True):
     """depth: 0 = preview root, 1 = customer/ or contractor/."""
     up = "" if depth == 0 else "../"
     step_html = f'<p class="step">{html.escape(step)}</p>' if step else ""
@@ -153,6 +153,10 @@ def page(title, depth, body, back=None, step=None):
     if back is not None:
         back_html = (f'<nav class="botnav"><a class="js-back" href="{back}">← Back</a>'
                      f'<a href="{up}index.html">⌂ Home</a></nav>')
+    gate_script = ""
+    if gate:
+        gate_script = ("<script>try{if(localStorage.getItem('bb_agreed')!=='1')"
+                       f"{{location.replace('{up}../review/');}}}}catch(e){{}}</script>")
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -167,7 +171,7 @@ def page(title, depth, body, back=None, step=None):
 <link rel="stylesheet" href="{up}preview.css">
 </head>
 <body>
-<script>try{{if(localStorage.getItem('bb_agreed')!=='1'){{location.replace('{up}../review/');}}}}catch(e){{}}</script>
+{gate_script}
 <div class="pretend">PRETEND TEST VERSION — nothing here is real, and nothing you tap sends anything.</div>
 <header class="hdr"><div class="hdr-in">
 <img src="{up}../assets/busy-bees-logo.png" alt="Busy Bees gold shield logo">
@@ -180,8 +184,10 @@ def page(title, depth, body, back=None, step=None):
 {back_html}
 <footer><b>Busy Bees</b> — pretend test version · busybeesdispatch.com<br>
 {VERSION_LABEL}<br>
-Questions? Call or text <b>(508) 258-9899</b> · dispatch@busybeesdispatch.com</footer>
+Questions? Call or text <b>(508) 258-9899</b> · dispatch@busybeesdispatch.com<br>
+<a href="{up}privacy.html">Privacy — what's counted</a></footer>
 <script src="{up}preview.js"></script>
+<script src="{up}bbtrack.js" defer></script>
 </body>
 </html>
 """
@@ -209,8 +215,8 @@ def build_home():
 <h1>Give us a buzz.</h1>
 <p>One board for local yard, home, and hauling help. Pick your town, pick what you need, and send one simple request. No account needed to ask.</p>
 </div>
-<a class="btn btn-gold" href="customer/town.html">Request a local pro<span class="d">Free to send — a local pro confirms first. It's a request, not an instant booking.</span></a>
-<a class="btn btn-dark" href="contractor/join.html">I'm a contractor<span class="d">See how job offers work — you pay only when you accept a job.</span></a>
+<a class="btn btn-gold" href="customer/town.html" data-track="start-request">Request a local pro<span class="d">Free to send — a local pro confirms first. It's a request, not an instant booking.</span></a>
+<a class="btn btn-dark" href="contractor/join.html" data-track="contractor-entry">I'm a contractor<span class="d">See how job offers work — you pay only when you accept a job.</span></a>
 <div class="card"><h2>How it works</h2>
 <ol class="tight">
 <li>Pick a town and a service.</li>
@@ -458,7 +464,7 @@ def build_other():
 <form method="get" action="details.html" data-draft="request-other">
 <label>What do you need?<span class="hint">A sentence or two is plenty.</span>
 <textarea name="desc" rows="4" placeholder="e.g. Big tree leaning after the storm…"></textarea></label>
-<button class="btn btn-gold" type="submit">Continue — add my details →</button>
+<button class="btn btn-gold" type="submit" data-track="other-continue">Continue — add my details →</button>
 </form>
 <p class="note">Pretend version: continuing only carries your words to the next screen. Nothing is sent anywhere. What you type is kept on this device as you go, so closing the page won't lose it.</p>
 """
@@ -480,7 +486,7 @@ def build_details():
 <label>Notes for the contractor (optional)
 <span class="hint">Gate codes, dogs, timing — anything that helps.</span>
 <textarea name="notes" id="fNotes" rows="3"></textarea></label>
-<button class="btn btn-gold" type="submit">Continue to review →</button>
+<button class="btn btn-gold" type="submit" data-track="details-continue">Continue to review →</button>
 </form>
 <p class="note">Sizes are your best estimate — the contractor confirms the size with you before anything is final. Requesting is always free, and you never owe Busy Bees anything.</p>
 <p class="note">Pretend version: this form only carries your words to the review screen on this device. Nothing is sent anywhere. What you type is kept on this device as you go, so you can close the page and pick up right where you left off.</p>
@@ -504,11 +510,11 @@ def build_review():
 <div class="kv"><b>Notes</b><span data-echo="notes">—</span></div>
 </div>
 <p class="note">Free to send — customers never pay. The contractor pays a small flat fee only if they accept your job. A local pro confirms first: this is a request, not an instant booking.</p>
-<a class="btn btn-gold" href="sent.html" data-carry style="font-size:21px">Request Ready — One Tap Sends It</a>
+<a class="btn btn-gold" href="sent.html" data-carry data-track="send-request" style="font-size:21px">Request Ready — One Tap Sends It</a>
 <p class="note center">Pretend version: tapping that button sends nothing anywhere. On the real board, this one tap texts your request to Busy Bees.</p>
 <p class="note" id="cartNote" style="display:none"></p>
-<button class="btn btn-ghost" type="button" id="addJob">Add another job<span class="d">Saves this job, then lets you pick one more — send them all together.</span></button>
-<a class="btn btn-dark" id="cartBtn" href="cart.html" data-carry style="display:none">Your jobs</a>
+<button class="btn btn-ghost" type="button" id="addJob" data-track="add-job">Add another job<span class="d">Saves this job, then lets you pick one more — send them all together.</span></button>
+<a class="btn btn-dark" id="cartBtn" href="cart.html" data-carry data-track="view-cart" style="display:none">Your jobs</a>
 """
     emit("review.html", "Review your request", body, "details.html",
          "Customer request · Step 6 of 6 — Review & send")
@@ -1000,6 +1006,222 @@ def build_almanac_article():
     write("almanac-article.html", page("When to do your fall cleanup — Almanac", 0, body,
           back="almanac.html", step="Busy Bees · The Almanac"))
 
+# ------------------------------------------------------------- analytics --
+# First-party visitor counting (Bobby, Oct 31 2026): page views, tagged
+# taps, the request funnel, exit pages — totals and rates only, counted in
+# Busy Bees' own Workspace. No third-party trackers, no IPs, no form
+# contents, no per-visitor views. Backend: the standalone Apps Script
+# "Busy Bees — Site Activity" (source in goals/side-gig-income/files/
+# site-activity/Code.gs; deploy steps in hidden_files/
+# site-activity-deploy-runbook.md). ANALYTICS_ENDPOINT stays "" until that
+# script is deployed — with no endpoint the logger is a complete no-op,
+# so the site is safe to ship before, during, or after the deploy.
+ANALYTICS_ENDPOINT = ""
+
+BBTRACK_JS = r"""/* Busy Bees — first-party visitor counting (bbtrack.js).
+   Counts page views, taps on buttons and links, how far a request
+   gets, and the page a visit ends on. Run by Busy Bees itself, in
+   Busy Bees' own Workspace — no outside analytics company, no ad
+   trackers, nothing shared or sold.
+
+   Never sent: names, phone numbers, addresses, anything typed into
+   a box, IP addresses. The visit id is random, made fresh for each
+   visit, kept only in this tab, and exists only to join one visit's
+   own steps together (started -> ... -> sent). It is never used to
+   follow anyone between visits, and no screen anywhere shows a
+   single person's visit — the office side shows totals and rates.
+
+   Your choice: the Privacy page's toggle sets bb_no_track in this
+   browser and this logger checks it before every send; the
+   browser's Do Not Track setting is honored the same way. Sending
+   is fire-and-forget — if the counter is unreachable the page
+   simply carries on. */
+(function () {
+  "use strict";
+  var ENDPOINT = "__BB_ENDPOINT__";
+  if (!ENDPOINT) { return; }
+
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function optedOut() {
+    if (lsGet("bb_no_track") === "1") { return true; }
+    try {
+      var d = navigator.doNotTrack || window.doNotTrack;
+      return d === "1" || d === "yes";
+    } catch (e) { return false; }
+  }
+  if (optedOut()) { return; }
+
+  /* Random per-visit id — a funnel join key, nothing more. */
+  var sid = "";
+  try { sid = sessionStorage.getItem("bb_sid") || ""; } catch (e) { }
+  if (!sid) {
+    sid = "v";
+    var chars = "0123456789abcdef";
+    for (var i = 0; i < 16; i++) { sid += chars.charAt(Math.floor(Math.random() * 16)); }
+    try { sessionStorage.setItem("bb_sid", sid); } catch (e) { }
+  }
+
+  function device() {
+    var ua = navigator.userAgent || "";
+    if (/iPad|Tablet/i.test(ua)) { return "tablet"; }
+    if (/Android/i.test(ua)) { return /Mobile/i.test(ua) ? "phone" : "tablet"; }
+    if (/Mobi|iPhone|iPod/i.test(ua)) { return "phone"; }
+    return "desktop";
+  }
+
+  function refHost() {
+    try {
+      if (!document.referrer) { return ""; }
+      var h = new URL(document.referrer).hostname;
+      return (h && h !== location.hostname) ? h : "";
+    } catch (e) { return ""; }
+  }
+
+  function stepFor(p) {
+    if (/\/customer\/town\.html$/.test(p)) { return "town"; }
+    if (/\/customer\/category\.html$/.test(p)) { return "category"; }
+    if (/\/customer\/other\.html$/.test(p)) { return "describe"; }
+    if (/\/customer\/details\.html$/.test(p)) { return "details"; }
+    if (/\/customer\/review\.html$/.test(p)) { return "review"; }
+    if (/\/customer\/sent\.html$/.test(p)) { return "submitted"; }
+    if (/\/customer\//.test(p)) { return "job"; }
+    return "";
+  }
+
+  function reviewCode() {
+    /* Only on the gated review pages — the gate already discloses that
+       activity there is recorded. The test site itself stays anonymous. */
+    try {
+      if (location.pathname.indexOf("/review/") === -1) { return ""; }
+      return (lsGet("bb_code") || "").toUpperCase().replace(/[^A-Z0-9-]/g, "").slice(0, 12);
+    } catch (e) { return ""; }
+  }
+
+  function send(type, element, beacon) {
+    if (optedOut()) { return; }
+    var payload = {
+      page: location.pathname,
+      event: type,
+      element: (element || "").slice(0, 80),
+      step: stepFor(location.pathname),
+      ref: refHost(),
+      device: device(),
+      session: sid,
+      code: reviewCode()
+    };
+    var body = JSON.stringify(payload);
+    try {
+      if (beacon && navigator.sendBeacon) {
+        if (navigator.sendBeacon(ENDPOINT, new Blob([body], { type: "text/plain;charset=utf-8" }))) { return; }
+      }
+      fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: body, keepalive: true, mode: "no-cors"
+      }).catch(function () { });
+    } catch (e) { /* counting never breaks the site */ }
+  }
+
+  send("pageview", "");
+  var here = stepFor(location.pathname);
+  if (here === "details" || here === "review" || here === "submitted") {
+    send("form_step", "");
+  }
+
+  document.addEventListener("click", function (e) {
+    var t = e.target;
+    while (t && t !== document) {
+      if (t.getAttribute) {
+        var tag = t.getAttribute("data-track");
+        if (tag) { send("click", tag); return; }
+      }
+      if (t.tagName === "A") {
+        var href = t.getAttribute("href") || "";
+        var base = href.split("?")[0].split("#")[0].split("/").pop();
+        if (base) { send("click", "link:" + base); }
+        return;
+      }
+      t = t.parentNode;
+    }
+  }, false);
+
+  var exited = false;
+  window.addEventListener("pagehide", function () {
+    if (exited) { return; }
+    exited = true;
+    send("pageexit", "", true);
+  });
+})();
+"""
+
+def build_analytics():
+    write("bbtrack.js", BBTRACK_JS.replace("__BB_ENDPOINT__", ANALYTICS_ENDPOINT))
+
+def build_privacy():
+    body = """
+<div class="banner"><b>DRAFT — being reviewed.</b>
+<p>Plain words about what this site counts and why. This page is a draft until Busy Bees' legal review is finished — the same review the Terms are going through.</p></div>
+<h1>Privacy — what's counted</h1>
+<p class="sub">Busy Bees counts visits on this site so we can see what's confusing and fix it before the real site launches. The counting is ours: it runs in Busy Bees' own Workspace, not through an outside analytics company, and there are no ad trackers here.</p>
+<div class="card"><h2 style="margin-top:0">What we count</h2>
+<ul class="tight">
+<li>Which pages get opened, and roughly how many separate visits there are.</li>
+<li>Which buttons and links get tapped.</li>
+<li>How far a request gets — started, each step, sent, or left part-way — so we can see where people stop.</li>
+<li>The page a visit ends on.</li>
+<li>Whether a visit was on a phone, a tablet, or a computer — just the kind, nothing finer.</li>
+<li>The name of the site that sent you here, if one did — just the name.</li>
+</ul>
+<p>Each visit gets a random number that lasts only for that visit. It joins that visit's own steps together (started → … → sent), it's gone when the tab closes, and it's never used to follow anyone from one day to the next. What Busy Bees sees is totals and percentages — there is no screen that shows a single person's visit.</p>
+</div>
+<div class="card"><h2 style="margin-top:0">What we never collect</h2>
+<ul class="tight">
+<li>Your name, phone number, email, or address.</li>
+<li>Anything you type into any box on this site.</li>
+<li>Your IP address, or anything that pinpoints where you are.</li>
+<li>No advertising cookies, no trackers from other companies, nothing that follows you to other sites.</li>
+<li>Nothing is sold, and nothing is shared with anyone outside Busy Bees.</li>
+</ul>
+</div>
+<div class="card"><h2 style="margin-top:0">If you're reviewing this site</h2>
+<p>If you came in through the review gate, your visits on the review pages are counted under your review code — the gate told you your activity is recorded, and the code is how your feedback gets matched to your notes. On the test site itself, visits are counted anonymously.</p>
+</div>
+<div class="card"><h2 style="margin-top:0">How long it's kept</h2>
+<p>The detailed list is kept for 90 days. After that, only the totals stay (how many visits, which pages, where requests stopped) — the day-by-day detail is folded into monthly totals and the rest is deleted.</p>
+</div>
+<div class="card"><h2 style="margin-top:0">Your choice</h2>
+<p id="bbTrackState">Checking this browser's setting…</p>
+<button class="btn btn-dark" type="button" id="bbTrackToggle">Turn counting off for this browser</button>
+<p class="note">The choice lives in this browser on this device — it doesn't need an account and it isn't sent anywhere. If your browser sends a "Do Not Track" signal, we honor that too: those visits are never counted at all.</p>
+</div>
+<p class="note">Questions about any of this: call or text <b>(508) 258-9899</b> · dispatch@busybeesdispatch.com</p>
+<script>
+(function(){
+  var btn = document.getElementById("bbTrackToggle"), st = document.getElementById("bbTrackState");
+  if(!btn || !st){ return; }
+  function isOff(){ try { return localStorage.getItem("bb_no_track") === "1"; } catch(e){ return false; } }
+  function paint(){
+    if(isOff()){
+      st.textContent = "Counting is OFF for this browser. This visit isn't being counted, and none will be unless you turn it back on.";
+      btn.textContent = "Turn counting back on";
+    } else {
+      st.textContent = "Counting is ON for this browser.";
+      btn.textContent = "Turn counting off for this browser";
+    }
+  }
+  btn.addEventListener("click", function(){
+    try {
+      if(isOff()){ localStorage.removeItem("bb_no_track"); }
+      else { localStorage.setItem("bb_no_track", "1"); }
+    } catch(e){}
+    paint();
+  });
+  paint();
+})();
+</script>
+"""
+    write("privacy.html", page("Privacy — what's counted", 0, body, gate=False))
+
 # ------------------------------------------------------------------ main --
 def main():
     build_home()
@@ -1027,6 +1249,8 @@ def main():
     build_areas()
     build_almanac()
     build_almanac_article()
+    build_analytics()
+    build_privacy()
     print("done")
 
 if __name__ == "__main__":

@@ -35,10 +35,11 @@
 <div class="note">PRIVATE REVIEW MATERIALS — PLEASE DO NOT SHARE, COPY, OR POST.</div>
 
 <div style="border:2px solid #DFB25D;border-radius:10px;padding:14px 16px;margin:14px 0;background:#FFFDF5;">
-  <p style="margin:0 0 6px;font-size:16px;"><strong>Test site version 0.9.1</strong> — review round · Updated October 31, 2026</p>
+  <p style="margin:0 0 6px;font-size:16px;"><strong>Test site version 0.9.2</strong> — review round · Updated October 31, 2026</p>
   <p style="margin:0 0 6px;">So you always know which copy you're reviewing — if this number doesn't match the version at the bottom of the test site pages, tell Busy Bees before you start.</p>
   <p style="margin:0 0 4px;"><strong>What changed in this version:</strong></p>
   <ul style="margin:0;padding-left:20px;">
+    <li style="margin-bottom:6px;">Improvements to help the site run better for visitors.</li>
     <li style="margin-bottom:6px;">Your progress now saves as you go, plus fixes from reviewer feedback.</li>
     <li style="margin-bottom:6px;">Improvements to how job offers are shared.</li>
     <li>New: this packet and the test site now show which version you're reviewing and what changed, so everyone is always looking at the same copy.</li>
@@ -100,7 +101,7 @@
     <label>Your review code (example: BEE-01)<br><input id="bbCode" type="text" style="width:100%;padding:10px;font-size:16px;margin:4px 0 14px"></label>
     <button id="bbAgree" disabled style="width:100%;padding:14px;font-size:17px;font-weight:700;background:#DFB25D;color:#14161F;border:0;border-radius:10px;opacity:.5">I agree — let me in</button>
     <p id="bbMsg" style="display:none;font-size:14px;color:#B00020;margin:10px 0 0"></p>
-    <p style="font-size:13px;color:#5B5A52">Tapping "I agree" checks you in — your name, code, and the time are logged by Busy Bees, and your code is checked against the Busy Bees list before you enter. Use the same device and the same browser for the whole review — this device is what remembers your agreement.</p>
+    <p style="font-size:13px;color:#5B5A52">Tapping "I agree" checks you in — your name, code, and the time are logged by Busy Bees, and your code is checked against the Busy Bees list before you enter. Your page visits and taps on the test site are also recorded, to help Busy Bees improve it. Use the same device and the same browser for the whole review — this device is what remembers your agreement.</p>
     <p style="font-size:13px;color:#5B5A52">The full agreement text is <a href="agreement.html">right here</a> — same words as the paper packet and the message Busy Bees sent you. Family reviewers: your personal family terms still apply.</p>
   </div>
 </div>
@@ -147,5 +148,6 @@
   }catch(e){}
 })();
 </script>
+<script src="../preview/bbtrack.js" defer></script>
 </body>
 </html>

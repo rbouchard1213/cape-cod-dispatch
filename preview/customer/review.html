@@ -35,17 +35,19 @@
 <div class="kv"><b>Notes</b><span data-echo="notes">—</span></div>
 </div>
 <p class="note">Free to send — customers never pay. The contractor pays a small flat fee only if they accept your job. A local pro confirms first: this is a request, not an instant booking.</p>
-<a class="btn btn-gold" href="sent.html" data-carry style="font-size:21px">Request Ready — One Tap Sends It</a>
+<a class="btn btn-gold" href="sent.html" data-carry data-track="send-request" style="font-size:21px">Request Ready — One Tap Sends It</a>
 <p class="note center">Pretend version: tapping that button sends nothing anywhere. On the real board, this one tap texts your request to Busy Bees.</p>
 <p class="note" id="cartNote" style="display:none"></p>
-<button class="btn btn-ghost" type="button" id="addJob">Add another job<span class="d">Saves this job, then lets you pick one more — send them all together.</span></button>
-<a class="btn btn-dark" id="cartBtn" href="cart.html" data-carry style="display:none">Your jobs</a>
+<button class="btn btn-ghost" type="button" id="addJob" data-track="add-job">Add another job<span class="d">Saves this job, then lets you pick one more — send them all together.</span></button>
+<a class="btn btn-dark" id="cartBtn" href="cart.html" data-carry data-track="view-cart" style="display:none">Your jobs</a>
 
 </main>
 <nav class="botnav"><a class="js-back" href="details.html">← Back</a><a href="../index.html">⌂ Home</a></nav>
 <footer><b>Busy Bees</b> — pretend test version · busybeesdispatch.com<br>
-Test site version 0.9.1 — review round · Updated October 31, 2026<br>
-Questions? Call or text <b>(508) 258-9899</b> · dispatch@busybeesdispatch.com</footer>
+Test site version 0.9.2 — review round · Updated October 31, 2026<br>
+Questions? Call or text <b>(508) 258-9899</b> · dispatch@busybeesdispatch.com<br>
+<a href="../privacy.html">Privacy — what's counted</a></footer>
 <script src="../preview.js"></script>
+<script src="../bbtrack.js" defer></script>
 </body>
 </html>
