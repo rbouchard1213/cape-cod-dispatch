@@ -18,7 +18,10 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "preview")
 with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
                        "review", "version.json"), encoding="utf-8") as _vf:
     _VER = json.load(_vf)
-VERSION_LABEL = f"Test site version {_VER['version']} · Updated {_VER['date_label']}"
+_STAGE = _VER.get("stage", "")
+VERSION_LABEL = (f"Test site version {_VER['version']}"
+                 + (f" — {_STAGE}" if _STAGE else "")
+                 + f" · Updated {_VER['date_label']}")
 
 def q(s):
     return urllib.parse.quote(s, safe="")
