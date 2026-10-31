@@ -669,7 +669,7 @@ def build_contractor():
 </ul></div>
 <div class="card"><h2 style="margin-top:0">Optional extra — your own booking page</h2>
 <p>Membership is <b>never required</b> for board jobs, and the deal above never changes. Members also get their own Busy Bees page to hand to customers they already have; bookings that come through that page cost <b>membership plus 10% of the normal fee</b> instead of the full fee. The 10% is figured on the normal fee, before any discounts, and figured to the cent — 10% of $25 is $2.50. Fees and discounts are always figured to the cent.</p>
-<p style="margin-bottom:0">Membership: <b>$19/week · $49/month · $490/year</b>. Membership never buys ranking, ratings, level, or verified status — ever.</p></div>
+<p style="margin-bottom:0">Membership: <b>$19/week · $49/month · $490/year</b> — it renews automatically until you cancel, and every renewal is <b>10% off</b> the regular price. Membership never buys ranking, ratings, level, or verified status — ever.</p></div>
 <a class="btn btn-gold" href="offer.html">See a pretend job offer →<span class="d">This is what the text looks like — and what Accept and Decline do.</span></a>
 <a class="btn btn-ghost" href="future-trades.html">Don't see your trade?<span class="d">See how to apply for a future trade — no new trade is live yet.</span></a>
 """
@@ -815,7 +815,7 @@ def build_membership():
 </ul></div>
 <div class="card"><h2 style="margin-top:0">The price, plainly</h2>
 <ul class="tight">
-<li><b>$19/week · $49/month · $490/year</b> — pick what fits. Membership <b>renews automatically</b> until you cancel. Cancel anytime in two taps; your page stays up until the end of the paid period, and there are <b>no refunds for unused time</b>.</li>
+<li><b>$19/week · $49/month · $490/year</b> — pick what fits. Membership <b>renews automatically</b> until you cancel, and <b>every renewal is 10% off</b> the regular price — <b>$17.10/week · $44.10/month · $441/year</b>, every time. The discount is always figured on the regular price; it never compounds. Cancel anytime in two taps; your page stays up until the end of the paid period, and there are <b>no refunds for unused time</b>.</li>
 <li><b>Membership never buys</b> ranking, ratings, level, or verified status — ever. Those are earned, not sold.</li>
 <li><b>Never required</b> to join the board or accept any job.</li>
 </ul></div>
