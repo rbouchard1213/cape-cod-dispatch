@@ -37,7 +37,8 @@
 
 <div class="note">Please do not share this link without permission from Busy Bees.</div>
 
-<p>Fill this in as you go through the test site, right on your phone. When you're done, tap the <strong>Copy all my notes</strong> button at the bottom and paste them into a message to Busy Bees — or just take screenshots. (This page doesn't save or send anything by itself, so copy your notes before you close it.)</p>
+<p>Fill this in as you go through the test site, right on your phone. <strong>This page saves what you type on this device as you go</strong> — you can close it and come back on the same phone or computer, and your notes will still be here. It doesn't send anything by itself, though: when you're done, tap the <strong>Copy all my notes</strong> button at the bottom and paste them into a message to Busy Bees — or just take screenshots.</p>
+<p class="small" id="saveState" style="text-align:center;min-height:1.3em;margin:4px 0 0"></p>
 
 <label>Your name
   <input type="text" id="f_name" autocomplete="name">
@@ -180,6 +181,71 @@
       navigator.clipboard.writeText(out).then(function(){ done(true); }, function(){ done(false); });
     } else { done(false); }
   });
+})();
+</script>
+<script>
+/* Auto-save: your notes are kept on this device as you type, in a bucket
+   keyed to your review code (the code acts as a temporary sign-in — the
+   same code the gate stored when you agreed). Different code, different
+   bucket: two reviewers sharing one device never see each other's notes.
+   Copying your notes does NOT erase them; they stay here until you
+   change them. */
+(function(){
+  var IDS = ['f_name','f_code','f_date','f_device','f_start','f_finish','f_breaks',
+    'f_pass1','f_pass2','f_pass3',
+    'f_no1_where','f_no1_what','f_no2_where','f_no2_what','f_no3_where','f_no3_what',
+    'f_ex1_where','f_ex1_what','f_ex2_where','f_ex2_what','f_ex3_where','f_ex3_what',
+    'f_confused','f_overall_use','f_overall_more'];
+  var state = document.getElementById('saveState');
+  function clean(code){ return (code || '').toUpperCase().replace(/[^A-Z0-9-]/g, ''); }
+  function gateCode(){ try { return clean(localStorage.getItem('bb_code')); } catch(e){ return ''; } }
+  function typedCode(){ var el = document.getElementById('f_code'); return el ? clean(el.value) : ''; }
+  function bucket(){ return typedCode() || gateCode() || 'GUEST'; }
+  function key(b){ return 'bb_draft_v1:' + b + ':notes'; }
+  function read(b){ try { var d = JSON.parse(localStorage.getItem(key(b)) || 'null'); return (d && d.fields) ? d : null; } catch(e){ return null; } }
+  function anyValue(d){ if(!d) return false; for (var k in d.fields){ if(d.fields[k] && d.fields[k].trim()) return true; } return false; }
+  function timeOf(iso){ try { var d = new Date(iso); if(!isNaN(d)) return d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}); } catch(e){} return ''; }
+
+  /* Restore: the gate's bucket wins — it's this device's signed-in
+     person, and it must never inherit a different code's draft. With no
+     gate identity yet, fall back to the bucket this page last saved
+     under (the code typed here last time). The guest bucket is last, so
+     notes written before the gate still come back after it. */
+  var order = [];
+  var gc0 = gateCode();
+  if(gc0) order.push(gc0);
+  try { var last = localStorage.getItem('bb_draft_v1:notes:latest'); if(last && !gc0) order.push(last); } catch(e){}
+  order.push('GUEST');
+  var restored = null;
+  for (var i = 0; i < order.length && !restored; i++){ var d = read(order[i]); if(anyValue(d)) restored = d; }
+  if(restored){
+    IDS.forEach(function(id){ var el = document.getElementById(id); if(el && !el.value && restored.fields[id]) el.value = restored.fields[id]; });
+    if(state) state.textContent = 'Welcome back — your notes were restored from this device (last saved ' + timeOf(restored.savedAt) + '). They keep saving as you type.';
+  }
+  /* If the gate already knows your name and code, fill them in. */
+  try {
+    var gn = localStorage.getItem('bb_name'), gc = localStorage.getItem('bb_code');
+    var nEl = document.getElementById('f_name'), cEl = document.getElementById('f_code');
+    if(nEl && !nEl.value && gn) nEl.value = gn;
+    if(cEl && !cEl.value && gc) cEl.value = gc;
+  } catch(e){}
+
+  var t = null;
+  function save(flash){
+    var fields = {};
+    IDS.forEach(function(id){ var el = document.getElementById(id); fields[id] = el ? el.value : ''; });
+    var b = bucket(), data = { fields: fields, savedAt: new Date().toISOString() };
+    try {
+      localStorage.setItem(key(b), JSON.stringify(data));
+      localStorage.setItem('bb_draft_v1:notes:latest', b);
+    } catch(e){}
+    if(flash && state) state.textContent = 'Saved ✓ ' + timeOf(data.savedAt) + ' — kept on this device';
+  }
+  IDS.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener('input', function(){ if(t) clearTimeout(t); t = setTimeout(function(){ save(true); }, 400); });
+  });
+  window.addEventListener('pagehide', function(){ if(t){ clearTimeout(t); save(false); } });
 })();
 </script>
 </body>

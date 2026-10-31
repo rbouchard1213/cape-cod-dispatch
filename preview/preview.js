@@ -119,9 +119,98 @@
     });
   }
 
-  /* ---- Multi-job cart (pretend): jobs saved on this device only ---- */
-  function getCart(){ try{ return JSON.parse(sessionStorage.getItem("bb_cart") || "[]"); }catch(e){ return []; } }
-  function setCart(c){ try{ sessionStorage.setItem("bb_cart", JSON.stringify(c)); }catch(e){} }
+  /* ---- Progress saving: everything a visitor types is kept on this
+     device, in a bucket keyed to who they are. The key is the review
+     code the gate stored when they agreed (bb_code) — the code acts as
+     a temporary sign-in. Before the gate, or with no code, drafts land
+     in a shared GUEST bucket. Different code = different bucket, so
+     people sharing a device never see each other's work. ---- */
+  function bbBucket(){
+    try{
+      var c = (localStorage.getItem("bb_code") || "").toUpperCase().replace(/[^A-Z0-9-]/g, "");
+      return c || "GUEST";
+    }catch(e){ return "GUEST"; }
+  }
+  function draftKey(scope){ return "bb_draft_v1:" + bbBucket() + ":" + scope; }
+  function readDraft(scope){
+    try{ var d = JSON.parse(localStorage.getItem(draftKey(scope)) || "null"); return (d && typeof d === "object") ? d : null; }
+    catch(e){ return null; }
+  }
+  function writeDraft(scope, data){
+    try{ data.savedAt = new Date().toISOString(); localStorage.setItem(draftKey(scope), JSON.stringify(data)); }catch(e){}
+  }
+  function clearDraft(scope){ try{ localStorage.removeItem(draftKey(scope)); }catch(e){} }
+
+  /* Small floating "Saved" pill, shown only on pages with a draft form. */
+  var saveBar = null, saveBarTimer = null;
+  function showSaveBar(text, sticky){
+    if(!saveBar){
+      saveBar = document.createElement("div");
+      saveBar.setAttribute("style", "position:fixed;left:50%;bottom:14px;transform:translateX(-50%);background:#14161F;color:#F7F3EA;font:600 13px/1.3 Inter,system-ui,sans-serif;padding:8px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.28);z-index:60;opacity:0;transition:opacity .25s;pointer-events:none;max-width:92vw;text-align:center");
+      document.body.appendChild(saveBar);
+    }
+    saveBar.textContent = text;
+    saveBar.style.opacity = "1";
+    if(saveBarTimer){ clearTimeout(saveBarTimer); saveBarTimer = null; }
+    if(!sticky){ saveBarTimer = setTimeout(function(){ saveBar.style.opacity = "0"; }, 3400); }
+  }
+  function savedTime(iso){
+    try{ var d = new Date(iso); if(!isNaN(d)){ return d.toLocaleTimeString("en-US", {hour: "numeric", minute: "2-digit"}); } }catch(e){}
+    return "";
+  }
+
+  /* ---- Draft forms: any <form data-draft="scope"> auto-saves its named
+     fields as you type and restores them on return. ---- */
+  document.querySelectorAll("form[data-draft]").forEach(function(form){
+    var scope = form.getAttribute("data-draft");
+    var fields = Array.prototype.slice.call(form.querySelectorAll("input[name], textarea[name], select[name]"))
+      .filter(function(el){ return el.type !== "hidden" && el.type !== "submit"; });
+    if(!fields.length) return;
+    var draft = readDraft(scope);
+    var restored = false;
+    if(draft && draft.fields){
+      fields.forEach(function(el){
+        if(el.value) return; /* a value already here (e.g. carried in the address bar) wins */
+        var v = draft.fields[el.name];
+        if(v == null || v === "") return;
+        /* The contractor-notes box only restores for the same job it was
+           written for — your name/address/contact always come back. */
+        if(el.name === "notes" && draft.job && P.get("j") && draft.job !== P.get("j")) return;
+        el.value = v; restored = true;
+      });
+    }
+    if(restored){ showSaveBar("Restored your draft from earlier on this device" + (draft.savedAt ? " — saved " + savedTime(draft.savedAt) : "") + "."); }
+    var t = null;
+    function save(flash){
+      var data = { fields: {}, job: P.get("j") || (draft && draft.job) || "" };
+      fields.forEach(function(el){ data.fields[el.name] = el.value; });
+      writeDraft(scope, data);
+      draft = data;
+      if(flash !== false) showSaveBar("Saved ✓ " + savedTime(data.savedAt) + " — kept on this device");
+    }
+    form.addEventListener("input", function(){
+      if(t) clearTimeout(t);
+      t = setTimeout(function(){ save(true); }, 350);
+    });
+    form.addEventListener("change", function(){ save(true); });
+    window.addEventListener("pagehide", function(){ if(t){ clearTimeout(t); save(false); } });
+  });
+
+  /* ---- Multi-job cart (pretend): kept on this device, in your bucket.
+     (Was sessionStorage — it died when the browser closed. Now it lasts
+     until the request is sent, like the drafts above.) ---- */
+  function cartKey(){ return "bb_cart_v1:" + bbBucket(); }
+  function getCart(){
+    try{
+      var raw = localStorage.getItem(cartKey());
+      if(raw === null){
+        var legacy = sessionStorage.getItem("bb_cart"); /* adopt a cart from before this change */
+        if(legacy){ localStorage.setItem(cartKey(), legacy); sessionStorage.removeItem("bb_cart"); raw = legacy; }
+      }
+      return JSON.parse(raw || "[]");
+    }catch(e){ return []; }
+  }
+  function setCart(c){ try{ localStorage.setItem(cartKey(), JSON.stringify(c)); }catch(e){} }
 
   var addBtn = document.getElementById("addJob");
   if(addBtn){
@@ -171,7 +260,13 @@
     };
     renderCart();
   }
-  if(document.getElementById("clearCart")){ setCart([]); }
+  /* The request was sent — the cart and the in-progress request drafts
+     have done their job, so they clear (a sent request never resurrects). */
+  if(document.getElementById("clearCart")){
+    setCart([]);
+    clearDraft("request-details");
+    clearDraft("request-other");
+  }
 
   /* Cubic-yard helper (mulch). */
   var ydBtn = document.getElementById("ydBtn");

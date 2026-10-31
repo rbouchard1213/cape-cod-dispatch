@@ -455,12 +455,12 @@ def build_other():
     body = """
 <h1>Something else</h1>
 <p class="sub">Describe it in your own words. There's no size or price to pick here — Busy Bees reads it, assigns it to the right service, and a contractor confirms before anything is final.</p>
-<form method="get" action="details.html">
+<form method="get" action="details.html" data-draft="request-other">
 <label>What do you need?<span class="hint">A sentence or two is plenty.</span>
 <textarea name="desc" rows="4" placeholder="e.g. Big tree leaning after the storm…"></textarea></label>
 <button class="btn btn-gold" type="submit">Continue — add my details →</button>
 </form>
-<p class="note">Pretend version: continuing only carries your words to the next screen. Nothing is sent anywhere.</p>
+<p class="note">Pretend version: continuing only carries your words to the next screen. Nothing is sent anywhere. What you type is kept on this device as you go, so closing the page won't lose it.</p>
 """
     emit("other.html", "Something else", body, "category.html",
          "Customer request · Step 4 of 6 — Describe it")
@@ -469,7 +469,7 @@ def build_details():
     body = """
 <h1>Your details</h1>
 <p class="sub">For: <b><span data-echo="j">your job</span></b> · <span data-echo="t">Cape Cod</span></p>
-<form method="get" action="review.html" id="detailsForm">
+<form method="get" action="review.html" id="detailsForm" data-draft="request-details">
 <label>Your name
 <input type="text" name="name" autocomplete="name" placeholder="e.g. Jane Smith"></label>
 <label>Address where the work is
@@ -483,7 +483,7 @@ def build_details():
 <button class="btn btn-gold" type="submit">Continue to review →</button>
 </form>
 <p class="note">Sizes are your best estimate — the contractor confirms the size with you before anything is final. Requesting is always free, and you never owe Busy Bees anything.</p>
-<p class="note">Pretend version: this form only carries your words to the review screen on this device. Nothing is sent anywhere, and nothing is stored.</p>
+<p class="note">Pretend version: this form only carries your words to the review screen on this device. Nothing is sent anywhere. What you type is kept on this device as you go, so you can close the page and pick up right where you left off.</p>
 """
     emit("details.html", "Your details", body, "category.html",
          "Customer request · Step 5 of 6 — Your details")
@@ -895,9 +895,9 @@ def build_founding():
 <li>The first core contractors get <b>membership free during the test run</b> — your own page, the whole membership deal, no charge while we test. Founders also pay <b>no own-page 10%</b> during the test run — that starts when paid membership starts.</li>
 <li>When paid membership starts later, your banked free time (below) is waiting for you.</li>
 </ul></div>
-<div class="card"><h2 style="margin-top:0">Your founding code</h2>
+<div class="card"><h2 style="margin-top:0">Your founding code (example)</h2>
 <p class="fee">BUZZ-01</p>
-<p>That code is <b>yours</b> — it goes on your flyer stack, and it's how referrals are credited to you. One person, one code. Credit follows the code no matter whose hands a flyer passes through.</p>
+<p>That code is an <b>example</b> — your own founding code is assigned to you personally, and that one goes on your flyer stack, and it's how referrals are credited to you. One person, one code. Credit follows the code no matter whose hands a flyer passes through.</p>
 <ul class="tight">
 <li><b>First approved referral</b> brought in with your code: <b>90 days</b> of free membership.</li>
 <li><b>Each approved referral after that: +30 days.</b> No cap — the time banks up. Free time stops piling up once the founding roster reaches 10 contractors — everything already banked stays yours.</li>
