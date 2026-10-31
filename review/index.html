@@ -44,10 +44,11 @@ try{if(localStorage.getItem('bb_agreed')!=='1'){document.documentElement.classLi
 <div class="note">PRIVATE REVIEW MATERIALS — PLEASE DO NOT SHARE, COPY, OR POST.</div>
 
 <div style="border:2px solid #DFB25D;border-radius:10px;padding:14px 16px;margin:14px 0;background:#FFFDF5;">
-  <p style="margin:0 0 6px;font-size:16px;"><strong>Test site version 0.10.2</strong> — review round · Updated October 31, 2026</p>
+  <p style="margin:0 0 6px;font-size:16px;"><strong>Test site version 0.10.3</strong> — review round · Updated October 31, 2026</p>
   <p style="margin:0 0 6px;">So you always know which copy you're reviewing — if this number doesn't match the version at the bottom of the test site pages, tell Busy Bees before you start.</p>
   <p style="margin:0 0 4px;"><strong>What changed in this version:</strong></p>
   <ul style="margin:0;padding-left:20px;">
+    <li style="margin-bottom:6px;">New: you can now fill in the checklist and notes right on this site — they save as you go.</li>
     <li style="margin-bottom:6px;">Improvements to help the site run better for visitors.</li>
     <li style="margin-bottom:6px;">Your progress now saves as you go, plus fixes from reviewer feedback.</li>
     <li style="margin-bottom:6px;">Improvements to how job offers are shared.</li>
@@ -65,9 +66,9 @@ try{if(localStorage.getItem('bb_agreed')!=='1'){document.documentElement.classLi
     <li style="margin-bottom:8px;"><a href="notes.html"><strong>Your Notes Sheet</strong></a> — write your finds here</li>
     <li style="margin-bottom:8px;"><a href="../preview/"><strong>The test site</strong></a> — the site itself, worked through in the guide's three passes</li>
   </ol>
-  <p style="margin:10px 0 0;">Prepared for: <span id="covName">________________</span><br>
-  Review code: <span id="covCode">________________</span><br>
-  Date given: <span id="covDate">________________</span></p>
+  <p style="margin:10px 0 0;">Prepared for: <input type="text" id="covName" autocomplete="name" style="font:inherit;color:inherit;background:transparent;border:0;border-bottom:1.5px solid #999;padding:2px 0;min-width:200px;"><br>
+  Review code: <input type="text" id="covCode" style="font:inherit;color:inherit;background:transparent;border:0;border-bottom:1.5px solid #999;padding:2px 0;min-width:200px;"><br>
+  Date given: <input type="text" id="covDate" style="font:inherit;color:inherit;background:transparent;border:0;border-bottom:1.5px solid #999;padding:2px 0;min-width:200px;"></p>
 </div>
 
 <p>This is the pretend test version of the new Busy Bees site. Everything here is made up — fake customers, fake jobs, pretend payments. Nothing you tap is real, and you can't break anything. Busy Bees just needs fresh eyes on it before the real one goes live.</p>
@@ -149,12 +150,27 @@ try{if(localStorage.getItem('bb_agreed')!=='1'){document.documentElement.classLi
 })();
 </script>
 <script>
+/* The cover lines are fillable: they start from the name, code, and date the
+   gate recorded when you agreed, and anything typed here is kept on this
+   device — name and code save back to the same spots the gate and the
+   notes page read, so the whole packet stays matched to one reviewer. */
 (function(){
   try{
-    var n=localStorage.getItem('bb_name'),c=localStorage.getItem('bb_code'),d=localStorage.getItem('bb_date');
-    if(n){document.getElementById('covName').textContent=n;}
-    if(c){document.getElementById('covCode').textContent=c;}
-    if(d){var dt=new Date(d);if(!isNaN(dt)){document.getElementById('covDate').textContent=dt.toLocaleDateString();}}
+    var nEl=document.getElementById('covName'),cEl=document.getElementById('covCode'),dEl=document.getElementById('covDate');
+    var n=localStorage.getItem('bb_name'),c=localStorage.getItem('bb_code'),d=localStorage.getItem('bb_cover_date')||localStorage.getItem('bb_date');
+    if(nEl&&n)nEl.value=n;
+    if(cEl&&c)cEl.value=c;
+    if(dEl&&d){var dt=new Date(d);if(!isNaN(dt))dEl.value=dt.toLocaleDateString();}
+    var t=null;
+    function save(){
+      try{
+        if(nEl&&nEl.value.trim())localStorage.setItem('bb_name',nEl.value.trim());
+        if(cEl&&cEl.value.trim())localStorage.setItem('bb_code',cEl.value.trim().toUpperCase());
+        if(dEl)localStorage.setItem('bb_cover_date',dEl.value);
+      }catch(e){}
+    }
+    [nEl,cEl,dEl].forEach(function(el){ if(el) el.addEventListener('input',function(){ if(t)clearTimeout(t); t=setTimeout(save,400); }); });
+    window.addEventListener('pagehide',function(){ if(t){clearTimeout(t); save();} });
   }catch(e){}
 })();
 </script>

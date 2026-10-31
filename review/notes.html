@@ -19,6 +19,10 @@
   label { display: block; font-weight: bold; margin: 12px 0 4px; }
   label span { display: block; font-weight: normal; font-size: 13.5px; color: #555; }
   input[type="text"], textarea { width: 100%; box-sizing: border-box; padding: 10px; font-size: 16px; font-family: inherit; border: 1.5px solid #B9B2A0; border-radius: 8px; background: #FFFDF7; }
+  .choices { margin: 4px 0 8px; }
+  .choice { display: inline-block; font-weight: bold; border: 1.5px solid #B9B2A0; border-radius: 8px; padding: 10px 16px; margin: 0 8px 8px 0; background: #FFFDF7; cursor: pointer; }
+  .choice input[type="radio"] { accent-color: #8A6D1F; width: 18px; height: 18px; vertical-align: -3px; margin: 0 2px 0 0; }
+  .choice:has(input:checked) { border-color: #DFB25D; background: #FBF3DF; }
   textarea { min-height: 74px; }
   textarea.big { min-height: 110px; }
   button { width: 100%; padding: 15px; font-size: 17px; font-weight: 700; background: #DFB25D; color: #14161F; border: 0; border-radius: 10px; margin-top: 22px; font-family: inherit; }
@@ -139,9 +143,13 @@
 </label>
 
 <h2>Overall</h2>
-<label>Could you use this site on your own, without help? <span>Yes / mostly / no</span>
-  <input type="text" id="f_overall_use">
-</label>
+<label>Could you use this site on your own, without help?</label>
+<div class="choices">
+  <label class="choice"><input type="radio" name="overall_use" value="Yes"> Yes</label>
+  <label class="choice"><input type="radio" name="overall_use" value="Mostly"> Mostly</label>
+  <label class="choice"><input type="radio" name="overall_use" value="No"> No</label>
+</div>
+<input type="hidden" id="f_overall_use">
 <label>Anything else you want to tell Busy Bees
   <textarea class="big" id="f_overall_more"></textarea>
 </label>
@@ -246,6 +254,26 @@
     if(el) el.addEventListener('input', function(){ if(t) clearTimeout(t); t = setTimeout(function(){ save(true); }, 400); });
   });
   window.addEventListener('pagehide', function(){ if(t){ clearTimeout(t); save(false); } });
+})();
+</script>
+<script>
+/* "Could you use this site on your own?" is a CHOICE, not a writing box —
+   choices are tapped, writing is typed. Yes / Mostly / No are tap targets;
+   the picked value rides in the hidden f_overall_use field, so the save
+   and copy-all above treat it exactly like every other answer. */
+(function(){
+  var hidden = document.getElementById('f_overall_use');
+  if(!hidden) return;
+  var radios = document.querySelectorAll('input[name="overall_use"]');
+  radios.forEach(function(r){ r.checked = (r.value === hidden.value); });
+  radios.forEach(function(r){
+    r.addEventListener('change', function(){
+      if(r.checked){
+        hidden.value = r.value;
+        hidden.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    });
+  });
 })();
 </script>
 <script src="../preview/bbtrack.js" defer></script>

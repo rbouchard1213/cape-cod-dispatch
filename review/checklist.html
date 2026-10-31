@@ -3,6 +3,7 @@
 <head>
 <meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Busy Bees — Yes / No Checklist</title>
 <style>
   @page { size: Letter; margin: 16mm 15mm; }
@@ -11,7 +12,10 @@
   h2 { font-size: 12.5pt; margin: 6mm 0 2mm 0; border-bottom: 2px solid #DFB25D; padding-bottom: 1mm; }
   .sub { color: #555; font-size: 10.5pt; }
   .who { margin: 4mm 0 2mm 0; font-size: 11pt; }
-  .who span { display: inline-block; border-bottom: 1px solid #999; min-width: 55mm; margin-right: 8mm; }
+  .who input[type="text"] { font: inherit; color: inherit; background: transparent; border: 0; border-bottom: 1px solid #999; min-width: 45mm; margin-right: 8mm; padding: 1mm 1mm; }
+  td.yn label { cursor: pointer; white-space: nowrap; padding: 1mm 0.5mm; }
+  td.yn input[type="radio"] { accent-color: #8A6D1F; width: 17px; height: 17px; vertical-align: -3px; margin: 0 1px 0 0; }
+  #saveState { font-size: 10pt; color: #555; min-height: 1.3em; margin: 2mm 0 0; }
   table { border-collapse: collapse; width: 100%; }
   td { padding: 1.8mm 2mm; vertical-align: top; border-bottom: 0.5pt solid #ddd; }
   td.n { width: 8mm; color: #777; }
@@ -25,62 +29,131 @@
 <div class="sub">Go through the test site with the guide, then answer every line here.</div>
 <p class="note" style="text-align:left;margin:2mm 0 0;">Part 3 of the review packet · <a href="index.html">Packet contents</a> · <a href="agreement.html">Part 1: the Agreement</a> · <a href="guide.html">Part 2: the Review Guide</a></p>
 
-<div class="who">Name: <span>&nbsp;</span> Review code: <span>&nbsp;</span> Date finished: <span>&nbsp;</span></div>
+<div class="who">Name: <input type="text" id="c_name" autocomplete="name"> Review code: <input type="text" id="c_code"> Date finished: <input type="text" id="c_date"></div>
+<p id="saveState"></p>
 
-<p><strong>How it works:</strong> circle YES if the line is true, NO if it isn't. Every line <em>should</em> be a YES. A NO is not you failing — a NO is exactly what Busy Bees is paying to find. If you circle NO, jot what you saw on your notes sheet.</p>
+<p><strong>How it works:</strong> circle or tap YES if the line is true, NO if it isn't. Every line <em>should</em> be a YES. A NO is not you failing — a NO is exactly what Busy Bees is paying to find. If you circle NO, jot what you saw on your notes sheet.</p>
 
 <h2>Words and numbers</h2>
 <table>
-<tr><td class="n">1</td><td>Everywhere I looked, the name was "Busy Bees" — never "Busy Bee's," never lowercase.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">2</td><td>The only phone number I saw anywhere was (508) 258-9899.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">3</td><td>I never saw "emergency" offered as a service or a promise.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">4</td><td>I never saw a home or street address for the owner or the business.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
+<tr><td class="n">1</td><td>Everywhere I looked, the name was "Busy Bees" — never "Busy Bee's," never lowercase.</td><td class="yn"><label><input type="radio" name="q1" value="yes"> YES</label> / <label><input type="radio" name="q1" value="no"> NO</label></td></tr>
+<tr><td class="n">2</td><td>The only phone number I saw anywhere was (508) 258-9899.</td><td class="yn"><label><input type="radio" name="q2" value="yes"> YES</label> / <label><input type="radio" name="q2" value="no"> NO</label></td></tr>
+<tr><td class="n">3</td><td>I never saw "emergency" offered as a service or a promise.</td><td class="yn"><label><input type="radio" name="q3" value="yes"> YES</label> / <label><input type="radio" name="q3" value="no"> NO</label></td></tr>
+<tr><td class="n">4</td><td>I never saw a home or street address for the owner or the business.</td><td class="yn"><label><input type="radio" name="q4" value="yes"> YES</label> / <label><input type="radio" name="q4" value="no"> NO</label></td></tr>
 </table>
 
 <h2>Money rules</h2>
 <table>
-<tr><td class="n">5</td><td>As a homeowner, I was never shown a fee.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">6</td><td>As a homeowner, I was never asked for a card or any payment.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">7</td><td>As a contractor, declining or ignoring a job cost nothing.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">8</td><td>Every fee I saw was a flat amount between $5 and $100 — never a percentage of the job price, never a commission. (The one percentage anywhere: a member's own-page bookings cost 10% of the flat fee — of the fee, not of the job price.)</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
+<tr><td class="n">5</td><td>As a homeowner, I was never shown a fee.</td><td class="yn"><label><input type="radio" name="q5" value="yes"> YES</label> / <label><input type="radio" name="q5" value="no"> NO</label></td></tr>
+<tr><td class="n">6</td><td>As a homeowner, I was never asked for a card or any payment.</td><td class="yn"><label><input type="radio" name="q6" value="yes"> YES</label> / <label><input type="radio" name="q6" value="no"> NO</label></td></tr>
+<tr><td class="n">7</td><td>As a contractor, declining or ignoring a job cost nothing.</td><td class="yn"><label><input type="radio" name="q7" value="yes"> YES</label> / <label><input type="radio" name="q7" value="no"> NO</label></td></tr>
+<tr><td class="n">8</td><td>Every fee I saw was a flat amount between $5 and $100 — never a percentage of the job price, never a commission. (The one percentage anywhere: a member's own-page bookings cost 10% of the flat fee — of the fee, not of the job price.)</td><td class="yn"><label><input type="radio" name="q8" value="yes"> YES</label> / <label><input type="radio" name="q8" value="no"> NO</label></td></tr>
 </table>
 
 <h2>Membership and the founding offer</h2>
 <table>
-<tr><td class="n">9</td><td>Membership was always shown as a choice, never a requirement.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">10</td><td>The membership prices were $19/week, $49/month, $490/year.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">11</td><td>Nothing said paying members get jobs sooner or rank higher.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">12</td><td>The founding offer said 90 free days for a first referral, +30 for each one after, counted when the new contractor is approved.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">13</td><td>The founding offer said free days stop adding at 10 contractors — and days already earned stay earned.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">14</td><td>The founding page showed an example founding code (BUZZ-01), said one person gets one code, and said referral credit follows the code. There was nowhere in the test site to type a code in.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
+<tr><td class="n">9</td><td>Membership was always shown as a choice, never a requirement.</td><td class="yn"><label><input type="radio" name="q9" value="yes"> YES</label> / <label><input type="radio" name="q9" value="no"> NO</label></td></tr>
+<tr><td class="n">10</td><td>The membership prices were $19/week, $49/month, $490/year.</td><td class="yn"><label><input type="radio" name="q10" value="yes"> YES</label> / <label><input type="radio" name="q10" value="no"> NO</label></td></tr>
+<tr><td class="n">11</td><td>Nothing said paying members get jobs sooner or rank higher.</td><td class="yn"><label><input type="radio" name="q11" value="yes"> YES</label> / <label><input type="radio" name="q11" value="no"> NO</label></td></tr>
+<tr><td class="n">12</td><td>The founding offer said 90 free days for a first referral, +30 for each one after, counted when the new contractor is approved.</td><td class="yn"><label><input type="radio" name="q12" value="yes"> YES</label> / <label><input type="radio" name="q12" value="no"> NO</label></td></tr>
+<tr><td class="n">13</td><td>The founding offer said free days stop adding at 10 contractors — and days already earned stay earned.</td><td class="yn"><label><input type="radio" name="q13" value="yes"> YES</label> / <label><input type="radio" name="q13" value="no"> NO</label></td></tr>
+<tr><td class="n">14</td><td>The founding page showed an example founding code (BUZZ-01), said one person gets one code, and said referral credit follows the code. There was nowhere in the test site to type a code in.</td><td class="yn"><label><input type="radio" name="q14" value="yes"> YES</label> / <label><input type="radio" name="q14" value="no"> NO</label></td></tr>
 </table>
 
 <h2>Trust and safety</h2>
 <table>
-<tr><td class="n">15</td><td>After accepting a job, contact stayed masked — I never saw a real phone number.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">16</td><td>Nothing claimed Busy Bees checks licenses, insurance, or backgrounds.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">17</td><td>Sponsor cards were labeled "Sponsored" and never showed up in the middle of making a request.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">18</td><td>The pretend job offers showed no customer names, phone numbers, or street addresses before a job is accepted and paid for.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
+<tr><td class="n">15</td><td>After accepting a job, contact stayed masked — I never saw a real phone number.</td><td class="yn"><label><input type="radio" name="q15" value="yes"> YES</label> / <label><input type="radio" name="q15" value="no"> NO</label></td></tr>
+<tr><td class="n">16</td><td>Nothing claimed Busy Bees checks licenses, insurance, or backgrounds.</td><td class="yn"><label><input type="radio" name="q16" value="yes"> YES</label> / <label><input type="radio" name="q16" value="no"> NO</label></td></tr>
+<tr><td class="n">17</td><td>Sponsor cards were labeled "Sponsored" and never showed up in the middle of making a request.</td><td class="yn"><label><input type="radio" name="q17" value="yes"> YES</label> / <label><input type="radio" name="q17" value="no"> NO</label></td></tr>
+<tr><td class="n">18</td><td>The pretend job offers showed no customer names, phone numbers, or street addresses before a job is accepted and paid for.</td><td class="yn"><label><input type="radio" name="q18" value="yes"> YES</label> / <label><input type="radio" name="q18" value="no"> NO</label></td></tr>
 </table>
 
 <h2>Ease of use</h2>
 <table>
-<tr><td class="n">19</td><td>Every screen had a way Home and a way Back.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">20</td><td>Each screen asked one thing at a time, with only a few choices.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">21</td><td>I never got stuck with no obvious next step.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
+<tr><td class="n">19</td><td>Every screen had a way Home and a way Back.</td><td class="yn"><label><input type="radio" name="q19" value="yes"> YES</label> / <label><input type="radio" name="q19" value="no"> NO</label></td></tr>
+<tr><td class="n">20</td><td>Each screen asked one thing at a time, with only a few choices.</td><td class="yn"><label><input type="radio" name="q20" value="yes"> YES</label> / <label><input type="radio" name="q20" value="no"> NO</label></td></tr>
+<tr><td class="n">21</td><td>I never got stuck with no obvious next step.</td><td class="yn"><label><input type="radio" name="q21" value="yes"> YES</label> / <label><input type="radio" name="q21" value="no"> NO</label></td></tr>
 </table>
 
 <h2>Overall</h2>
 <table>
-<tr><td class="n">22</td><td>I could use this site on my own, without help.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">23</td><td>I would trust this site to book a real job.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
-<tr><td class="n">24</td><td>The "Don't see your trade?" pages made it clear that applying only joins a waitlist — no new trade is live, no jobs are promised, and Busy Bees decides whether a trade ever opens.</td><td class="yn">YES&nbsp;&nbsp;/&nbsp;&nbsp;NO</td></tr>
+<tr><td class="n">22</td><td>I could use this site on my own, without help.</td><td class="yn"><label><input type="radio" name="q22" value="yes"> YES</label> / <label><input type="radio" name="q22" value="no"> NO</label></td></tr>
+<tr><td class="n">23</td><td>I would trust this site to book a real job.</td><td class="yn"><label><input type="radio" name="q23" value="yes"> YES</label> / <label><input type="radio" name="q23" value="no"> NO</label></td></tr>
+<tr><td class="n">24</td><td>The "Don't see your trade?" pages made it clear that applying only joins a waitlist — no new trade is live, no jobs are promised, and Busy Bees decides whether a trade ever opens.</td><td class="yn"><label><input type="radio" name="q24" value="yes"> YES</label> / <label><input type="radio" name="q24" value="no"> NO</label></td></tr>
 </table>
 
 <p class="note">Done? Send this sheet (or a photo of it) back to Busy Bees with your notes sheet. Thank you — every NO you found makes the real site better.</p>
 
 <p class="note" style="text-align:center"><a href="index.html">&larr; Back to the packet contents</a> · <a href="notes.html">Next: Part 4 — Your Notes Sheet &rarr;</a></p>
 
+<script>
+/* Auto-save: your checklist answers are kept on this device as you go, in a
+   bucket keyed to your review code (the same code the gate stored when you
+   agreed). Different code, different bucket: two reviewers sharing one
+   device never see each other's answers. Same pattern as the notes page. */
+(function(){
+  var TEXT = ['c_name','c_code','c_date'];
+  var NQ = 24;
+  var state = document.getElementById('saveState');
+  function clean(code){ return (code || '').toUpperCase().replace(/[^A-Z0-9-]/g, ''); }
+  function gateCode(){ try { return clean(localStorage.getItem('bb_code')); } catch(e){ return ''; } }
+  function typedCode(){ var el = document.getElementById('c_code'); return el ? clean(el.value) : ''; }
+  function bucket(){ return typedCode() || gateCode() || 'GUEST'; }
+  function key(b){ return 'bb_draft_v1:' + b + ':checklist'; }
+  function read(b){ try { var d = JSON.parse(localStorage.getItem(key(b)) || 'null'); return (d && d.fields) ? d : null; } catch(e){ return null; } }
+  function anyValue(d){ if(!d) return false; for (var k in d.fields){ if(d.fields[k] && ('' + d.fields[k]).trim()) return true; } return false; }
+  function timeOf(iso){ try { var d = new Date(iso); if(!isNaN(d)) return d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}); } catch(e){} return ''; }
+  function picked(q){ return document.querySelector('input[name="q' + q + '"]:checked'); }
+  function answered(){ var n = 0; for (var i = 1; i <= NQ; i++){ if(picked(i)) n++; } return n; }
+
+  /* Restore: the gate's bucket wins — it's this device's signed-in person.
+     With no gate identity yet, fall back to the bucket this page last
+     saved under, then the guest bucket. */
+  var order = [];
+  var gc0 = gateCode();
+  if(gc0) order.push(gc0);
+  try { var last = localStorage.getItem('bb_draft_v1:checklist:latest'); if(last && !gc0) order.push(last); } catch(e){}
+  order.push('GUEST');
+  var restored = null;
+  for (var i = 0; i < order.length && !restored; i++){ var d = read(order[i]); if(anyValue(d)) restored = d; }
+  if(restored){
+    TEXT.forEach(function(id){ var el = document.getElementById(id); if(el && !el.value && restored.fields[id]) el.value = restored.fields[id]; });
+    for (var q = 1; q <= NQ; q++){
+      var v = restored.fields['q' + q];
+      if(v){ var r = document.querySelector('input[name="q' + q + '"][value="' + v + '"]'); if(r) r.checked = true; }
+    }
+    if(state) state.textContent = 'Welcome back — your answers were restored from this device (last saved ' + timeOf(restored.savedAt) + '). They keep saving as you go.';
+  }
+  /* If the gate already knows your name and code, fill them in. */
+  try {
+    var gn = localStorage.getItem('bb_name'), gc = localStorage.getItem('bb_code');
+    var nEl = document.getElementById('c_name'), cEl = document.getElementById('c_code');
+    if(nEl && !nEl.value && gn) nEl.value = gn;
+    if(cEl && !cEl.value && gc) cEl.value = gc;
+  } catch(e){}
+
+  var t = null;
+  function save(flash){
+    var fields = {};
+    TEXT.forEach(function(id){ var el = document.getElementById(id); fields[id] = el ? el.value : ''; });
+    for (var q = 1; q <= NQ; q++){ var r = picked(q); fields['q' + q] = r ? r.value : ''; }
+    var b = bucket(), data = { fields: fields, savedAt: new Date().toISOString() };
+    try {
+      localStorage.setItem(key(b), JSON.stringify(data));
+      localStorage.setItem('bb_draft_v1:checklist:latest', b);
+    } catch(e){}
+    if(flash && state) state.textContent = 'Saved ✓ ' + timeOf(data.savedAt) + ' — ' + answered() + ' of ' + NQ + ' answered, kept on this device';
+  }
+  TEXT.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener('input', function(){ if(t) clearTimeout(t); t = setTimeout(function(){ save(true); }, 400); });
+  });
+  document.querySelectorAll('input[type="radio"]').forEach(function(r){
+    r.addEventListener('change', function(){ if(t) clearTimeout(t); t = setTimeout(function(){ save(true); }, 400); });
+  });
+  window.addEventListener('pagehide', function(){ if(t){ clearTimeout(t); save(false); } });
+})();
+</script>
 <script src="../preview/bbtrack.js" defer></script>
 </body>
 </html>

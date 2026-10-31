@@ -18,7 +18,8 @@
   li { margin-bottom: 6px; }
   .lines { margin: 22px 0 4px; }
   .lines p { margin: 14px 0; }
-  .line { display: inline-block; border-bottom: 1.5px solid #999; min-width: 220px; }
+  .lines input[type="text"] { font: inherit; color: inherit; background: transparent; border: 0; border-bottom: 1.5px solid #999; min-width: 220px; padding: 2px 0; }
+  #saveState { font-size: 13.5px; color: #555; min-height: 1.3em; margin: 4px 0 0; }
   .small { font-size: 13.5px; color: #555; }
   .nav { text-align: center; margin: 26px 0 4px; font-size: 15px; }
   a { color: #14161F; }
@@ -81,10 +82,12 @@
 </ul>
 
 <div class="lines">
-  <p>Reviewer name: <span class="line">&nbsp;</span></p>
-  <p>Review code: <span class="line">&nbsp;</span></p>
-  <p>Date agreed: <span class="line">&nbsp;</span></p>
+  <p>Reviewer name: <input type="text" id="a_name" autocomplete="name"></p>
+  <p>Review code: <input type="text" id="a_code"></p>
+  <p>Date agreed: <input type="text" id="a_date"></p>
 </div>
+<p class="small">Typing here just fills in this copy on this device, and it saves as you go — agreeing itself still happens the way Section 6 says: your "I agree" reply, or the pop-up on the packet page.</p>
+<p id="saveState"></p>
 
 <p class="small"><em>Draft prepared for Busy Bees (Oct 30, 2026). Plain-words by design — it goes to the free-attorney packet for a professional once-over before it is relied on.</em></p>
 
@@ -93,6 +96,60 @@
 <footer>Busy Bees · (508) 258-9899 · dispatch@busybeesdispatch.com · busybeesdispatch.com</footer>
 
 </div>
+<script>
+/* Auto-save: the name / code / date typed on this copy are kept on this
+   device as you go, in a bucket keyed to your review code (the same code
+   the gate stored when you agreed). Same pattern as the notes page. */
+(function(){
+  var TEXT = ['a_name','a_code','a_date'];
+  var state = document.getElementById('saveState');
+  function clean(code){ return (code || '').toUpperCase().replace(/[^A-Z0-9-]/g, ''); }
+  function gateCode(){ try { return clean(localStorage.getItem('bb_code')); } catch(e){ return ''; } }
+  function typedCode(){ var el = document.getElementById('a_code'); return el ? clean(el.value) : ''; }
+  function bucket(){ return typedCode() || gateCode() || 'GUEST'; }
+  function key(b){ return 'bb_draft_v1:' + b + ':agreement'; }
+  function read(b){ try { var d = JSON.parse(localStorage.getItem(key(b)) || 'null'); return (d && d.fields) ? d : null; } catch(e){ return null; } }
+  function anyValue(d){ if(!d) return false; for (var k in d.fields){ if(d.fields[k] && ('' + d.fields[k]).trim()) return true; } return false; }
+  function timeOf(iso){ try { var d = new Date(iso); if(!isNaN(d)) return d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}); } catch(e){} return ''; }
+
+  var order = [];
+  var gc0 = gateCode();
+  if(gc0) order.push(gc0);
+  try { var last = localStorage.getItem('bb_draft_v1:agreement:latest'); if(last && !gc0) order.push(last); } catch(e){}
+  order.push('GUEST');
+  var restored = null;
+  for (var i = 0; i < order.length && !restored; i++){ var d = read(order[i]); if(anyValue(d)) restored = d; }
+  if(restored){
+    TEXT.forEach(function(id){ var el = document.getElementById(id); if(el && !el.value && restored.fields[id]) el.value = restored.fields[id]; });
+    if(state) state.textContent = 'Welcome back — your entries were restored from this device (last saved ' + timeOf(restored.savedAt) + '). They keep saving as you type.';
+  }
+  /* If the gate already knows your name, code, and the date you agreed, fill them in. */
+  try {
+    var gn = localStorage.getItem('bb_name'), gc = localStorage.getItem('bb_code'), gd = localStorage.getItem('bb_date');
+    var nEl = document.getElementById('a_name'), cEl = document.getElementById('a_code'), dEl = document.getElementById('a_date');
+    if(nEl && !nEl.value && gn) nEl.value = gn;
+    if(cEl && !cEl.value && gc) cEl.value = gc;
+    if(dEl && !dEl.value && gd){ var dt = new Date(gd); if(!isNaN(dt)) dEl.value = dt.toLocaleDateString(); }
+  } catch(e){}
+
+  var t = null;
+  function save(flash){
+    var fields = {};
+    TEXT.forEach(function(id){ var el = document.getElementById(id); fields[id] = el ? el.value : ''; });
+    var b = bucket(), data = { fields: fields, savedAt: new Date().toISOString() };
+    try {
+      localStorage.setItem(key(b), JSON.stringify(data));
+      localStorage.setItem('bb_draft_v1:agreement:latest', b);
+    } catch(e){}
+    if(flash && state) state.textContent = 'Saved ✓ ' + timeOf(data.savedAt) + ' — kept on this device';
+  }
+  TEXT.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener('input', function(){ if(t) clearTimeout(t); t = setTimeout(function(){ save(true); }, 400); });
+  });
+  window.addEventListener('pagehide', function(){ if(t){ clearTimeout(t); save(false); } });
+})();
+</script>
 <script src="../preview/bbtrack.js" defer></script>
 </body>
 </html>
