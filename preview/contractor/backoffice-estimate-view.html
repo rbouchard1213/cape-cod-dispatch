@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#14161F">
+<title>Your estimate — customer view — Busy Bees (pretend test)</title>
+<link rel="icon" href="../../assets/busy-bees-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../preview.css">
+</head>
+<body>
+<script>try{if(localStorage.getItem('bb_agreed')!=='1'){location.replace('../../review/');}}catch(e){}</script>
+<div class="pretend">PRETEND TEST VERSION — nothing here is real, and nothing you tap sends anything.</div>
+<header class="hdr"><div class="hdr-in">
+<img src="../../assets/busy-bees-logo.png" alt="Busy Bees gold shield logo">
+<span class="brand">Busy Bees<small>Local service dispatch</small></span>
+<a class="home" href="../index.html">⌂ Home</a>
+</div></header>
+<main class="wrap">
+<p class="step">The Hive · Estimates · Customer view</p>
+<div class="banner"><b>How the customer sees it.</b>
+<p>This is Pat M.'s screen, not yours — an estimate that already came back approved. Quotes are always free; approving is the customer's call, in their own time.</p></div>
+<h1>Your estimate from Example Tree Co</h1>
+<p class="sub">Fall cleanup — three ways to do it. Pick the one that suits you; there's no wrong answer and no rush.</p>
+<div class="card"><h2 style="margin-top:0">Good — $350</h2>
+<p style="margin-bottom:0">Leaves, sticks, and beds cleared; everything hauled away. The plain tidy-up.</p></div>
+<div class="card deal"><h2 style="margin-top:0">Better — $420 <span class="badge">The one we'd pick</span></h2>
+<p style="margin-bottom:0">Everything in Good, plus hedges trimmed and shaped while we're there.</p></div>
+<div class="card"><h2 style="margin-top:0">Best — $560</h2>
+<p style="margin-bottom:0">Everything in Better, plus fresh mulch in the front beds to finish it.</p></div>
+<p class="note" id="estState">Pat picked <b>Better — $420</b> and approved it on Oct 27. The job landed in Example Tree Co's schedule on its own, and the invoice was ready to send from this same estimate.</p>
+<button class="btn btn-gold" type="button" id="estApprove">Approve — pretend tap<span class="d">See what approving does. Nothing is sent in this test version.</span></button>
+<button class="btn btn-ghost" type="button" id="estDecline">Decline — pretend tap</button>
+<script>
+(function(){
+  var st = document.getElementById("estState");
+  document.getElementById("estApprove").addEventListener("click", function(){
+    st.innerHTML = "<b>Approved (pretend).</b> On the real site, Example Tree Co is told right away, the job goes on their schedule, and an invoice can be sent from this estimate with one tap.";
+  });
+  document.getElementById("estDecline").addEventListener("click", function(){
+    st.innerHTML = "<b>Declined (pretend).</b> On the real site, Example Tree Co is told politely, and that's the end of it — declining a quote costs the customer nothing, ever.";
+  });
+})();
+</script>
+
+</main>
+<nav class="botnav"><a class="js-back" href="backoffice-estimates.html">← Back</a><a href="../index.html">⌂ Home</a></nav>
+<footer><b>Busy Bees</b> — pretend test version · busybeesdispatch.com<br>
+Test site version 0.10.0 — review round · Updated October 31, 2026<br>
+Questions? Call or text <b>(508) 258-9899</b> · dispatch@busybeesdispatch.com<br>
+<a href="../privacy.html">Privacy — what's counted</a></footer>
+<script src="../preview.js"></script>
+<script src="../bbtrack.js" defer></script>
+</body>
+</html>

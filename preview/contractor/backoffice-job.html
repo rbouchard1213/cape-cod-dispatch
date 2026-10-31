@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#14161F">
+<title>Tree removal — Dana W. — Busy Bees (pretend test)</title>
+<link rel="icon" href="../../assets/busy-bees-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../preview.css">
+</head>
+<body>
+<script>try{if(localStorage.getItem('bb_agreed')!=='1'){location.replace('../../review/');}}catch(e){}</script>
+<div class="pretend">PRETEND TEST VERSION — nothing here is real, and nothing you tap sends anything.</div>
+<header class="hdr"><div class="hdr-in">
+<img src="../../assets/busy-bees-logo.png" alt="Busy Bees gold shield logo">
+<span class="brand">Busy Bees<small>Local service dispatch</small></span>
+<a class="home" href="../index.html">⌂ Home</a>
+</div></header>
+<main class="wrap">
+<p class="step">The Hive · My Jobs · Job</p>
+<h1>Tree removal — Dana W.</h1>
+<p class="sub">Today, 9:00 · Dennis · Board job — accepted Oct 28, details released when you accepted, like always.</p>
+<div class="card"><h2 style="margin-top:0">The job</h2>
+<div class="kv"><b>Work</b><span>Tree removal — 2–3 trees, back corner of the lot</span></div>
+<div class="kv"><b>Your quote</b><span>$1,400 — quoted on site, it's yours to set</span></div>
+<div class="kv"><b>Talking</b><span>Through the board's private relay — numbers stay hidden, same as the board</span></div>
+</div>
+<div class="card"><h2 style="margin-top:0">On-the-day checklist</h2>
+<p class="small">Ticks save on this device, for this job.</p>
+<div id="jobChecks">
+<label><input type="checkbox" data-chk="gear"> Saws, ropes, and the chipper loaded</label>
+<label><input type="checkbox" data-chk="look"> Walk the lot first — wires, fences, the neighbor's shed</label>
+<label><input type="checkbox" data-chk="photos"> Before photos taken</label>
+<label><input type="checkbox" data-chk="done"> Yard left tidy — grindings raked, gate closed</label>
+<label style="margin-bottom:0"><input type="checkbox" data-chk="invoiced"> Invoice sent (or marked ready to send)</label>
+</div></div>
+<div class="card"><h2 style="margin-top:0">Photos</h2>
+<p style="margin-bottom:0" class="note">📷 Before — <i>spot reserved</i> &nbsp;·&nbsp; 📷 After — <i>spot reserved</i><br>
+On the real site, photos you take on the job land here, on the job — handy when a customer asks what was done.</p></div>
+<div class="card"><h2 style="margin-top:0">Job notes</h2>
+<form data-draft="backoffice-job-dana">
+<label>Notes<textarea name="notes" rows="3" placeholder="Leaner over the back fence — drop it in pieces. Chipper fits through the side gate."></textarea></label>
+</form></div>
+<a class="btn btn-gold" href="backoffice-invoice.html">Invoice for this job<span class="d">Bill Dana from this job — most of it's already filled in.</span></a>
+<a class="btn btn-ghost" href="backoffice-jobs.html">Back to My Jobs</a>
+<script>
+(function(){
+  var KEY = "bb_backoffice_chk_v1:dana-tree";
+  var saved = {};
+  try{ saved = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; }catch(e){}
+  document.querySelectorAll("#jobChecks input[data-chk]").forEach(function(box){
+    var k = box.getAttribute("data-chk");
+    box.checked = !!saved[k];
+    box.addEventListener("change", function(){
+      saved[k] = box.checked;
+      try{ localStorage.setItem(KEY, JSON.stringify(saved)); }catch(e){}
+    });
+  });
+})();
+</script>
+
+</main>
+<nav class="botnav"><a class="js-back" href="backoffice-jobs.html">← Back</a><a href="../index.html">⌂ Home</a></nav>
+<footer><b>Busy Bees</b> — pretend test version · busybeesdispatch.com<br>
+Test site version 0.10.0 — review round · Updated October 31, 2026<br>
+Questions? Call or text <b>(508) 258-9899</b> · dispatch@busybeesdispatch.com<br>
+<a href="../privacy.html">Privacy — what's counted</a></footer>
+<script src="../preview.js"></script>
+<script src="../bbtrack.js" defer></script>
+</body>
+</html>

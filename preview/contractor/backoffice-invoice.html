@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#14161F">
+<title>Invoice 202 — Dana W. — Busy Bees (pretend test)</title>
+<link rel="icon" href="../../assets/busy-bees-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../preview.css">
+</head>
+<body>
+<script>try{if(localStorage.getItem('bb_agreed')!=='1'){location.replace('../../review/');}}catch(e){}</script>
+<div class="pretend">PRETEND TEST VERSION — nothing here is real, and nothing you tap sends anything.</div>
+<header class="hdr"><div class="hdr-in">
+<img src="../../assets/busy-bees-logo.png" alt="Busy Bees gold shield logo">
+<span class="brand">Busy Bees<small>Local service dispatch</small></span>
+<a class="home" href="../index.html">⌂ Home</a>
+</div></header>
+<main class="wrap">
+<p class="step">The Hive · Invoices · Invoice</p>
+<h1>Invoice 202 — Dana W.</h1>
+<p class="sub">Tree removal, Dennis · Made from the finished job, most of it filled in on its own.</p>
+<div class="card"><h2 style="margin-top:0">What's on it</h2>
+<div class="kv"><b>Work</b><span>Tree removal — 2–3 trees, hauled away</span></div>
+<div class="kv"><b>Amount</b><span class="fee" style="font-size:19px">$1,400</span></div>
+<div class="kv"><b>Sent</b><span>Oct 28 · Due Nov 4</span></div>
+<div class="kv"><b>Standing</b><span>Sent — one polite follow-up already out (Oct 30)</span></div>
+</div>
+<div class="card deal"><h2 style="margin-top:0">How Dana pays</h2>
+<p>Dana gets a payment link with the invoice. It runs through <b>your own connected payment account</b> — the money lands with you, and Busy Bees never touches it and never takes a percentage of your job. (This test version shows the link's place only — it's in test mode and moves no money.)</p>
+<p class="fee" style="font-size:16px">Payment link: pay.example…/inv-202 <span class="badge">Test mode</span></p>
+<p style="margin-bottom:0" class="small">The small card-processing fee your payment provider charges is theirs, not ours — it's shown to you plainly before you connect an account.</p></div>
+<div class="card"><h2 style="margin-top:0">Follow-ups, handled gently</h2>
+<ul class="tight">
+<li><b>Sent</b> — Oct 28, with the payment link.</li>
+<li><b>Polite nudge</b> — sent Oct 30 (the wording stays friendly: "just floating this back to the top of your inbox").</li>
+<li><b>If it's not paid by Nov 4</b> — it shows as overdue, and a firmer note is ready for you to approve and send. Nothing ever goes out without your say.</li>
+</ul></div>
+<button class="btn btn-gold" type="button" id="invPaid">Mark it paid — pretend tap<span class="d">For cash or a check at the door. On the real site this closes the invoice and updates what the job made you.</span></button>
+<p class="note" id="invState"></p>
+<script>
+(function(){
+  document.getElementById("invPaid").addEventListener("click", function(){
+    document.getElementById("invState").innerHTML = "<b>Marked paid (pretend).</b> On the real site the invoice closes, Dana drops off your follow-ups, and the job's page shows the money in.";
+  });
+})();
+</script>
+
+</main>
+<nav class="botnav"><a class="js-back" href="backoffice-invoices.html">← Back</a><a href="../index.html">⌂ Home</a></nav>
+<footer><b>Busy Bees</b> — pretend test version · busybeesdispatch.com<br>
+Test site version 0.10.0 — review round · Updated October 31, 2026<br>
+Questions? Call or text <b>(508) 258-9899</b> · dispatch@busybeesdispatch.com<br>
+<a href="../privacy.html">Privacy — what's counted</a></footer>
+<script src="../preview.js"></script>
+<script src="../bbtrack.js" defer></script>
+</body>
+</html>

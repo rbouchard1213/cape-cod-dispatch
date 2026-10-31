@@ -237,6 +237,7 @@ def build_home():
 <a class="opt" href="contractor/membership.html">Membership — your own page<span class="arr">→</span><span class="d">Your own Busy Bees page, where your customers request you directly. Optional — never required for board jobs.</span></a>
 <a class="opt" href="contractor/levels.html">Levels &amp; verified<span class="arr">→</span><span class="d">How levels work, and what showing your business paperwork does.</span></a>
 <a class="opt" href="contractor/founding.html">Founding codes<span class="arr">→</span><span class="d">The founding offer and how referral codes earn free time.</span></a>
+<a class="opt" href="contractor/backoffice.html">The Hive — member tools<span class="arr">→</span><span class="d">A peek at the tools members get: their customers, estimates, jobs, invoices, and what each job made them — fed by the board itself.</span></a>
 <a class="opt" href="contractor/future-trades.html" style="margin-bottom:0">Don't see your trade?<span class="arr">→</span><span class="d">Apply to the future-trades list — the trade is not live yet.</span></a>
 </div>
 <div class="card"><h2>Behind the scenes</h2>
@@ -679,7 +680,7 @@ def build_contractor():
 
     offer = """
 <h1>A job offer arrives like this</h1>
-<p class="sub">On the real board this lands as a text message. The customer's address and notes stay hidden until you accept and pay the fee.</p>
+<p class="sub">On the real board this lands as a text message — the waggle, in bee terms: a bee dances directions to the good flowers; this points you straight at work that fits. The customer's address and notes stay hidden until you accept and pay the fee.</p>
 <div class="msg"><div class="msg-hd">💬 Busy Bees — pretend text message</div>
 <div class="msg-bd">
 <p><b>New job offer</b></p>
@@ -812,6 +813,7 @@ def build_membership():
 <li><b>Your own customers request you directly there</b> — you're already chosen, no competing with the board.</li>
 <li><b>Own-page bookings: membership plus 10% of the normal fee</b> — a $30 board fee becomes $3 on top of membership — tallied up and billed with your membership, never per job at checkout. The 10% is figured on the normal fee, before any discounts, and figured to the cent — 10% of $25 is $2.50. If you decline an own-page request, it closes, the customer is asked before it can go to the board, and you owe <b>no 10%</b> for that declined request.</li>
 <li><b>Board jobs stay the full fee</b>, the same as for everyone. Membership changes nothing there.</li>
+<li><b>The Hive, included.</b> Your own customers, estimates customers can approve with one tap, your job schedule, invoices your customers pay through <b>your own</b> payment account, and what each job actually made you — all in one place. Jobs you win on the board land there on their own; you never start from an empty screen.</li>
 </ul></div>
 <div class="card"><h2 style="margin-top:0">The price, plainly</h2>
 <ul class="tight">
@@ -820,6 +822,7 @@ def build_membership():
 <li><b>Never required</b> to join the board or accept any job.</li>
 </ul></div>
 <a class="btn btn-gold" href="member-welcome.html">Become a member — pretend sign-up<span class="d">Pretend here: no card, no charge. The next screen shows your page switched on.</span></a>
+<a class="btn btn-ghost" href="backoffice.html">Peek at The Hive<span class="d">Customers, estimates, jobs, invoices, and what each job made you — the tools that come with membership.</span></a>
 <a class="btn btn-ghost" href="ownpage.html">See what a member's page looks like →</a>
 """
     write("contractor/membership.html", page("Membership — your own page", 1, body,
@@ -833,7 +836,8 @@ def build_member_welcome():
 <div class="card"><h2 style="margin-top:0">Your page is live</h2>
 <p class="fee" style="font-size:19px">busybeesdispatch.com/<b>example-co</b></p>
 <p>That's the address to hand out — on flyers, cards, your truck, everywhere. Customers who request through it are requesting <b>you</b>, and those jobs cost you <b>membership plus 10% of the normal fee</b>, tallied with your membership. (Founders pay no own-page 10% during the free test run.)</p></div>
-<a class="btn btn-gold" href="ownpage.html">View my page<span class="d">See it the way your customers see it.</span></a>
+<a class="btn btn-gold" href="backoffice.html">Open The Hive<span class="d">Your customers, estimates, jobs, invoices, and what each job made you.</span></a>
+<a class="btn btn-ghost" href="ownpage.html">View my page<span class="d">See it the way your customers see it.</span></a>
 <a class="btn btn-ghost" href="ownpage.html">Share my page<span class="d">Pretend: on the real site this copies your link and opens your usual share options.</span></a>
 <a class="btn btn-ghost" href="membership.html">Membership settings<span class="d">Pretend: plan, billing, and cancel live here on the real site — cancel anytime.</span></a>
 <a class="btn btn-ghost" href="../index.html">⌂ Back to the start</a>
@@ -1222,6 +1226,333 @@ def build_privacy():
 """
     write("privacy.html", page("Privacy — what's counted", 0, body, gate=False))
 
+# ------------------------------------------------------------ the hive ----
+# The member tools — The Hive. The whole point of ours: it is fed by the
+# board — a job a member accepts on the board lands in My Jobs and My
+# Customers on its own, instead of starting from an empty screen.
+# House line: "The board finds the work. The Hive is where you run it."
+def build_hive():
+    hub = """
+<h1>The Hive</h1>
+<p class="sub">Welcome back, <b>Example Tree Co</b> <span class="badge">Member</span><br>
+This is the pretend member view — fake customers, fake jobs, fake money.</p>
+<p><b>The board finds the work. The Hive is where you run it.</b></p>
+<div class="card deal"><h2 style="margin-top:0">Fed by the board</h2>
+<p style="margin-bottom:0">Every job you accept on the board lands here on its own — in <b>My Jobs</b> with the day it's booked for, and in <b>My Customers</b> with the customer's name on it. Nothing to type in twice. Work you line up yourself can be added the same way.</p></div>
+<div class="card"><h2 style="margin-top:0">This week, at a glance</h2>
+<div class="kv"><b>Jobs booked</b><span>3 — tree removal today, mowing route Monday, cleanup Wednesday</span></div>
+<div class="kv"><b>Estimates out</b><span>2 waiting on customers · 1 approved this week</span></div>
+<div class="kv"><b>Invoices open</b><span>2 — $1,820 out, $275 paid this week</span></div>
+<div class="kv"><b>Follow-ups</b><span>2 due — Dana W. (stump quote) and Pat M. (spring cleanup)</span></div>
+<div class="kv"><b>Your level</b><span>Level 2 · 11 board jobs done · $15 in referral credit</span></div>
+</div>
+<a class="opt" href="backoffice-customers.html">My Customers<span class="arr">→</span><span class="d">Your own customer list — everyone the board has sent you, plus anyone you add. Yours, not the board's.</span></a>
+<a class="opt" href="backoffice-estimates.html">Estimates<span class="arr">→</span><span class="d">Write it up once, send it, and the customer can approve it with one tap.</span></a>
+<a class="opt" href="backoffice-jobs.html">My Jobs &amp; schedule<span class="arr">→</span><span class="d">What's booked, what day, and the notes and checklist for each job.</span></a>
+<a class="opt" href="backoffice-invoices.html">Invoices &amp; getting paid<span class="arr">→</span><span class="d">Bill from a job or an estimate. Customers pay <b>you</b> — through your own payment account.</span></a>
+<a class="opt" href="backoffice-costing.html">What each job made you<span class="arr">→</span><span class="d">The price minus what it cost you — the honey each job actually brought in, and a plain look at which work is worth taking.</span></a>
+<a class="opt" href="backoffice-leadhunter.html" style="margin-bottom:0">Lead Hunter — coming for members<span class="arr">→</span><span class="d">A paid extra we're building: Busy Bees forages local demand and brings back work so you don't have to. Not on sale yet.</span></a>
+<div class="card" style="margin-top:16px"><h2 style="margin-top:0">Tools, nothing more</h2>
+<p style="margin-bottom:0">The Hive is a set of tools that comes with membership. It never changes who gets offered a board job: membership does <b>not</b> buy ranking, level, or verified status — those are earned, the same as always.</p></div>
+"""
+    write("contractor/backoffice.html", page("The Hive — member tools", 1, hub,
+          back="join.html", step="Contractor side · The Hive"))
+
+    customers = """
+<h1>My Customers</h1>
+<p class="sub">Your list, for your business. A customer lands here the moment you accept their job on the board — and you can add your own customers too. Busy Bees doesn't sell or share this list; it's yours.</p>
+<a class="opt" href="backoffice-customer.html">Dana W. — Dennis<span class="arr">→</span><span class="d">Tree removal (board job, done) · <b>Follow-up due:</b> ask about the stump-grinding quote</span></a>
+<a class="opt" href="backoffice-customer.html">Chidi O. — Yarmouth<span class="arr">→</span><span class="d">Weekly mowing arrangement (board job, running) · Next visit Monday</span></a>
+<a class="opt" href="backoffice-customer.html">Pat M. — Harwich<span class="arr">→</span><span class="d">Fall cleanup (own customer) · <b>Follow-up due:</b> spring cleanup reminder</span></a>
+<a class="opt" href="backoffice-customer.html" style="margin-bottom:0">Sam R. — Brewster<span class="arr">→</span><span class="d">Limb removal (board job, done) · Paid in full</span></a>
+<p class="note">On the real site, tapping a name opens that customer's page: every job you've done for them, your private notes, and a spot to set the next follow-up. Every name here opens the same pretend example.</p>
+"""
+    write("contractor/backoffice-customers.html", page("My Customers", 1, customers,
+          back="backoffice.html", step="The Hive · My Customers"))
+
+    customer = """
+<h1>Dana W. — Dennis</h1>
+<p class="sub">Came to you through the board — tree removal, accepted and done in October.</p>
+<div class="card"><h2 style="margin-top:0">Jobs with Dana</h2>
+<div class="kv"><b>Oct — done</b><span>Tree removal, 2–3 trees — $1,400 · paid</span></div>
+<div class="kv"><b>Waiting</b><span>Stump grinding — estimate sent, Dana is thinking it over</span></div>
+<div class="kv"><b>Follow-up</b><span>Ask about the stump quote — due this week</span></div>
+</div>
+<div class="card"><h2 style="margin-top:0">Your notes on Dana</h2>
+<p class="small">Private to you — the customer never sees these. They save on this device as you type, the same as everywhere on this test site.</p>
+<form data-draft="backoffice-cust-dana">
+<label>Notes<textarea name="notes" rows="3" placeholder="Gate sticks on the left. Dog is friendly. Prefers texts after 5."></textarea></label>
+<label>Next follow-up<span class="hint">What to ask, and roughly when — it shows on your Hive home until you clear it.</span><input type="text" name="followup" placeholder="Text about the stump quote on Friday"></label>
+</form></div>
+<a class="btn btn-gold" href="backoffice-estimate-new.html">Write Dana an estimate<span class="d">For the stump grinding — or anything else she asks about.</span></a>
+<a class="btn btn-ghost" href="backoffice-customers.html">Back to My Customers</a>
+"""
+    write("contractor/backoffice-customer.html", page("Dana W. — customer", 1, customer,
+          back="backoffice-customers.html", step="The Hive · My Customers"))
+
+    est_list = """
+<h1>Estimates</h1>
+<p class="sub">Quotes are always free for the customer. Write one up, send it, and they can approve it with one tap — you get told the moment they do.</p>
+<a class="opt" href="backoffice-estimate-view.html">For Pat M. — fall cleanup, three ways <span class="badge">Approved</span><span class="arr">→</span><span class="d">Sent Oct 27 · Pat approved the middle option — $420</span></a>
+<a class="opt" href="backoffice-estimate-view.html">For Dana W. — stump grinding <span class="badge">Sent</span><span class="arr">→</span><span class="d">Sent Oct 29 · $180 · waiting on Dana</span></a>
+<a class="opt" href="backoffice-estimate-view.html">For Sam R. — brush clearing <span class="badge">Draft</span><span class="arr">→</span><span class="d">Not sent yet · $650</span></a>
+<a class="opt" href="backoffice-estimate-view.html" style="margin-bottom:0">For Chidi O. — aeration &amp; overseeding <span class="badge">Declined</span><span class="arr">→</span><span class="d">Sent Oct 20 · $300 · Chidi passed — no hard feelings, it happens</span></a>
+<p class="note">In this test version every estimate opens the same pretend example — Pat's approved one, the way the customer saw it.</p>
+<a class="btn btn-gold" href="backoffice-estimate-new.html">Write a new estimate<span class="d">Line by line, with a running total — and room for good / better / best if the job suits it.</span></a>
+"""
+    write("contractor/backoffice-estimates.html", page("Estimates", 1, est_list,
+          back="backoffice.html", step="The Hive · Estimates"))
+
+    est_new = """
+<h1>Write an estimate</h1>
+<p class="sub">Pretend version: nothing is sent. What you type saves on this device as you go. The total adds itself up while you type.</p>
+<form data-draft="backoffice-estimate" id="estForm">
+<div class="card"><h2 style="margin-top:0">Who it's for</h2>
+<label>Customer name<input type="text" name="cust" placeholder="Dana W."></label>
+<label>Job, in plain words<input type="text" name="job" placeholder="Stump grinding — two stumps by the drive"></label>
+</div>
+<div class="card"><h2 style="margin-top:0">The work, line by line</h2>
+<label>Line 1 — what<span class="hint">Price for this line, in dollars</span><input type="text" name="d1" placeholder="Grind both stumps below grade"></label>
+<label>Line 1 — price $<input type="number" name="p1" class="est-price" min="0" step="1" placeholder="140"></label>
+<label>Line 2 — what<input type="text" name="d2" placeholder="Haul away the grindings"></label>
+<label>Line 2 — price $<input type="number" name="p2" class="est-price" min="0" step="1" placeholder="40"></label>
+<label>Line 3 — what<input type="text" name="d3" placeholder=""></label>
+<label style="margin-bottom:0">Line 3 — price $<input type="number" name="p3" class="est-price" min="0" step="1" placeholder="0"></label>
+<p class="calc-out">Total: <span class="tier" id="estTotal">$0</span></p>
+</div>
+<div class="card"><h2 style="margin-top:0">Good / better / best — if the job suits it</h2>
+<p class="small">Some jobs are easier to say yes to with a choice. Leave these empty and the estimate goes out with just the total above.</p>
+<label>Good — the plain version, price $<input type="number" name="good" min="0" step="1" placeholder="150"></label>
+<label>Better — the one you'd recommend, price $<input type="number" name="better" min="0" step="1" placeholder="180"></label>
+<label style="margin-bottom:0">Best — everything included, price $<input type="number" name="best" min="0" step="1" placeholder="240"></label>
+</div>
+</form>
+<a class="btn btn-gold" href="backoffice-estimate-view.html">See it the way the customer sees it<span class="d">This is the screen your customer gets — with the Approve button on it.</span></a>
+<a class="btn btn-ghost" href="backoffice-estimates.html">Back to Estimates</a>
+<script>
+(function(){
+  function money(n){ return "$" + (Math.round(n * 100) / 100).toLocaleString("en-US"); }
+  function tick(){
+    var t = 0;
+    document.querySelectorAll(".est-price").forEach(function(el){
+      var v = parseFloat(el.value); if(!isNaN(v)) t += v;
+    });
+    var out = document.getElementById("estTotal");
+    if(out) out.textContent = money(t);
+  }
+  document.querySelectorAll(".est-price").forEach(function(el){
+    el.addEventListener("input", tick);
+  });
+  tick();
+})();
+</script>
+"""
+    write("contractor/backoffice-estimate-new.html", page("Write an estimate", 1, est_new,
+          back="backoffice-estimates.html", step="The Hive · Estimates · New"))
+
+    est_view = """
+<div class="banner"><b>How the customer sees it.</b>
+<p>This is Pat M.'s screen, not yours — an estimate that already came back approved. Quotes are always free; approving is the customer's call, in their own time.</p></div>
+<h1>Your estimate from Example Tree Co</h1>
+<p class="sub">Fall cleanup — three ways to do it. Pick the one that suits you; there's no wrong answer and no rush.</p>
+<div class="card"><h2 style="margin-top:0">Good — $350</h2>
+<p style="margin-bottom:0">Leaves, sticks, and beds cleared; everything hauled away. The plain tidy-up.</p></div>
+<div class="card deal"><h2 style="margin-top:0">Better — $420 <span class="badge">The one we'd pick</span></h2>
+<p style="margin-bottom:0">Everything in Good, plus hedges trimmed and shaped while we're there.</p></div>
+<div class="card"><h2 style="margin-top:0">Best — $560</h2>
+<p style="margin-bottom:0">Everything in Better, plus fresh mulch in the front beds to finish it.</p></div>
+<p class="note" id="estState">Pat picked <b>Better — $420</b> and approved it on Oct 27. The job landed in Example Tree Co's schedule on its own, and the invoice was ready to send from this same estimate.</p>
+<button class="btn btn-gold" type="button" id="estApprove">Approve — pretend tap<span class="d">See what approving does. Nothing is sent in this test version.</span></button>
+<button class="btn btn-ghost" type="button" id="estDecline">Decline — pretend tap</button>
+<script>
+(function(){
+  var st = document.getElementById("estState");
+  document.getElementById("estApprove").addEventListener("click", function(){
+    st.innerHTML = "<b>Approved (pretend).</b> On the real site, Example Tree Co is told right away, the job goes on their schedule, and an invoice can be sent from this estimate with one tap.";
+  });
+  document.getElementById("estDecline").addEventListener("click", function(){
+    st.innerHTML = "<b>Declined (pretend).</b> On the real site, Example Tree Co is told politely, and that's the end of it — declining a quote costs the customer nothing, ever.";
+  });
+})();
+</script>
+"""
+    write("contractor/backoffice-estimate-view.html", page("Your estimate — customer view", 1, est_view,
+          back="backoffice-estimates.html", step="The Hive · Estimates · Customer view"))
+
+    jobs = """
+<h1>My Jobs &amp; schedule</h1>
+<p class="sub">Booked work, in one place. Board jobs land here the moment you accept them — your own jobs can be added too.</p>
+<div class="card"><h2 style="margin-top:0">Today — Saturday</h2>
+<a class="opt" href="backoffice-job.html">9:00 — Tree removal · Dana W., Dennis<span class="arr">→</span><span class="d">Board job · 2–3 trees · your notes and checklist are on the job page</span></a>
+<a class="opt" href="backoffice-job.html" style="margin-bottom:0">1:00 — Hedge trim visit · Pat M., Harwich<span class="arr">→</span><span class="d">Follow-on from Pat's approved estimate</span></a>
+</div>
+<div class="card"><h2 style="margin-top:0">This week</h2>
+<div class="kv"><b>Monday</b><span>Mowing route — Chidi O. (weekly arrangement) + two own customers</span></div>
+<div class="kv"><b>Wednesday</b><span>Fall cleanup · Pat M., Harwich — from the approved estimate</span></div>
+<div class="kv"><b>Friday</b><span>Stump grinding · Dana W., Dennis — if the estimate's approved by then</span></div>
+</div>
+<p class="note">In this test version every job opens the same pretend example — today's tree removal, with its notes, photo spots, and checklist.</p>
+"""
+    write("contractor/backoffice-jobs.html", page("My Jobs & schedule", 1, jobs,
+          back="backoffice.html", step="The Hive · My Jobs"))
+
+    job = """
+<h1>Tree removal — Dana W.</h1>
+<p class="sub">Today, 9:00 · Dennis · Board job — accepted Oct 28, details released when you accepted, like always.</p>
+<div class="card"><h2 style="margin-top:0">The job</h2>
+<div class="kv"><b>Work</b><span>Tree removal — 2–3 trees, back corner of the lot</span></div>
+<div class="kv"><b>Your quote</b><span>$1,400 — quoted on site, it's yours to set</span></div>
+<div class="kv"><b>Talking</b><span>Through the board's private relay — numbers stay hidden, same as the board</span></div>
+</div>
+<div class="card"><h2 style="margin-top:0">On-the-day checklist</h2>
+<p class="small">Ticks save on this device, for this job.</p>
+<div id="jobChecks">
+<label><input type="checkbox" data-chk="gear"> Saws, ropes, and the chipper loaded</label>
+<label><input type="checkbox" data-chk="look"> Walk the lot first — wires, fences, the neighbor's shed</label>
+<label><input type="checkbox" data-chk="photos"> Before photos taken</label>
+<label><input type="checkbox" data-chk="done"> Yard left tidy — grindings raked, gate closed</label>
+<label style="margin-bottom:0"><input type="checkbox" data-chk="invoiced"> Invoice sent (or marked ready to send)</label>
+</div></div>
+<div class="card"><h2 style="margin-top:0">Photos</h2>
+<p style="margin-bottom:0" class="note">📷 Before — <i>spot reserved</i> &nbsp;·&nbsp; 📷 After — <i>spot reserved</i><br>
+On the real site, photos you take on the job land here, on the job — handy when a customer asks what was done.</p></div>
+<div class="card"><h2 style="margin-top:0">Job notes</h2>
+<form data-draft="backoffice-job-dana">
+<label>Notes<textarea name="notes" rows="3" placeholder="Leaner over the back fence — drop it in pieces. Chipper fits through the side gate."></textarea></label>
+</form></div>
+<a class="btn btn-gold" href="backoffice-invoice.html">Invoice for this job<span class="d">Bill Dana from this job — most of it's already filled in.</span></a>
+<a class="btn btn-ghost" href="backoffice-jobs.html">Back to My Jobs</a>
+<script>
+(function(){
+  var KEY = "bb_backoffice_chk_v1:dana-tree";
+  var saved = {};
+  try{ saved = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; }catch(e){}
+  document.querySelectorAll("#jobChecks input[data-chk]").forEach(function(box){
+    var k = box.getAttribute("data-chk");
+    box.checked = !!saved[k];
+    box.addEventListener("change", function(){
+      saved[k] = box.checked;
+      try{ localStorage.setItem(KEY, JSON.stringify(saved)); }catch(e){}
+    });
+  });
+})();
+</script>
+"""
+    write("contractor/backoffice-job.html", page("Tree removal — Dana W.", 1, job,
+          back="backoffice-jobs.html", step="The Hive · My Jobs · Job"))
+
+    inv_list = """
+<h1>Invoices &amp; getting paid</h1>
+<p class="sub">Bill from a job or straight from an estimate. When a customer pays, the money goes to <b>your own payment account</b> — Busy Bees is never the one holding your job money, and never takes a cut of it.</p>
+<a class="opt" href="backoffice-invoice.html">Invoice 202 — Dana W. · Tree removal <span class="badge">Sent</span><span class="arr">→</span><span class="d">$1,400 · sent Oct 28 · a polite nudge went out Oct 30</span></a>
+<a class="opt" href="backoffice-invoice.html">Invoice 201 — Pat M. · Fall cleanup <span class="badge">Sent</span><span class="arr">→</span><span class="d">$420 · sent Oct 27 · due Nov 7</span></a>
+<a class="opt" href="backoffice-invoice.html">Invoice 198 — Sam R. · Limb removal <span class="badge">Paid</span><span class="arr">→</span><span class="d">$275 · paid Oct 22 — straight into the contractor's own account</span></a>
+<a class="opt" href="backoffice-invoice.html" style="margin-bottom:0">Invoice 203 — Sam R. · Brush clearing <span class="badge">Draft</span><span class="arr">→</span><span class="d">$650 · made from the draft estimate · not sent</span></a>
+<p class="note">An invoice that runs past its due date shows as <b>Overdue</b> here, and The Hive offers a firmer follow-up wording — the words stay polite; the timing does the work. In this test version every invoice opens the same pretend example — Dana's.</p>
+"""
+    write("contractor/backoffice-invoices.html", page("Invoices & getting paid", 1, inv_list,
+          back="backoffice.html", step="The Hive · Invoices"))
+
+    invoice = """
+<h1>Invoice 202 — Dana W.</h1>
+<p class="sub">Tree removal, Dennis · Made from the finished job, most of it filled in on its own.</p>
+<div class="card"><h2 style="margin-top:0">What's on it</h2>
+<div class="kv"><b>Work</b><span>Tree removal — 2–3 trees, hauled away</span></div>
+<div class="kv"><b>Amount</b><span class="fee" style="font-size:19px">$1,400</span></div>
+<div class="kv"><b>Sent</b><span>Oct 28 · Due Nov 4</span></div>
+<div class="kv"><b>Standing</b><span>Sent — one polite follow-up already out (Oct 30)</span></div>
+</div>
+<div class="card deal"><h2 style="margin-top:0">How Dana pays</h2>
+<p>Dana gets a payment link with the invoice. It runs through <b>your own connected payment account</b> — the money lands with you, and Busy Bees never touches it and never takes a percentage of your job. (This test version shows the link's place only — it's in test mode and moves no money.)</p>
+<p class="fee" style="font-size:16px">Payment link: pay.example…/inv-202 <span class="badge">Test mode</span></p>
+<p style="margin-bottom:0" class="small">The small card-processing fee your payment provider charges is theirs, not ours — it's shown to you plainly before you connect an account.</p></div>
+<div class="card"><h2 style="margin-top:0">Follow-ups, handled gently</h2>
+<ul class="tight">
+<li><b>Sent</b> — Oct 28, with the payment link.</li>
+<li><b>Polite nudge</b> — sent Oct 30 (the wording stays friendly: "just floating this back to the top of your inbox").</li>
+<li><b>If it's not paid by Nov 4</b> — it shows as overdue, and a firmer note is ready for you to approve and send. Nothing ever goes out without your say.</li>
+</ul></div>
+<button class="btn btn-gold" type="button" id="invPaid">Mark it paid — pretend tap<span class="d">For cash or a check at the door. On the real site this closes the invoice and updates what the job made you.</span></button>
+<p class="note" id="invState"></p>
+<script>
+(function(){
+  document.getElementById("invPaid").addEventListener("click", function(){
+    document.getElementById("invState").innerHTML = "<b>Marked paid (pretend).</b> On the real site the invoice closes, Dana drops off your follow-ups, and the job's page shows the money in.";
+  });
+})();
+</script>
+"""
+    write("contractor/backoffice-invoice.html", page("Invoice 202 — Dana W.", 1, invoice,
+          back="backoffice-invoices.html", step="The Hive · Invoices · Invoice"))
+
+    costing = """
+<h1>What each job made you</h1>
+<p class="sub">The price you charged, minus what the job cost you — your hours, materials, fuel, and the board's flat fee where there was one. Plain arithmetic, no jargon — this is the honey each job brought in, counted honestly, so the good work stands out from the busy work.</p>
+<div class="card"><h2 style="margin-top:0">Tree removal — Dana W. · October</h2>
+<div class="kv"><b>You charged</b><span>$1,400</span></div>
+<div class="kv"><b>It cost you</b><span>$585 — your hours $390 · dump fees $120 · fuel $45 · board fee $30</span></div>
+<div class="kv"><b>It made you</b><span><b>$815</b> — about 58¢ of every dollar stayed with you</span></div>
+</div>
+<div class="card"><h2 style="margin-top:0">Fall cleanup — Pat M. · October</h2>
+<div class="kv"><b>You charged</b><span>$420</span></div>
+<div class="kv"><b>It cost you</b><span>$225 — your hours $180 · mulch &amp; bags $25 · board fee $20</span></div>
+<div class="kv"><b>It made you</b><span><b>$195</b> — about 46¢ of every dollar</span></div>
+</div>
+<div class="card"><h2 style="margin-top:0">Weekly mowing — Chidi O. · per month</h2>
+<div class="kv"><b>You charge</b><span>$260 a month</span></div>
+<div class="kv"><b>It costs you</b><span>$175 — your hours $140 · fuel $10 · board fee $25 (once, for the whole arrangement)</span></div>
+<div class="kv"><b>It makes you</b><span><b>$85</b> a month — about 33¢ of every dollar</span></div>
+<p style="margin-bottom:0" class="small">Repeat work always looks thinner per visit — the board fee lands once, and the route gets faster as you learn the lawns.</p></div>
+<p class="note">Your hours are figured at the rate you set for yourself in your settings — change the rate and every job re-figures. Only you see these numbers; they're never shared, ranked, or shown to customers.</p>
+"""
+    write("contractor/backoffice-costing.html", page("What each job made you", 1, costing,
+          back="backoffice.html", step="The Hive · What each job made you"))
+
+    leadhunter = """
+<h1>Lead Hunter</h1>
+<p class="sub">A paid extra for members, still being built. This page is a first look — <b>it is not on sale, and there's no price on it yet</b>. When it opens, members will hear first.</p>
+<div class="card deal"><h2 style="margin-top:0">What it will do</h2>
+<p>The board already sees more local demand than it can fill — requests in towns with no contractor yet, jobs that got turned away, people asking around in local groups and search. <b>Lead Hunter will forage those signals for you</b> — the way bees range out and bring back what the hive needs, it works that demand and brings back the jobs that check out:</p>
+<ul class="tight">
+<li>It watches for local people saying they need work done — on the board, in public local posts, in local search.</li>
+<li>It reaches out, confirms it's a real homeowner with a real job, and books the conversation — or the visit — for you.</li>
+<li>A lead it brings you is <b>yours alone</b>. It's never handed to a second contractor, never resold, and never mixed into the board's regular offers.</li>
+<li>You only ever hear about the ones that check out — real person, real job, local.</li>
+</ul></div>
+<div class="card"><h2 style="margin-top:0">Why it's a member extra</h2>
+<p style="margin-bottom:0">Finding and chasing work takes hours a week. Lead Hunter is Busy Bees doing that legwork as an optional paid bonus for members — separate from board jobs, which keep working exactly the way they do now, fee-only-on-accept and all. It will never change who gets board offers: hunting is a service on top, not a louder voice in the line.</p></div>
+<div class="card"><h2 style="margin-top:0">Want first word?</h2>
+<p id="lhState">Tell us and we'll let you know the moment Lead Hunter opens for members — what it costs, what counts as a lead, all of it in plain words before anyone's asked for a cent.</p>
+<button class="btn btn-gold" type="button" id="lhBtn">Notify me — pretend tap<span class="d">On the real site this saves your interest. Nothing is bought, nothing is owed.</span></button>
+</div>
+<script>
+(function(){
+  var KEY = "bb_leadhunter_interest_v1";
+  var btn = document.getElementById("lhBtn"), st = document.getElementById("lhState");
+  function paint(on){
+    if(on){
+      st.innerHTML = "<b>You're on the list (pretend).</b> When Lead Hunter opens, members on this list hear first — with the full plain-words rundown before anything goes on sale.";
+      btn.firstChild.textContent = "You're on the list — tap to undo ";
+    }
+  }
+  var on = false;
+  try{ on = localStorage.getItem(KEY) === "1"; }catch(e){}
+  if(on) paint(true);
+  btn.addEventListener("click", function(){
+    on = !on;
+    try{ localStorage.setItem(KEY, on ? "1" : "0"); }catch(e){}
+    if(on){ paint(true); }
+    else {
+      st.textContent = "Taken off the list. You can put yourself back on any time — the button remembers nothing but your word.";
+      btn.firstChild.textContent = "Notify me — pretend tap ";
+    }
+  });
+})();
+</script>
+"""
+    write("contractor/backoffice-leadhunter.html", page("Lead Hunter — coming for members", 1, leadhunter,
+          back="backoffice.html", step="The Hive · Lead Hunter — not on sale yet"))
+
 # ------------------------------------------------------------------ main --
 def main():
     build_home()
@@ -1242,6 +1573,7 @@ def main():
     build_future_trades()
     build_membership()
     build_member_welcome()
+    build_hive()
     build_ownpage()
     build_levels()
     build_founding()

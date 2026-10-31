@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#14161F">
+<title>Lead Hunter — coming for members — Busy Bees (pretend test)</title>
+<link rel="icon" href="../../assets/busy-bees-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../preview.css">
+</head>
+<body>
+<script>try{if(localStorage.getItem('bb_agreed')!=='1'){location.replace('../../review/');}}catch(e){}</script>
+<div class="pretend">PRETEND TEST VERSION — nothing here is real, and nothing you tap sends anything.</div>
+<header class="hdr"><div class="hdr-in">
+<img src="../../assets/busy-bees-logo.png" alt="Busy Bees gold shield logo">
+<span class="brand">Busy Bees<small>Local service dispatch</small></span>
+<a class="home" href="../index.html">⌂ Home</a>
+</div></header>
+<main class="wrap">
+<p class="step">The Hive · Lead Hunter — not on sale yet</p>
+<h1>Lead Hunter</h1>
+<p class="sub">A paid extra for members, still being built. This page is a first look — <b>it is not on sale, and there's no price on it yet</b>. When it opens, members will hear first.</p>
+<div class="card deal"><h2 style="margin-top:0">What it will do</h2>
+<p>The board already sees more local demand than it can fill — requests in towns with no contractor yet, jobs that got turned away, people asking around in local groups and search. <b>Lead Hunter will forage those signals for you</b> — the way bees range out and bring back what the hive needs, it works that demand and brings back the jobs that check out:</p>
+<ul class="tight">
+<li>It watches for local people saying they need work done — on the board, in public local posts, in local search.</li>
+<li>It reaches out, confirms it's a real homeowner with a real job, and books the conversation — or the visit — for you.</li>
+<li>A lead it brings you is <b>yours alone</b>. It's never handed to a second contractor, never resold, and never mixed into the board's regular offers.</li>
+<li>You only ever hear about the ones that check out — real person, real job, local.</li>
+</ul></div>
+<div class="card"><h2 style="margin-top:0">Why it's a member extra</h2>
+<p style="margin-bottom:0">Finding and chasing work takes hours a week. Lead Hunter is Busy Bees doing that legwork as an optional paid bonus for members — separate from board jobs, which keep working exactly the way they do now, fee-only-on-accept and all. It will never change who gets board offers: hunting is a service on top, not a louder voice in the line.</p></div>
+<div class="card"><h2 style="margin-top:0">Want first word?</h2>
+<p id="lhState">Tell us and we'll let you know the moment Lead Hunter opens for members — what it costs, what counts as a lead, all of it in plain words before anyone's asked for a cent.</p>
+<button class="btn btn-gold" type="button" id="lhBtn">Notify me — pretend tap<span class="d">On the real site this saves your interest. Nothing is bought, nothing is owed.</span></button>
+</div>
+<script>
+(function(){
+  var KEY = "bb_leadhunter_interest_v1";
+  var btn = document.getElementById("lhBtn"), st = document.getElementById("lhState");
+  function paint(on){
+    if(on){
+      st.innerHTML = "<b>You're on the list (pretend).</b> When Lead Hunter opens, members on this list hear first — with the full plain-words rundown before anything goes on sale.";
+      btn.firstChild.textContent = "You're on the list — tap to undo ";
+    }
+  }
+  var on = false;
+  try{ on = localStorage.getItem(KEY) === "1"; }catch(e){}
+  if(on) paint(true);
+  btn.addEventListener("click", function(){
+    on = !on;
+    try{ localStorage.setItem(KEY, on ? "1" : "0"); }catch(e){}
+    if(on){ paint(true); }
+    else {
+      st.textContent = "Taken off the list. You can put yourself back on any time — the button remembers nothing but your word.";
+      btn.firstChild.textContent = "Notify me — pretend tap ";
+    }
+  });
+})();
+</script>
+
+</main>
+<nav class="botnav"><a class="js-back" href="backoffice.html">← Back</a><a href="../index.html">⌂ Home</a></nav>
+<footer><b>Busy Bees</b> — pretend test version · busybeesdispatch.com<br>
+Test site version 0.10.0 — review round · Updated October 31, 2026<br>
+Questions? Call or text <b>(508) 258-9899</b> · dispatch@busybeesdispatch.com<br>
+<a href="../privacy.html">Privacy — what's counted</a></footer>
+<script src="../preview.js"></script>
+<script src="../bbtrack.js" defer></script>
+</body>
+</html>
