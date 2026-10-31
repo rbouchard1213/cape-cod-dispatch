@@ -82,12 +82,9 @@
 <label>Pass 2 — Pretend you're a contractor <span>Job offers, membership, levels &amp; verified, founding codes, future trades.</span>
   <textarea class="big" id="f_pass2"></textarea>
 </label>
-<label>Pass 3 — the dispatcher's seat <span>The dispatcher view.</span>
-  <textarea class="big" id="f_pass3"></textarea>
-</label>
 
 <h2>Checklist items that were NOT true</h2>
-<p class="small">For each one: which part of the site (Customers / For contractors / Dispatcher), what screen, what the checklist said should be true, and what you actually saw.</p>
+<p class="small">For each one: which part of the site (Customers / For contractors), what screen, what the checklist said should be true, and what you actually saw.</p>
 
 <h3>1.</h3>
 <label>Which part / what screen
@@ -167,7 +164,7 @@
   var fields = [
     ['f_name','Name'], ['f_code','Review code'], ['f_date','Date finished'], ['f_device','Phone or computer used'],
     ['f_start','Started'], ['f_finish','Finished'], ['f_breaks','Long breaks (total)'],
-    ['f_pass1','PASS 1 — HOMEOWNER'], ['f_pass2','PASS 2 — CONTRACTOR'], ['f_pass3','PASS 3 — DISPATCHER'],
+    ['f_pass1','PASS 1 — HOMEOWNER'], ['f_pass2','PASS 2 — CONTRACTOR'],
     ['f_no1_where','NOT TRUE #1 — where'], ['f_no1_what','NOT TRUE #1 — details'],
     ['f_no2_where','NOT TRUE #2 — where'], ['f_no2_what','NOT TRUE #2 — details'],
     ['f_no3_where','NOT TRUE #3 — where'], ['f_no3_what','NOT TRUE #3 — details'],
@@ -200,7 +197,7 @@
    change them. */
 (function(){
   var IDS = ['f_name','f_code','f_date','f_device','f_start','f_finish','f_breaks',
-    'f_pass1','f_pass2','f_pass3',
+    'f_pass1','f_pass2',
     'f_no1_where','f_no1_what','f_no2_where','f_no2_what','f_no3_where','f_no3_what',
     'f_ex1_where','f_ex1_what','f_ex2_where','f_ex2_what','f_ex3_where','f_ex3_what',
     'f_confused','f_overall_use','f_overall_more'];

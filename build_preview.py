@@ -240,9 +240,6 @@ def build_home():
 <a class="opt" href="contractor/backoffice.html">The Hive — member tools<span class="arr">→</span><span class="d">A peek at the tools members get: their customers, estimates, jobs, invoices, and what each job made them — fed by the board itself.</span></a>
 <a class="opt" href="contractor/future-trades.html" style="margin-bottom:0">Don't see your trade?<span class="arr">→</span><span class="d">Apply to the future-trades list — the trade is not live yet.</span></a>
 </div>
-<div class="card"><h2>Behind the scenes</h2>
-<a class="opt" href="dispatch.html" style="margin-bottom:0">Dispatcher view<span class="arr">→</span><span class="d">Only the dispatcher sees this screen — the control desk for the whole board. (Test link — not on the real site.)</span></a>
-</div>
 """
     write("index.html", page("Busy Bees — pretend test version", 0, body))
 
@@ -923,8 +920,9 @@ def build_founding():
 # ------------------------------------------- dispatch / areas / almanac ---
 def build_dispatch():
     body = """
+<script>try{var _bbc=(localStorage.getItem("bb_code")||"").toUpperCase().replace(/[^A-Z0-9-]/g,"");if(_bbc!=="BEE-13"){location.replace("index.html");}}catch(e){location.replace("index.html");}</script>
 <h1>Dispatcher view</h1>
-<p class="sub"><b>Dispatcher view — only the dispatcher sees this screen.</b> Pretend data, so reviewers can see how the board is run.</p>
+<p class="sub"><b>Dispatcher view — only the dispatcher sees this screen.</b> Pretend data.</p>
 <div class="card"><h2 style="margin-top:0">Incoming requests</h2>
 <div class="kv"><b>Tree removal</b><span>2–3 trees · Dennis — <b>awaiting contractor</b> (offered 10:04 AM, Level 4 first look)</span></div>
 <div class="kv"><b>Lawn mowing</b><span>Standard lawn · Weekly · Yarmouth — <b>accepted</b> by Example Tree Co</span></div>
@@ -946,7 +944,7 @@ def build_dispatch():
 <a class="btn btn-ghost" href="index.html">⌂ Back to the start</a>
 """
     write("dispatch.html", page("Dispatcher view", 0, body,
-          back="index.html", step="Behind the scenes · Dispatcher"))
+          back="index.html", step="Dispatcher"))
 
 def build_areas():
     body = """

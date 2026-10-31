@@ -32,7 +32,7 @@ busybeesdispatch.com/review — tap "Notes page."
 
 CHECKLIST ITEMS THAT WERE NOT TRUE
 
-1. Which view (Customer / Contractor / Dispatcher):
+1. Which view (Customer / Contractor):
    What screen:
    What the checklist said should be true:
    What you actually saw:
